@@ -16,7 +16,7 @@
 To run the dev server for your app, use:
 
 ```sh
-npx nx serve taskmanagerchallengeapp
+npx nx serve taskmanagerchallengeapp --host=127.0.0.1 --port=4200
 ```
 
 To create a production bundle:
@@ -28,7 +28,7 @@ npx nx build taskmanagerchallengeapp
 To see all available targets to run for a project, run:
 
 ```sh
-npx nx show project taskmanagerchallengeapp
+npx nx show project taskmanagerchallengeapp --host=127.0.0.1 --port=4200
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.

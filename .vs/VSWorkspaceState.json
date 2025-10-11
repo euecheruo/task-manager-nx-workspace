@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.gemini",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\apps",
+    "\\apps\\taskmanagerchallengeapp",
+    "\\apps\\taskmanagerchallengeapp-e2e",
+    "\\apps\\taskmanagerchallengeapp-e2e\\src",
+    "\\apps\\taskmanagerchallengeapp\\public",
+    "\\apps\\taskmanagerchallengeapp\\src"
+  ],
+  "SelectedNode": "\\apps\\taskmanagerchallengeapp\\project.json",
+  "PreviewInSolutionExplorer": false
+}
