@@ -1,0 +1,9 @@
+{
+  "name": "taskmanagerchallengeapp-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/taskmanagerchallengeapp-e2e/src",
+  "implicitDependencies": ["taskmanagerchallengeapp"],
+  "// targets": "to see all targets run: nx show project taskmanagerchallengeapp-e2e --web",
+  "targets": {}
+}
