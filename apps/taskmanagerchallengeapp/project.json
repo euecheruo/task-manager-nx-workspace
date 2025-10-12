@@ -57,7 +57,11 @@
           "buildTarget": "taskmanagerchallengeapp:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": ["taskmanagerchallengeserver:serve"],
+      "options": {
+        "proxyConfig": "apps/taskmanagerchallengeapp/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
