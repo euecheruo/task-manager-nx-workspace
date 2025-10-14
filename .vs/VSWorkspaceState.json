@@ -1,16 +1,17 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.gemini",
-    "\\.github",
-    "\\.github\\workflows",
-    "\\apps",
-    "\\apps\\taskmanagerchallengeapp",
-    "\\apps\\taskmanagerchallengeapp-e2e",
-    "\\apps\\taskmanagerchallengeapp-e2e\\src",
-    "\\apps\\taskmanagerchallengeapp\\public",
-    "\\apps\\taskmanagerchallengeapp\\src"
+    "\\libs",
+    "\\libs\\taskmanagerchallengeserver",
+    "\\libs\\taskmanagerchallengeserver\\shared",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\guards",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\services",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib\\entities"
   ],
-  "SelectedNode": "\\apps\\taskmanagerchallengeapp\\project.json",
+  "SelectedNode": "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib\\entities\\abstract.entity.ts",
   "PreviewInSolutionExplorer": false
 }

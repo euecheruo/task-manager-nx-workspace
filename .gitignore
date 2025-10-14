@@ -44,3 +44,45 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+# Visual Studio 2022
+.vs/
+*.suo
+*.user
+*.useros
+*.sln.docstates
+*.sln.ide
+*.userprefs
+*.vstemplate
+
+# Build Results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Aa]rm/
+[Aa]rm64/
+x64/
+x86/
+bld/
+[Ll]og/
+
+# Project files
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj.useros
+*.vcxproj.userprefs
+
+# Resharper
+*.DotSettings
+*.ReSharper
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+*.props
+*.targets
+
+# SQL Server Management Studio
+*.ssmssln
