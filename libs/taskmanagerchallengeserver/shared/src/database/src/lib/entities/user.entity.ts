@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm';
-import { AbstractEntity } from './abstract.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable
+} from 'typeorm';
+
+import { AbstractEntity } from '@task-manager-nx-workspace/utils/lib/entities/abstract.entity';
 import { RoleEntity } from './role.entity';
 import { TaskEntity } from '@task-manager-nx-workspace/task/lib/entities/task.entity';
 import { TaskAssignmentEntity } from '@task-manager-nx-workspace/task/lib/entities/task-assignment.entity';
@@ -23,10 +31,20 @@ export class UserEntity extends AbstractEntity {
   assignments: TaskAssignmentEntity[];
 
   @ManyToMany(() => RoleEntity, role => role.users)
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
   roles: RoleEntity[];
 
-  constructor(auth0Id: string, email: string, id?: number) {
+  constructor(
+    auth0Id: string,
+    email: string,
+    id?: number
+  ) {
     super(id);
+
     this.id = id;
     this.auth0Id = auth0Id;
     this.email = email;

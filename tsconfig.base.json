@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@task-manager-nx-workspace/activity": [
+        "libs/taskmanagerchallengeserver/activity/src/index.ts"
+      ],
       "@task-manager-nx-workspace/auth": [
         "libs/taskmanagerchallengeserver/shared/src/auth/src/index.ts"
       ],
@@ -24,6 +27,12 @@
       "@task-manager-nx-workspace/task": [
         "libs/taskmanagerchallengeserver/task/src/index.ts"
       ],
+      "@task-manager-nx-workspace/utils": [
+        "libs/taskmanagerchallengeserver/utils/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/activity/*": [
+        "libs/taskmanagerchallengeserver/activity/src/*"
+      ],
       "@task-manager-nx-workspace/shared/auth/*": [
         "libs/taskmanagerchallengeserver/shared/src/auth/src/*"
       ],
@@ -32,8 +41,10 @@
       ],
       "@task-manager-nx-workspace/task/*": [
         "libs/taskmanagerchallengeserver/task/src/*"
+      ],
+      "@task-manager-nx-workspace/utils/*": [
+        "libs/taskmanagerchallengeserver/utils/src/*"
       ]
-
     }
   },
   "exclude": ["node_modules", "tmp"]

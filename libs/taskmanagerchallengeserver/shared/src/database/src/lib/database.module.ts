@@ -6,7 +6,7 @@ import { UserEntity } from './entities/user.entity';
 import { RoleEntity } from './entities/role.entity';
 import { TaskEntity } from '@task-manager-nx-workspace/task/lib/entities/task.entity';
 import { TaskAssignmentEntity } from '@task-manager-nx-workspace/task/lib/entities/task-assignment.entity';
-//import { ActivityEntity } from '@task-manager-nx-workspace/activity/lib/entities/activity.entity';
+import { ActivityEntity } from '@task-manager-nx-workspace/activity/lib/entities/activity.entity';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { TaskAssignmentEntity } from '@task-manager-nx-workspace/task/lib/entiti
           RoleEntity,
           TaskEntity,
           TaskAssignmentEntity,
-          //ActivityEntity,
+          ActivityEntity,
         ],
         synchronize: configService.get<string>('NODE_ENV') !== 'production',
         logging: configService.get<string>('NODE_ENV') === 'development' ? ['query', 'error'] : ['error'],

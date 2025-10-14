@@ -1,5 +1,13 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/abstract.entity';
+import {
+  Entity,
+  Column,
+  OneToOne,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
+import { AbstractEntity } from '@task-manager-nx-workspace/utils/lib/entities/abstract.entity';
 import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity';
 import { TaskEntity } from './task.entity';
 
@@ -9,38 +17,31 @@ export class TaskAssignmentEntity extends AbstractEntity {
   @PrimaryGeneratedColumn({ name: 'assignment_id' })
   override id: number | undefined;
 
-  @Column({ type: 'int', name: 'task_id', nullable: false, unique: true })
+  @Column({ type: 'int', name: 'task_id', unique: true, nullable: false })
   taskId: number;
 
-  @Column({ type: 'int', name: 'assigned_user_id', nullable: true })
-  assignedUserId: number | undefined;
+  @Column({ type: 'int', name: 'assigned_user_id', nullable: false })
+  assignedUserId: number;
 
-  @Column({ type: 'timestamp with time zone', name: 'assigned_at', default: () => 'CURRENT_TIMESTAMP' })
-  assignedAt: Date;
-
-  @ManyToOne(() => TaskEntity, task => task.assignments, {
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(() => TaskEntity, task => task.assignment, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'task_id' })
-  task: TaskEntity | undefined;
+  task: TaskEntity;
 
-  @ManyToOne(() => UserEntity, {
-    onDelete: 'CASCADE',
-    nullable: true
-  })
+  @ManyToOne(() => UserEntity, user => user.assignments)
   @JoinColumn({ name: 'assigned_user_id' })
-  assignedUser: UserEntity | undefined;
+  assignedUser: UserEntity;
+
   constructor(
     taskId: number,
-    assignedUserId: number | undefined,
-    id?: number,
-    assignedAt?: Date
+    assignedUserId: number,
+    id?: number
   ) {
     super(id);
 
     this.id = id;
     this.taskId = taskId;
     this.assignedUserId = assignedUserId;
-    this.assignedAt = assignedAt || new Date();
+    this.task = null as any;
+    this.assignedUser = null as any;
   }
 }

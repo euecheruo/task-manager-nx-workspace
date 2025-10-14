@@ -1,5 +1,13 @@
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { AbstractEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/abstract.entity';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
+import { AbstractEntity } from '@task-manager-nx-workspace/utils/lib/entities/abstract.entity';
 import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity';
 import { TaskAssignmentEntity } from './task-assignment.entity';
 
@@ -10,45 +18,40 @@ export class TaskEntity extends AbstractEntity {
   override id: number | undefined;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
-  title: string | undefined;
+  title: string;
 
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'boolean', default: false })
+  @Column({ type: 'boolean', default: false, name: 'is_completed' })
   isCompleted: boolean;
 
-  @Column({ type: 'timestamp with time zone', nullable: true })
-  completedAt: Date | null;
+  @Column({ type: 'int', name: 'creator_user_id', nullable: false })
+  creatorUserId: number;
 
-  @Column({ type: 'int', name: 'creator_id', nullable: false })
-  creatorId: number | undefined;
+  @ManyToOne(() => UserEntity, user => user.createdTasks)
+  @JoinColumn({ name: 'creator_user_id' })
+  creator: UserEntity;
 
-  @ManyToOne(() => UserEntity, user => user.createdTasks, {
-    onDelete: 'RESTRICT', // Matches SQL schema constraint
-  })
-  @JoinColumn({ name: 'creator_id' })
-  creator: UserEntity | undefined;
-
-  @OneToMany(() => TaskAssignmentEntity, assignment => assignment.task)
-  assignments: TaskAssignmentEntity[];
+  @OneToOne(() => TaskAssignmentEntity, assignment => assignment.task, { cascade: true })
+  assignment: TaskAssignmentEntity | null;
 
   constructor(
-    title?: string,
-    creatorId?: number,
-    description?: string | null,
-    isCompleted?: boolean,
-    id?: number,
-    assignments?: TaskAssignmentEntity[]
+    title: string,
+    creatorUserId: number,
+    description: string | null = null,
+    isCompleted: boolean,
+    id?: number
   ) {
     super(id);
 
     this.id = id;
     this.title = title;
-    this.description = description || null;
-    this.creatorId = creatorId;
-    this.isCompleted = isCompleted ?? false;
-    this.completedAt = null;
-    this.assignments = assignments || [];
+    this.description = description;
+    this.isCompleted = isCompleted;
+    this.creatorUserId = creatorUserId;
+
+    this.creator = null as any;
+    this.assignment = null;
   }
 }
