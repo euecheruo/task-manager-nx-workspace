@@ -1,41 +1,47 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { TaskAssignmentEntity } from '../entities/task-assignment.entity';
-import { TaskEntity } from '../entities/task.entity';
+import {
+  Entity,
+  Column,
+  OneToOne,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
+import { AbstractEntity } from '@task-manager-nx-workspace/utils/lib/entities/abstract.entity';
 import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity';
+import { TaskEntity } from '../entities/task.entity';
 
-@Injectable()
-export class TaskAssignmentService {
+@Entity('task_assignments')
+export class TaskAssignmentEntity extends AbstractEntity {
+
+  @PrimaryGeneratedColumn({ name: 'assignment_id' })
+  id: number | undefined;
+
+  @Column({ type: 'int', name: 'task_id', unique: true, nullable: false })
+  taskId: number;
+
+  @Column({ type: 'int', name: 'assigned_user_id', nullable: false })
+  assignedUserId: number;
+
+  @OneToOne(() => TaskEntity, task => task.assignment, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'task_id' })
+  task: TaskEntity;
+
+  @ManyToOne(() => UserEntity, user => user.assignments)
+  @JoinColumn({ name: 'assigned_user_id' })
+  assignedUser: UserEntity;
+
   constructor(
-    @InjectRepository(TaskAssignmentEntity)
-    private readonly assignmentRepository: Repository<TaskAssignmentEntity>,
-    @InjectRepository(TaskEntity)
-    private readonly taskRepository: Repository<TaskEntity>,
-  ) { }
+    taskId: number,
+    assignedUserId: number,
+    id?: number
+  ) {
+    super(id);
 
-  async getAssignmentByTaskId(taskId: number): Promise<TaskAssignmentEntity | null> {
-    const taskCount = await this.taskRepository.count({ where: { id: taskId } });
-    if (taskCount === 0) {
-      throw new NotFoundException(`Task with ID ${taskId} not found.`);
-    }
-
-    return this.assignmentRepository.findOne({
-      where: { taskId },
-      relations: ['assignedUser']
-    });
+    this.id = id;
+    this.taskId = taskId;
+    this.assignedUserId = assignedUserId;
+    this.task = null as any;
+    this.assignedUser = null as any;
   }
-
-  async isTaskAssigned(taskId: number): Promise<boolean> {
-    const count = await this.assignmentRepository.count({ where: { taskId } });
-    return count > 0;
-  }
-
-  async getAssignmentByAssignmentId(assignmentId: number): Promise<TaskAssignmentEntity | null> {
-    return this.assignmentRepository.findOne({
-      where: { id: assignmentId },
-      relations: ['assignedUser', 'task'] // Load related task and user data
-    });
-  }
-
 }

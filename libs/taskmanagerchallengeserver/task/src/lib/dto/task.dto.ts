@@ -6,13 +6,13 @@ export class TaskDto {
     description: 'The unique primary identifier of the task.',
     example: 101,
   })
-  id?: number;
+  id: number;
 
   @ApiProperty({
     description: 'The task title.',
     example: 'Set up Auth0 JWKS endpoint.',
   })
-  title?: string;
+  title: string;
 
   @ApiProperty({
     description: 'A detailed description of the task.',
@@ -25,19 +25,19 @@ export class TaskDto {
     description: 'The ID of the user who created the task (local PostgreSQL ID).',
     example: 5,
   })
-  creatorId?: number;
+  creatorId: number;
 
   @ApiProperty({
     description: 'Whether the task has been completed.',
     example: false,
   })
-  isCompleted?: boolean;
+  isCompleted: boolean;
 
   @ApiProperty({
     description: 'Timestamp when the task was created.',
     example: '2025-10-13T12:00:00.000Z',
   })
-  createdAt?: Date;
+  createdAt: Date;
 
   @ApiProperty({
     description: 'Timestamp of the last update.',
@@ -50,7 +50,7 @@ export class TaskDto {
     required: false,
     example: '2025-10-14T12:00:00.000Z',
   })
-  completedAt?: Date | null;
+  completedAt: Date | null;
 
   constructor(partial: Partial<TaskDto>) {
     Object.assign(this, partial);

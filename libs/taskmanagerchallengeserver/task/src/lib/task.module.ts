@@ -1,34 +1,29 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { AuthModule } from '@task-manager-nx-workspace/shared/auth/lib/auth.module';
-import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity'; // User entity for Auth0 ID linking
-import { TaskEntity } from './entities/task.entity';
-import { TaskAssignmentEntity } from './entities/task-assignment.entity';
-import { TaskService } from './services/task.service';
-import { TaskAssignmentService } from './services/task-assignment.service';
 import { TaskController } from './controllers/task.controller';
 import { TaskAssignmentController } from './controllers/task-assignment.controller';
+import { TaskService } from './services/task.service';
+import { TaskEntity } from './entities/task.entity';
+import { TaskAssignmentEntity } from './entities/task-assignment.entity';
+import { AuthModule } from '@task-manager-nx-workspace/shared/auth/lib/auth.module';
+import { ActivityModule } from '@task-manager-nx-workspace/activity/lib/activity.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      TaskEntity,
-      TaskAssignmentEntity,
-      UserEntity
-    ]),
+    TypeOrmModule.forFeature([TaskEntity, TaskAssignmentEntity]),
     AuthModule,
+    ActivityModule,
   ],
   controllers: [
     TaskController,
-    TaskAssignmentController
+    TaskAssignmentController,
   ],
   providers: [
     TaskService,
-    TaskAssignmentService
   ],
   exports: [
-    TaskService
+    TaskService,
+    TypeOrmModule.forFeature([TaskEntity, TaskAssignmentEntity]),
   ],
 })
 export class TaskModule { }

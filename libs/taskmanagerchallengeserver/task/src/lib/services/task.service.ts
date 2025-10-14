@@ -1,176 +1,204 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-  ForbiddenException,
-  BadRequestException
-} from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TaskEntity } from '../entities/task.entity';
-import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity';
-import { AuthService } from '@task-manager-nx-workspace/shared/auth/lib/services/auth.service';
 import { TaskAssignmentEntity } from '../entities/task-assignment.entity';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-import { CreateTaskAssignmentDto } from '../dto/create-task-assignment.dto';
+import { AssignTaskDto } from '../dto/assign-task.dto';
+import { AuthService } from '@task-manager-nx-workspace/shared/auth/lib/services/auth.service';
+import { ActivityService } from '@task-manager-nx-workspace/activity/lib/services/activity.service';
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(TaskEntity)
     private readonly taskRepository: Repository<TaskEntity>,
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(TaskAssignmentEntity)
     private readonly assignmentRepository: Repository<TaskAssignmentEntity>,
     private readonly authService: AuthService,
+    private readonly activityService: ActivityService,
   ) { }
 
-  private async getLocalUserIdFromPayload(userPayload: any): Promise<number> {
-    const auth0Id = this.authService.getAuth0UserId(userPayload);
-    const user = await this.userRepository.findOne({
-      where: { auth0Id },
-      select: ['id']
+  /**
+   * @description Creates a new task and logs the activity.
+   * Permission: 'create:tasks'
+   */
+  async create(dto: CreateTaskDto, creatorUserId: number): Promise<TaskEntity> {
+    const task = new TaskEntity(dto.title, creatorUserId, dto.description, false);
+
+    const newTask = await this.taskRepository.save(task);
+
+    // Log Activity
+    await this.activityService.create({
+      actionType: 'TASK_CREATED',
+      taskId: newTask.id!,
+      userId: creatorUserId,
+      details: { title: newTask.title },
     });
 
-    if (!user || !user.id) {
-      throw new UnauthorizedException('Local user record not found for the authenticated identity.');
-    }
-    return user.id;
+    return newTask;
   }
 
-  private checkTaskOwnership(task: TaskEntity, localUserId: number): void {
-    if (task.creatorId !== localUserId) {
-      throw new ForbiddenException('You can only perform this action on tasks that you have created.');
+  /**
+   * @description Retrieves all tasks, optionally filtering by completion status.
+   * Permission: 'read:tasks'
+   */
+  async findAll(isCompleted?: boolean): Promise<TaskEntity[]> {
+    const query: any = { relations: ['creator', 'assignment', 'assignment.assignedUser'] };
+    if (isCompleted !== undefined) {
+      query.where = { isCompleted };
     }
+    return this.taskRepository.find(query);
   }
 
-  private async checkTaskAssignment(taskId: number, localUserId: number): Promise<TaskAssignmentEntity | null> {
-    return this.assignmentRepository.findOne({
-      where: { taskId, assignedUserId: localUserId }
+  async findOne(taskId: number): Promise<TaskEntity> {
+    const task = await this.taskRepository.findOne({
+      where: { id: taskId },
+      relations: ['creator', 'assignment', 'assignment.assignedUser'],
+    });
+
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${taskId} not found.`);
+    }
+    return task;
+  }
+
+  /**
+   * @description Updates a task, restricted to the creator only.
+   * Permission: 'update:own:tasks'
+   */
+  async updateOwn(taskId: number, dto: UpdateTaskDto, requesterUserId: number): Promise<TaskEntity> {
+    const task = await this.findOne(taskId);
+
+    if (task.creatorUserId !== requesterUserId) {
+      throw new ForbiddenException('You can only update tasks you created.');
+    }
+
+    task.title = dto.title ?? task.title;
+    task.description = dto.description ?? task.description;
+
+    const updatedTask = await this.taskRepository.save(task);
+
+    // Log Activity
+    await this.activityService.create({
+      actionType: 'TASK_UPDATED',
+      taskId: updatedTask.id!,
+      userId: requesterUserId,
+      details: { fields: Object.keys(dto) },
+    });
+
+    return updatedTask;
+  }
+
+  /**
+   * @description Deletes a task, restricted to the creator only.
+   * Permission: 'delete:own:tasks'
+   */
+  async deleteOwn(taskId: number, requesterUserId: number): Promise<void> {
+    const task = await this.findOne(taskId);
+
+    // 🔑 Ownership Check (Permission Enforcement)
+    if (task.creatorUserId !== requesterUserId) {
+      throw new ForbiddenException('You can only delete tasks you created.');
+    }
+
+    // Deletion automatically cascades to TaskAssignment due to entity definition
+    const result = await this.taskRepository.delete(taskId);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID ${taskId} not found.`);
+    }
+
+    // Log Activity
+    await this.activityService.create({
+      actionType: 'TASK_DELETED',
+      taskId: taskId,
+      userId: requesterUserId,
+      details: { title: task.title },
     });
   }
 
   /**
-   * Creates a new task. (Permission: create:tasks)
+   * @description Assigns an unassigned task to a user.
+   * Permission: 'assign:tasks'
    */
-  async create(userPayload: any, createTaskDto: CreateTaskDto): Promise<TaskEntity> {
-    const creatorId = await this.getLocalUserIdFromPayload(userPayload);
-    const newTask = new TaskEntity(
-      createTaskDto.title,
-      creatorId,
-      createTaskDto.description,
-    );
-    return this.taskRepository.save(newTask);
+  async assignTask(taskId: number, dto: AssignTaskDto, requesterUserId: number): Promise<TaskAssignmentEntity> {
+    const task = await this.findOne(taskId);
+
+    if (task.assignment) {
+      throw new ForbiddenException('Task is already assigned.');
+    }
+
+    // 🔑 TaskAssignmentEntity constructor requires: taskId, assignedUserId
+    const assignment = new TaskAssignmentEntity(taskId, dto.assignedUserId);
+    const newAssignment = await this.assignmentRepository.save(assignment);
+
+    // Log Activity
+    await this.activityService.create({
+      actionType: 'TASK_ASSIGNED',
+      taskId: taskId,
+      userId: requesterUserId,
+      details: { assignedToUserId: dto.assignedUserId },
+    });
+
+    return newAssignment;
   }
 
   /**
-   * Finds all tasks. (Permission: read:tasks)
+   * @description Unassigns a task from any user.
+   * Permission: 'unassign:tasks'
    */
-  async findAll(): Promise<TaskEntity[]> {
-    return this.taskRepository.find({
-      relations: ['creator', 'assignments', 'assignments.assignedUser']
+  async unassignTask(taskId: number, requesterUserId: number): Promise<void> {
+    const task = await this.findOne(taskId);
+
+    if (!task.assignment) {
+      throw new NotFoundException('Task is not currently assigned.');
+    }
+
+    // Delete the assignment record
+    await this.assignmentRepository.delete({ taskId });
+
+    // Log Activity
+    await this.activityService.create({
+      actionType: 'TASK_UNASSIGNED',
+      taskId: taskId,
+      userId: requesterUserId,
+      details: { wasAssignedTo: task.assignment.assignedUserId },
     });
   }
 
   /**
-   * Updates an existing task. (Permission: update:own:tasks)
+   * @description Marks a task assigned to the user as complete/incomplete.
+   * Permissions: 'mark:assigned:tasks', 'unmark:assigned:tasks'
    */
-  async update(userPayload: any, taskId: number, updateTaskDto: UpdateTaskDto): Promise<TaskEntity> {
-    const localUserId = await this.getLocalUserIdFromPayload(userPayload);
-    const task = await this.taskRepository.findOne({ where: { id: taskId } });
-    if (!task) throw new NotFoundException(`Task with ID ${taskId} not found.`);
+  async toggleComplete(taskId: number, isCompleted: boolean, requesterUserId: number): Promise<TaskEntity> {
+    const task = await this.findOne(taskId);
 
-    this.checkTaskOwnership(task, localUserId);
-
-    const updatedTask = this.taskRepository.merge(task, updateTaskDto);
-
-    if (updateTaskDto.isCompleted === true && task.isCompleted === false) {
-      updatedTask.completedAt = new Date();
-    } else if (updateTaskDto.isCompleted === false && task.isCompleted === true) {
-      updatedTask.completedAt = null;
+    // Check if the task is assigned to the requesting user
+    if (task.assignment?.assignedUserId !== requesterUserId) {
+      throw new ForbiddenException('You can only complete/incomplete tasks assigned to you.');
     }
 
-    return this.taskRepository.save(updatedTask);
-  }
-
-  /**
-   * Deletes a task. (Permission: delete:own:tasks)
-   */
-  async remove(userPayload: any, taskId: number): Promise<void> {
-    const localUserId = await this.getLocalUserIdFromPayload(userPayload);
-    const task = await this.taskRepository.findOne({ where: { id: taskId } });
-    if (!task) throw new NotFoundException(`Task with ID ${taskId} not found.`);
-
-    this.checkTaskOwnership(task, localUserId);
-
-    await this.taskRepository.delete(taskId);
-  }
-
-  /**
-   * STATUS CHANGE METHOD (Permission: mark:assigned:tasks / unmark:assigned:tasks)
-   */
-  async toggleComplete(userPayload: any, taskId: number): Promise<TaskEntity> {
-    const localUserId = await this.getLocalUserIdFromPayload(userPayload);
-
-    const task = await this.taskRepository.findOne({ where: { id: taskId } });
-    if (!task) throw new NotFoundException(`Task with ID ${taskId} not found.`);
-
-    const assignment = await this.checkTaskAssignment(taskId, localUserId);
-
-    if (!assignment) {
-      throw new ForbiddenException('You can only change the status of tasks assigned to you.');
+    // Prevent unnecessary database write if state hasn't changed
+    if (task.isCompleted === isCompleted) {
+      return task;
     }
 
-    task.isCompleted = !task.isCompleted;
+    task.isCompleted = isCompleted;
+    const updatedTask = await this.taskRepository.save(task);
 
-    if (task.isCompleted) {
-      task.completedAt = new Date();
-    } else {
-      task.completedAt = null;
-    }
+    // Determine action type for logging
+    const actionType = isCompleted ? 'TASK_COMPLETED' : 'TASK_INCOMPLETED';
 
-    return this.taskRepository.save(task);
-  }
+    // Log Activity
+    await this.activityService.create({
+      actionType: actionType,
+      taskId: taskId,
+      userId: requesterUserId,
+      details: { status: isCompleted ? 'Completed' : 'Incompleted' },
+    });
 
-  /**
-   * Assigns a task. (RBAC: Both roles have assign:tasks permission).
-   */
-  async assignTask(taskId: number, createAssignmentDto: CreateTaskAssignmentDto): Promise<TaskAssignmentEntity> {
-    const { assignedUserId } = createAssignmentDto;
-
-    const taskCount = await this.taskRepository.count({ where: { id: taskId } });
-    if (taskCount === 0) throw new NotFoundException(`Task with ID ${taskId} not found.`);
-
-    const userCount = await this.userRepository.count({ where: { id: assignedUserId } });
-    if (userCount === 0) throw new NotFoundException(`Assigned user ID ${assignedUserId} not found.`);
-
-    let assignment = await this.assignmentRepository.findOne({ where: { taskId } });
-
-    if (assignment) {
-      if (assignment.assignedUserId === assignedUserId) {
-        throw new BadRequestException('Task is already assigned to this user.');
-      }
-      assignment.assignedUserId = assignedUserId;
-      assignment.assignedAt = new Date();
-    } else {
-      assignment = new TaskAssignmentEntity(taskId, assignedUserId);
-    }
-
-    return this.assignmentRepository.save(assignment);
-  }
-
-  /**
-   * Removes a task assignment (unassigns the user). (Permission: unassign:tasks)
-   */
-  async unassignTask(taskId: number): Promise<void> {
-    const assignment = await this.assignmentRepository.findOne({ where: { taskId } });
-
-    if (!assignment) {
-      throw new NotFoundException(`Assignment record for task ID ${taskId} not found.`);
-    }
-
-    await this.assignmentRepository.delete(assignment.id);
+    return updatedTask;
   }
 }

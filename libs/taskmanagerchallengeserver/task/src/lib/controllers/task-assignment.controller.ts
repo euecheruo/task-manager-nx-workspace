@@ -1,72 +1,80 @@
 import {
   Controller,
   Post,
-  Delete,
   Body,
   Param,
-  UseGuards,
   ParseIntPipe,
+  UseGuards,
+  Req,
   HttpCode,
-  HttpStatus,
-  Get,
-  NotFoundException
+  HttpStatus
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags, ApiBody } from '@nestjs/swagger';
+import { TaskService } from '../services/task.service';
+import { AssignTaskDto } from '../dto/assign-task.dto';
+import { TaskDto } from '../dto/task.dto';
 import { JwtAuthGuard } from '@task-manager-nx-workspace/shared/auth/lib/guards/auth.guard';
 import { PermissionsGuard } from '@task-manager-nx-workspace/shared/auth/lib/guards/permissions.guard';
 import { Roles } from '@task-manager-nx-workspace/shared/auth/lib/decorators/roles.decorator';
-import { TaskService } from '../services/task.service';
-import { TaskAssignmentService } from '../services/task-assignment.service';
-import { CreateTaskAssignmentDto } from '../dto/create-task-assignment.dto';
-import { TaskAssignmentDto } from '../dto/task-assignment.dto';
 
+interface AuthenticatedRequest extends Request {
+  user: {
+    sub: string;
+    permissions: string[];
+    localUserId: number;
+  };
+}
 
-@ApiTags('task-assignments')
-@Controller('task-assignments')
+@ApiTags('tasks-assignment')
+@Controller('tasks')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, PermissionsGuard)
 export class TaskAssignmentController {
-  constructor(
-    private readonly taskService: TaskService,
-    private readonly taskAssignmentService: TaskAssignmentService,
-  ) { }
+  constructor(private readonly taskService: TaskService) { }
 
-  /**
-   * @description Assigns a task to a user. Used if the client manages assignments 
-   * via a flat /task-assignments endpoint rather than nested under /tasks.
-   * (Permission: assign:tasks - Editor & Viewer Roles)
-   */
-  @Post()
+  @Post(':id/assign')
   @Roles('assign:tasks')
-  async createAssignment(@Body() createAssignmentDto: CreateTaskAssignmentDto & { taskId: number }): Promise<TaskAssignmentDto> {
-    const { taskId, ...assignmentDto } = createAssignmentDto;
-    const assignment = await this.taskService.assignTask(taskId, assignmentDto);
-    return new TaskAssignmentDto(assignment);
+  @ApiOperation({ summary: 'Assign an unassigned task to a user.' })
+  @ApiBody({ type: AssignTaskDto })
+  async assign(
+    @Param('id', ParseIntPipe) taskId: number,
+    @Body() dto: AssignTaskDto,
+    @Req() req: AuthenticatedRequest
+  ): Promise<{ message: string }> {
+    await this.taskService.assignTask(taskId, dto, req.user.localUserId);
+    return { message: 'Task assigned successfully.' };
   }
 
-  /**
-   * @description Removes a specific assignment record by its ID.
-   * (Permission: unassign:tasks - Editor & Viewer Roles)
-   */
-  @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @Post(':id/unassign')
   @Roles('unassign:tasks')
-  async removeAssignment(@Param('id', ParseIntPipe) assignmentId: number): Promise<void> {
-    throw new NotFoundException(`Endpoint not implemented for assignment ID deletion. Use DELETE /tasks/:taskId/unassign instead.`);
+  @ApiOperation({ summary: 'Unassign any assigned task from a user.' })
+  async unassign(
+    @Param('id', ParseIntPipe) taskId: number,
+    @Req() req: AuthenticatedRequest
+  ): Promise<{ message: string }> {
+    await this.taskService.unassignTask(taskId, req.user.localUserId);
+    return { message: 'Task unassigned successfully.' };
   }
 
-  /**
-   * @description Retrieves a specific assignment record by its ID.
-   * (Permission: read:tasks - Editor & Viewer Roles)
-   */
-  @Get(':id')
-  @Roles('read:tasks')
-  async getAssignmentById(@Param('id', ParseIntPipe) assignmentId: number): Promise<TaskAssignmentDto> {
-    const assignment = await this.taskAssignmentService.getAssignmentByAssignmentId(assignmentId);
+  @Post(':id/complete')
+  @Roles('mark:assigned:tasks')
+  @ApiOperation({ summary: 'Mark a task assigned to the current user as completed.' })
+  async markComplete(
+    @Param('id', ParseIntPipe) taskId: number,
+    @Req() req: AuthenticatedRequest
+  ): Promise<TaskDto> {
+    const updatedTask = await this.taskService.toggleComplete(taskId, true, req.user.localUserId);
+    return new TaskDto(updatedTask);
+  }
 
-    if (!assignment) {
-      throw new NotFoundException(`Task assignment with ID ${assignmentId} not found.`);
-    }
-    return new TaskAssignmentDto(assignment);
+  @Post(':id/incomplete')
+  @Roles('unmark:assigned:tasks')
+  @ApiOperation({ summary: 'Mark a task assigned to the current user as incomplete.' })
+  async unmarkComplete(
+    @Param('id', ParseIntPipe) taskId: number,
+    @Req() req: AuthenticatedRequest
+  ): Promise<TaskDto> {
+    const updatedTask = await this.taskService.toggleComplete(taskId, false, req.user.localUserId);
+    return new TaskDto(updatedTask);
   }
 }

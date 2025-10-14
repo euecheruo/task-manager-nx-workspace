@@ -15,7 +15,7 @@ import { TaskAssignmentEntity } from './task-assignment.entity';
 export class TaskEntity extends AbstractEntity {
 
   @PrimaryGeneratedColumn({ name: 'task_id' })
-  override id: number | undefined;
+  id: number | undefined;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   title: string;

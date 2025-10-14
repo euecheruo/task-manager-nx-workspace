@@ -5,13 +5,12 @@
     "\\libs\\taskmanagerchallengeserver",
     "\\libs\\taskmanagerchallengeserver\\shared",
     "\\libs\\taskmanagerchallengeserver\\shared\\src",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src",
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib",
     "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\guards",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\services",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib\\entities"
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\services"
   ],
-  "SelectedNode": "\\libs\\taskmanagerchallengeserver\\shared\\src\\database\\src\\lib\\entities\\abstract.entity.ts",
+  "SelectedNode": "\\libs\\taskmanagerchallengeserver\\shared\\src\\auth\\src\\lib\\strategies\\jwt.strategy.ts",
   "PreviewInSolutionExplorer": false
 }

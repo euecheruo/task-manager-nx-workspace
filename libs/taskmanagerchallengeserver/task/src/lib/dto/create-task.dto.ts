@@ -12,7 +12,7 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  title?: string;
+  title: string;
 
   @ApiProperty({
     description: 'A detailed description of the task.',

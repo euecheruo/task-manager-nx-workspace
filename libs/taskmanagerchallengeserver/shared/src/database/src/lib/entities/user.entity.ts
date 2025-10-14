@@ -16,13 +16,16 @@ import { TaskAssignmentEntity } from '@task-manager-nx-workspace/task/lib/entiti
 export class UserEntity extends AbstractEntity {
 
   @PrimaryGeneratedColumn({ name: 'user_id' })
-  override id: number | undefined;
+  id: number | undefined;
 
   @Column({ type: 'varchar', length: 128, name: 'auth0_id', unique: true, nullable: false })
   auth0Id: string;
 
   @Column({ type: 'varchar', length: 255, name: 'email', unique: true, nullable: false })
   email: string;
+
+  @Column({ type: 'varchar', length: 255, name: 'nickname', nullable: true })
+  nickname: string | null;
 
   @OneToMany(() => TaskEntity, task => task.creator)
   createdTasks: TaskEntity[];
@@ -41,6 +44,7 @@ export class UserEntity extends AbstractEntity {
   constructor(
     auth0Id: string,
     email: string,
+    nickname: string | null = null,
     id?: number
   ) {
     super(id);
@@ -48,8 +52,7 @@ export class UserEntity extends AbstractEntity {
     this.id = id;
     this.auth0Id = auth0Id;
     this.email = email;
-    this.createdTasks = [];
-    this.assignments = [];
-    this.roles = [];
+    this.nickname = nickname;
+
   }
 }

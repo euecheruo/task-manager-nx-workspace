@@ -1,6 +1,14 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
 import { AbstractEntity } from '@task-manager-nx-workspace/utils/lib/entities/abstract.entity';
 import { UserEntity } from '@task-manager-nx-workspace/shared/database/lib/entities/user.entity';
+import { TaskEntity } from '@task-manager-nx-workspace/task/lib/entities/task.entity';
 
 @Entity('activities')
 export class ActivityEntity extends AbstractEntity {
@@ -20,6 +28,10 @@ export class ActivityEntity extends AbstractEntity {
   @Column({ type: 'jsonb', name: 'details', nullable: true })
   details: Record<string, any> | null;
 
+  @ManyToOne(() => TaskEntity, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'task_id' })
+  task: TaskEntity;
+
   @ManyToOne(() => UserEntity, { nullable: true })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity | null;
@@ -38,6 +50,8 @@ export class ActivityEntity extends AbstractEntity {
     this.taskId = taskId;
     this.userId = userId;
     this.details = details;
+
+    this.task = null as any;
     this.user = null;
   }
 }

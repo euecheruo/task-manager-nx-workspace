@@ -86,3 +86,7 @@ packages/
 
 # SQL Server Management Studio
 *.ssmssln
+
+#envionments
+.env.development
+.env.production
