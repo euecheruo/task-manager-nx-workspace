@@ -15,35 +15,68 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@task-manager-nx-workspace/activity": [
-        "libs/taskmanagerchallengeserver/activity/src/index.ts"
+      "@task-manager-nx-workspace/api/auth": [
+        "libs/taskmanagerchallengeserver/auth/src/index.ts"
       ],
-      "@task-manager-nx-workspace/auth": [
-        "libs/taskmanagerchallengeserver/shared/src/auth/src/index.ts"
+      "@task-manager-nx-workspace/api/auth/*": [
+        "libs/taskmanagerchallengeserver/auth/src/*"
       ],
-      "@task-manager-nx-workspace/database": [
-        "libs/taskmanagerchallengeserver/shared/src/database/src/index.ts"
+      "@task-manager-nx-workspace/api/config": [
+        "libs/taskmanagerchallengeserver/config/src/index.ts"
       ],
-      "@task-manager-nx-workspace/task": [
-        "libs/taskmanagerchallengeserver/task/src/index.ts"
+      "@task-manager-nx-workspace/api/config/*": [
+        "libs/taskmanagerchallengeserver/config/src/*"
       ],
-      "@task-manager-nx-workspace/utils": [
-        "libs/taskmanagerchallengeserver/utils/src/index.ts"
+      "@task-manager-nx-workspace/api/data-access": [
+        "libs/taskmanagerchallengeserver/data-access/src/index.ts"
       ],
-      "@task-manager-nx-workspace/activity/*": [
-        "libs/taskmanagerchallengeserver/activity/src/*"
+      "@task-manager-nx-workspace/api/data-access/*": [
+        "libs/taskmanagerchallengeserver/data-access/src/*"
       ],
-      "@task-manager-nx-workspace/shared/auth/*": [
-        "libs/taskmanagerchallengeserver/shared/src/auth/src/*"
+      "@task-manager-nx-workspace/api/rbac": [
+        "libs/taskmanagerchallengeserver/rbac/src/index.ts"
       ],
-      "@task-manager-nx-workspace/shared/database/*": [
-        "libs/taskmanagerchallengeserver/shared/src/database/src/*"
+      "@task-manager-nx-workspace/api/rbac/*": [
+        "libs/taskmanagerchallengeserver/rbac/src/*"
       ],
-      "@task-manager-nx-workspace/task/*": [
-        "libs/taskmanagerchallengeserver/task/src/*"
+      "@task-manager-nx-workspace/api/roles": [
+        "libs/taskmanagerchallengeserver/roles/src/index.ts"
       ],
-      "@task-manager-nx-workspace/utils/*": [
-        "libs/taskmanagerchallengeserver/utils/src/*"
+      "@task-manager-nx-workspace/api/roles/*": [
+        "libs/taskmanagerchallengeserver/roles/src/*"
+      ],
+      "@task-manager-nx-workspace/api/shared": [
+        "libs/taskmanagerchallengeserver/shared/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/shared/*": [
+        "libs/taskmanagerchallengeserver/shared/src/*"
+      ],
+      "@task-manager-nx-workspace/api/users": [
+        "libs/taskmanagerchallengeserver/users/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/users/*": [
+        "libs/taskmanagerchallengeserver/users/src/*"
+      ],
+      "@task-manager-nx-workspace/client/data-acceess/auth": [
+        "libs/taskmanagerchallengeapp/data-access/auth/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/data-access/auth/*": [
+        "libs/taskmanagerchallengeapp/data-access/auth/src/*"
+      ],
+      "@task-manager-nx-workspace/client/data-access/models": [
+        "libs/taskmanagerchallengeapp/data-access/models/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/data-access/models/*": [
+        "libs/taskmanagerchallengeapp/data-access/models/src/*"
+      ],
+      "@task-manager-nx-workspace/core": [
+        "libs/taskmanagerchallengeserver/core/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/tasks": [
+        "libs/taskmanagerchallengeserver/tasks/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/tasks/*": [
+        "libs/taskmanagerchallengeserver/tasks/src/*"
       ]
     }
   },
