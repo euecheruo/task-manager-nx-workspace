@@ -1,47 +1,31 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
+import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.PORT || 3000;
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
 
-  const config = new DocumentBuilder()
-    .setTitle('Task Management API')
-    .setDescription('Auth0-secured API for Task Management System.')
-    .setVersion('1.0')
-    .addBearerAuth({
-      type: 'http',
-      scheme: 'bearer',
-      bearerFormat: 'JWT',
-      description: 'Enter JWT token (Auth0 ID Token or Access Token)',
-      in: 'header',
-      name: 'Authorization',
-    }, 'JWT-Auth')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(globalPrefix + '/docs', app, document, {
-    swaggerOptions: {
-      persistAuthorization: true,
-    },
-  });
+  const envService = app.get(EnvironmentService);
+  const port = envService.getAppPort();
+  const isDev = envService.isDevelopment();
+
+  app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: ['http://localhost:4200'],
+    origin: isDev ? '*' : envService.get<string>('FRONTEND_URL'),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: ${await app.getUrl()}/api`,
+    'Bootstrap',
   );
-  Logger.log(
-    `📄 Swagger Docs available at: http://localhost:${port}/${globalPrefix}/docs`
-  );
+  if (isDev) {
+    Logger.warn('⚠️ Running in DEVELOPMENT mode with TypeORM synchronize=true.', 'Bootstrap');
+  }
 }
 
 bootstrap();

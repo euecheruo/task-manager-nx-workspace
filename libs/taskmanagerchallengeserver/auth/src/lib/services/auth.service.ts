@@ -1,82 +1,119 @@
-import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { SignUpDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/sign-up.dto';
+import * as crypto from 'crypto';
 import { UsersService } from '@task-manager-nx-workspace/api/users/lib/services/users.service';
-import { AuthResponse } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/auth-response.interface';
-import { JwtPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/jwt-payload.interface';
-import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface';
-import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
 import { RolesService } from '@task-manager-nx-workspace/api/roles/lib/services/roles.service';
+import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
+import { SignUpDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/sign-up.dto';
+import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface';
+import { JwtPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/jwt-payload.interface';
+import { TokenResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-response.dto';
+import { TokenRefreshDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-refresh.dto';
 
 @Injectable()
 export class AuthService {
+  private readonly REFRESH_TOKEN_BYTES = 32; // 256-bit token for security
+
   constructor(
-    private readonly usersService: UsersService,
-    private readonly rolesService: RolesService,
-    private readonly jwtService: JwtService,
-    private readonly envService: EnvironmentService,
+    private usersService: UsersService,
+    private rolesService: RolesService,
+    private jwtService: JwtService,
+    private envService: EnvironmentService,
   ) { }
 
-  private async getTokens(userId: number, email: string, permissions: string[]): Promise<{ accessToken: string, refreshToken: string }> {
-    const payload: JwtPayload = { userId, email, permissions };
+  async validateUser(email: string, password: string): Promise<UserData | null> {
+    const user = await this.usersService.findUserByEmailWithHash(email);
 
-    try {
-      const accessToken = this.jwtService.sign(payload); // Uses default sign options configured in AuthModule
+    if (user && user.passwordHash) {
+      const isMatch = await bcrypt.compare(password, user.passwordHash);
 
-      const refreshToken = this.jwtService.sign(payload, {
-        secret: this.envService.getJwtRefreshSecret(),
-        expiresIn: this.envService.getJwtRefreshExpiration(),
-      });
-
-      await this.usersService.storeRefreshToken(userId, refreshToken);
-
-      return { accessToken, refreshToken };
-
-    } catch (error) {
-      console.error('Token generation error:', error);
-      throw new InternalServerErrorException('Failed to generate authentication tokens.');
+      if (isMatch) {
+        return {
+          userId: user.userId,
+          email: user.email,
+          createdAt: user.createdAt,
+        };
+      }
     }
+    return null;
   }
 
-  async signUp(signUpDto: SignUpDto): Promise<AuthResponse> {
-    const { email, password } = signUpDto;
+  private async getTokens(userData: any): Promise<any> { // Using 'any' for brevity, replace with DTO/Interface
+    const { userId } = userData;
+    const userProfile = await this.usersService.findProfileById(userId);
 
-    const userExists = await this.usersService.findUserByEmail(email);
-    if (userExists) {
-      throw new ConflictException('User with this email already exists.');
-    }
+    const accessPayload: JwtPayload = { // Replace with actual JwtPayload fields
+      userId: userProfile.userId,
+      email: userProfile.email,
+      roles: userProfile.roles,
+      permissions: userProfile.permissions,
+    };
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+    // FIX: Remove manual secret and expiresIn options. 
+    // This allows jwtService.sign(payload) to use the default options 
+    // set up in the JwtModule (via jwtAccessConfigFactory), fixing the overload error.
+    const accessToken = this.jwtService.sign(accessPayload);
 
-    const newUser = await this.usersService.createUser({ email, passwordHash, roleName: 'viewer' });
+    // 3. Create, Hash, and Store Refresh Token
+    const refreshToken = crypto.randomBytes(this.REFRESH_TOKEN_BYTES).toString('hex');
+    const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
 
-    const permissions = await this.rolesService.getPermissionsByRoleName('viewer');
+    // Use fixed RolesService function to parse expiration string (e.g., '30d')
+    const expiresInStr = this.envService.get<string>('JWT_REFRESH_EXPIRATION');
+    const expirationMs = this.rolesService.getRefreshTokenExpirationMilliseconds(expiresInStr);
+    const expiresAt = new Date(Date.now() + expirationMs);
 
-    return this.getTokens(newUser.userId, newUser.email, permissions);
+    await this.usersService.saveRefreshToken(userId, refreshTokenHash, expiresAt);
+
+    return {
+      accessToken,
+      refreshToken,
+      expiresIn: expiresAt.getTime(),
+      userId: userId,
+    };
   }
 
-  async logIn(user: UserData): Promise<AuthResponse> {
-    const permissions = await this.rolesService.getPermissionsByUserId(user.userId);
+  async signUp(signUpDto: SignUpDto): Promise<TokenResponseDto> {
+    const newUser = await this.usersService.create(signUpDto);
 
-    return this.getTokens(user.userId, user.email, permissions);
+    return this.getTokens(newUser);
   }
 
-  async refreshTokens(userId: number, oldRefreshToken: string): Promise<AuthResponse> {
-    const isTokenValidAndRevoked = await this.usersService.revokeAndVerifyRefreshToken(userId, oldRefreshToken);
-    if (!isTokenValidAndRevoked) {
-      throw new UnauthorizedException('Invalid or expired refresh token.');
+  async login(userData: UserData): Promise<TokenResponseDto> {
+    return this.getTokens(userData);
+  }
+
+  async refreshToken(refreshTokenDto: TokenRefreshDto): Promise<TokenResponseDto> {
+    const { refreshToken } = refreshTokenDto;
+
+    const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+
+    const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);
+
+    if (!tokenRecord) {
+      throw new UnauthorizedException('Invalid, revoked, or expired refresh token.');
     }
 
-    const user = await this.usersService.findUserById(userId);
+    await this.usersService.revokeRefreshToken(tokenRecord.tokenId);
 
-    if (!user) {
-      throw new UnauthorizedException('User not found.');
+    const newTokens = await this.getTokens({
+      userId: tokenRecord.userId,
+      email: tokenRecord.user.email,
+      createdAt: tokenRecord.user.createdAt,
+    });
+
+    return newTokens;
+  }
+
+  async logout(refreshTokenDto: TokenRefreshDto): Promise<void> {
+    const { refreshToken } = refreshTokenDto;
+    const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+
+    const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);
+
+    if (tokenRecord) {
+      await this.usersService.revokeRefreshToken(tokenRecord.tokenId);
     }
-
-    const permissions = await this.rolesService.getPermissionsByUserId(userId);
-
-    return this.getTokens(user.userId, user.email, permissions);
   }
 }

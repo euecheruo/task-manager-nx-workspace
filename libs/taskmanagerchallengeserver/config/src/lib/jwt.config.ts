@@ -1,8 +1,14 @@
 import { registerAs } from '@nestjs/config';
+import { EnvVars } from './validations/environment.validation';
+import { JwtModuleOptions } from '@nestjs/jwt';
 
-export const jwtConfig = registerAs('jwt', () => ({
-  accessSecret: process.env.JWT_SECRET,
-  accessExpiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME || '15m',
-  refreshSecret: process.env.JWT_REFRESH_SECRET,
-  refreshExpiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME || '7d',
-}));
+export default registerAs('jwt', (): JwtModuleOptions => {
+  const env: EnvVars = process.env as any;
+
+  return {
+    secret: env.JWT_ACCESS_SECRET,
+    signOptions: {
+      expiresIn: env.JWT_ACCESS_EXPIRATION,
+    },
+  };
+});

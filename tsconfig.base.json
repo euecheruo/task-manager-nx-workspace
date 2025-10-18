@@ -72,7 +72,7 @@
       "@task-manager-nx-workspace/core": [
         "libs/taskmanagerchallengeserver/core/src/index.ts"
       ],
-      "@task-manager-nx-workspace/tasks": [
+      "@task-manager-nx-workspace/api/tasks": [
         "libs/taskmanagerchallengeserver/tasks/src/index.ts"
       ],
       "@task-manager-nx-workspace/api/tasks/*": [

@@ -2,9 +2,9 @@ import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './services/users.service';
 import { UsersController } from './controllers/users.controller';
-import { UserEntity } from './entities/user.entity';
-import { RefreshTokenEntity } from './entities/refresh-token.entity';
-import { RolesModule } from '../roles/roles.module'; // Needed for role-based queries
+import { UserEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user.entity';
+import { RefreshTokenEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/refresh-token.entity';
+import { RolesModule } from '@task-manager-nx-workspace/api/roles/lib/roles.module';
 
 @Module({
   imports: [
@@ -13,6 +13,6 @@ import { RolesModule } from '../roles/roles.module'; // Needed for role-based qu
   ],
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [UsersService], // Must be exported for AuthModule and TasksModule to use
+  exports: [UsersService, TypeOrmModule],
 })
 export class UsersModule { }

@@ -1,16 +1,20 @@
-import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException, ForbiddenException, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, MoreThan } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto';
 import { UserEntity } from '../entities/user.entity';
 import { RefreshTokenEntity } from '../entities/refresh-token.entity';
 import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface';
+import { SignUpDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/sign-up.dto';
+// FIX: Use the correct DTO for the update operation
 import { UserUpdateDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-update.dto';
+import { UserProfileDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-profile.dto';
 import { RolesService } from '@task-manager-nx-workspace/api/roles/lib/services/roles.service';
 
 @Injectable()
 export class UsersService {
+  private readonly SALT_ROUNDS = 10;
+
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
@@ -19,94 +23,117 @@ export class UsersService {
     private rolesService: RolesService,
   ) { }
 
-  async findUserById(userId: number): Promise<UserData> {
+  // --- Utility Mappers ---
+
+  private mapToUserData(entity: UserEntity): UserData {
+    return {
+      userId: entity.userId,
+      email: entity.email,
+      createdAt: entity.createdAt,
+    };
+  }
+
+  private mapToUserProfileDto(user: UserEntity, roles: string[], permissions: string[]): UserProfileDto {
+    return {
+      userId: user.userId,
+      email: user.email,
+      createdAt: user.createdAt,
+      roles: roles as any,
+      permissions: permissions as any,
+    };
+  }
+
+  async findUserById(userId: number): Promise<UserData | null> {
     const user = await this.usersRepository.findOne({ where: { userId } });
-    if (!user) {
-      throw new UnauthorizedException('User not found.');
-    }
-    const { passwordHash, ...safeUserData } = user;
-    return safeUserData;
+    return user ? this.mapToUserData(user) : null;
   }
 
-  async findUserByEmail(email: string): Promise<UserEntity | null> {
-    return this.usersRepository.findOne({ where: { email } });
-  }
-
-  async createUser(data: { email: string; passwordHash: string; roleName: string }): Promise<UserData> {
-    const user = this.usersRepository.create({
-      email: data.email,
-      passwordHash: data.passwordHash,
+  async findUserByEmailWithHash(email: string): Promise<UserEntity | null> {
+    return this.usersRepository.findOne({
+      where: { email },
+      select: ['userId', 'email', 'passwordHash', 'createdAt']
     });
-    const savedUser = await this.usersRepository.save(user);
-
-    await this.rolesService.assignRoleToUser(savedUser.userId, data.roleName);
-
-    const { passwordHash, ...safeUserData } = savedUser;
-    return safeUserData;
   }
 
-  async updateUserPassword(userId: number, updateDto: UserUpdateDto): Promise<UserData> {
+  async findProfileById(userId: number): Promise<UserProfileDto> {
     const user = await this.usersRepository.findOne({ where: { userId } });
 
-    const isPasswordValid = await bcrypt.compare(updateDto.currentPassword, user.passwordHash);
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found.`);
+    }
+
+    const { roles, permissions } = await this.rolesService.getRolesAndPermissionsForUser(userId);
+
+    return this.mapToUserProfileDto(user, roles, permissions);
+  }
+
+  async create(signUpDto: SignUpDto): Promise<UserData> {
+    const existingUserCount = await this.usersRepository.count({ where: { email: signUpDto.email } });
+
+    if (existingUserCount > 0) {
+      throw new ConflictException('User with this email already exists.');
+    }
+
+    const passwordHash = await bcrypt.hash(signUpDto.password, this.SALT_ROUNDS);
+
+    const newUser = this.usersRepository.create({ email: signUpDto.email, passwordHash: passwordHash });
+
+    try {
+      const savedUser = await this.usersRepository.save(newUser);
+      await this.rolesService.assignDefaultRoleToUser(savedUser.userId);
+      return this.mapToUserData(savedUser);
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to create user account.');
+    }
+  }
+
+  async update(userId: number, userUpdateDto: UserUpdateDto): Promise<UserProfileDto> {
+    let user = await this.usersRepository.findOne({
+      where: { userId },
+      select: ['userId', 'email', 'createdAt', 'passwordHash']
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found.`);
+    }
+
+    const isPasswordValid = await bcrypt.compare(userUpdateDto.currentPassword, user.passwordHash);
+
     if (!isPasswordValid) {
-      throw new UnauthorizedException('The current password provided is incorrect.');
+      throw new ForbiddenException('Current password verification failed. Invalid password.');
     }
 
-    if (updateDto.newPassword) {
-      const saltRounds = 10;
-      user.passwordHash = await bcrypt.hash(updateDto.newPassword, saltRounds);
-
-      await this.revokeAllRefreshTokensForUser(userId);
-    } else {
-      throw new BadRequestException('No new password provided.');
+    if (userUpdateDto.newPassword) {
+      user.passwordHash = await bcrypt.hash(userUpdateDto.newPassword, this.SALT_ROUNDS);
     }
 
-    const savedUser = await this.usersRepository.save(user);
-    const { passwordHash, ...safeUserData } = savedUser;
-    return safeUserData;
+    user = await this.usersRepository.save(user);
+
+    return this.findProfileById(userId);
   }
 
-  private hashToken(token: string): string {
-    return crypto.createHash('sha256').update(token).digest('hex');
-  }
-
-  async storeRefreshToken(userId: number, token: string): Promise<void> {
-    const tokenHash = this.hashToken(token);
-    const now = new Date();
-    const expiresAt = new Date(now.getTime() + this.rolesService.getRefreshTokenExpirationMilliseconds());
-
-    const newRefreshToken = this.refreshTokensRepository.create({
+  async saveRefreshToken(userId: number, tokenHash: string, expiresAt: Date): Promise<RefreshTokenEntity> {
+    const newToken = this.refreshTokensRepository.create({
       userId,
       tokenHash,
-      isRevoked: false,
       expiresAt,
     });
-
-    await this.refreshTokensRepository.save(newRefreshToken);
+    return this.refreshTokensRepository.save(newToken);
   }
 
-  async revokeAndVerifyRefreshToken(userId: number, token: string): Promise<boolean> {
-    const tokenHash = this.hashToken(token);
-
-    const tokenRecord = await this.refreshTokensRepository.findOne({
-      where: { userId, tokenHash, isRevoked: false },
+  async findRefreshTokenByHash(tokenHash: string): Promise<RefreshTokenEntity | null> {
+    const now = new Date();
+    return this.refreshTokensRepository.findOne({
+      where: {
+        tokenHash,
+        isRevoked: false,
+        expiresAt: MoreThan(now),
+      },
+      relations: ['user']
     });
-
-    if (!tokenRecord || tokenRecord.expiresAt < new Date()) {
-      return false;
-    }
-
-    tokenRecord.isRevoked = true;
-    await this.refreshTokensRepository.save(tokenRecord);
-
-    return true;
   }
 
-  async revokeAllRefreshTokensForUser(userId: number): Promise<void> {
-    await this.refreshTokensRepository.update(
-      { userId, isRevoked: false },
-      { isRevoked: true }
-    );
+  async revokeRefreshToken(tokenId: number): Promise<void> {
+    await this.refreshTokensRepository.update(tokenId, { isRevoked: true });
   }
 }

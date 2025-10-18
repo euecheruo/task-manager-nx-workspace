@@ -1,25 +1,31 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from '@task-manager-nx-workspace/shared/database/lib/database.module';
-import { AuthModule } from '@task-manager-nx-workspace/shared/auth/lib/auth.module';
-import { TaskModule } from '@task-manager-nx-workspace/task/lib/task.module';
-import { ActivityModule } from '@task-manager-nx-workspace/activity/lib/activity.module';
+import { APP_GUARD } from '@nestjs/core';
+import { CoreModule } from '@task-manager-nx-workspace/core';
+import { AuthModule } from '@task-manager-nx-workspace/api/auth';
+import { UsersModule } from '@task-manager-nx-workspace/api/users';
+import { RolesModule } from '@task-manager-nx-workspace/api/roles';
+import { TasksModule } from '@task-manager-nx-workspace/api/tasks';
+import { JwtAuthGuard } from '@task-manager-nx-workspace/api/auth/lib/guards/jwt-auth.guard';
+import { PermissionsGuard } from '@task-manager-nx-workspace/api/rbac/lib/guards/permissions.guard';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: [
-        `.env.${process.env.NODE_ENV || 'development'}`,
-        '.env',
-      ],
-    }),
-    DatabaseModule,
+    // 1. Foundation
+    CoreModule,
+    RolesModule,
     AuthModule,
-    TaskModule,
-    ActivityModule,
+    UsersModule,
+    TasksModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
+  ],
 })
 export class AppModule { }

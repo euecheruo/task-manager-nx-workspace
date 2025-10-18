@@ -17,15 +17,14 @@ import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/ta
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (envService: EnvironmentService) => {
-        const dbConfig = envService.get<any>('database');
 
         return ({
           type: 'postgres',
-          host: dbConfig.host,
-          port: dbConfig.port,
-          username: dbConfig.user,
-          password: dbConfig.password,
-          database: dbConfig.name,
+          host: envService.get<string>('POSTGRES_HOST'),
+          port: envService.get<number>('POSTGRES_PORT'),
+          username: envService.get<string>('POSTGRES_USER'),
+          password: envService.get<string>('POSTGRES_PASSWORD'),
+          database: envService.get<string>('POSTGRES_DB'),
 
           entities: [
             UserEntity, RefreshTokenEntity,
@@ -33,9 +32,8 @@ import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/ta
             UserRoleEntity, RolePermissionEntity,
             TaskEntity,
           ],
-          synchronize: dbConfig.synchronize,
-
-          logging: envService.isDevelopment(),
+          synchronize: envService.get<boolean>('DB_SYNCHRONIZE'),
+          logging: envService.isDevelopment() ? ['query', 'error'] : ['error'],
         });
       },
       inject: [EnvironmentService],

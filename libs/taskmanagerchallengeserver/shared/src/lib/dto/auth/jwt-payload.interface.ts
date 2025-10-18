@@ -1,15 +1,24 @@
 export interface JwtPayload {
   userId: number;
-  
+
   email: string;
+
+  roles: string[];
 
   permissions: string[];
 
-  iss?: string;
-  
-  sub?: string;
-  
-  exp?: number;
-  
   iat?: number;
+
+  exp?: number;
+}
+
+export interface UserRequestPayload {
+  userId: number;
+  email: string;
+  roles: string[];
+  permissions: string[];
+}
+
+export interface UserRequest extends Request {
+  user: UserRequestPayload;
 }

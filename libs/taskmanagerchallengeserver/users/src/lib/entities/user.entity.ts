@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { UserRoleEntity } from '@task-manager-nx-workspace/api/roles/lib/entities/user-role.entity';
-import { TaskEntity } from '../../tasks/entities/task.entity';
+import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/task.entity';
 
 @Entity('users')
 export class UserEntity {

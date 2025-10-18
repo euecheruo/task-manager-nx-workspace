@@ -1,12 +1,19 @@
 import { registerAs } from '@nestjs/config';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { EnvVars } from './validations/environment.validation';
 
-export const databaseConfig = registerAs('database', () => ({
-  type: 'postgres',
-  host: process.env.POSTGRES_HOST,
-  port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
-  username: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DATABASE,
-  synchronize: process.env.NODE_ENV !== 'production', 
-  logging: process.env.NODE_ENV === 'development',
-}));
+export default registerAs('database', (): TypeOrmModuleOptions => {
+  const env: EnvVars = process.env as any;
+
+  return {
+    type: 'postgres',
+    host: env.POSTGRES_HOST,
+    port: env.POSTGRES_PORT,
+    username: env.POSTGRES_USER,
+    password: env.POSTGRES_PASSWORD,
+    database: env.POSTGRES_DB,
+    entities: [__dirname + '/../../../data-access/src/lib/entities/*.entity.{js,ts}'],
+    synchronize: env.NODE_ENV === 'development',
+    logging: env.NODE_ENV === 'development' ? ['error', 'warn', 'schema'] : false,
+  };
+});

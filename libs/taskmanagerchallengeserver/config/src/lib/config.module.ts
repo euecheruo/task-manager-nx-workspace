@@ -1,16 +1,28 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule as NestConfigModule } from '@nestjs/config';
-import { databaseConfig } from './database.config';
-import { jwtConfig } from './jwt.config';
+import { Module, Global } from '@nestjs/common';
+import { ConfigModule as NestConfigModule } from '@nestjs/config'; // Renamed import to avoid conflict
 import { EnvironmentService } from './services/environment.service';
-import { validate } from './validations/environment.validation';
+import { environmentSchema } from './validations/environment.validation';
+import databaseConfig from './database.config';
+import jwtConfig from './jwt.config';
+import * as path from 'path';
 
+
+@Global()
 @Module({
   imports: [
     NestConfigModule.forRoot({
-      isGlobal: true,
+      envFilePath: [
+        process.env.NODE_ENV === 'production'
+          ? path.resolve(__dirname, '../../../../../apps/taskmanagerchallengeserver/.env.production')
+          : path.resolve(__dirname, '../../../../../apps/taskmanagerchallengeserver/.env.development'),
+      ],
       load: [databaseConfig, jwtConfig],
-      validate,
+      validationSchema: environmentSchema,
+      validationOptions: {
+        allowUnknown: false,
+        abortEarly: true,
+      },
+      isGlobal: true,
     }),
   ],
   providers: [EnvironmentService],
