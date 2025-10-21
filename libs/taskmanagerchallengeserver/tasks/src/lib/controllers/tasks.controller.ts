@@ -1,99 +1,119 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, HttpCode, HttpStatus, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  HttpCode,
+  HttpStatus,
+  ParseIntPipe
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { TasksService } from '../services/tasks.service';
+import { Permissions } from '@task-manager-nx-workspace/api/rbac/lib/decorators/permissions.decorator';
+import { User } from '@task-manager-nx-workspace/api/auth/lib/decorators/user.decorator';
+import { UserRequestPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request-payload.interface';
 import { TaskCreateDto } from '@task-manager-nx-workspace/api/shared/lib/dto/tasks/task-create.dto';
 import { TaskUpdateDto } from '@task-manager-nx-workspace/api/shared/lib/dto/tasks/task-update.dto';
-import { TaskData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/tasks/task-data.interface';
-import { PermissionsGuard } from '@task-manager-nx-workspace/api/rbac/lib/guards/permissions.guard';
-import { Permissions } from '@task-manager-nx-workspace/api/rbac/lib/decorators/permissions.decorator';
-import { UserRequest } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request.interface';
+import { TaskAssignDto } from '@task-manager-nx-workspace/api/shared/lib/dto/tasks/task-assign.dto';
+import { TaskResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/tasks/task-response.dto';
+import { TaskStatusDto } from '@task-manager-nx-workspace/api/shared/lib/dto/tasks/task-status.dto';
 
 @ApiTags('Tasks')
 @ApiBearerAuth()
-@UseGuards(PermissionsGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
 
-  @Post()
-  @Permissions('create:tasks')
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Create a new task (Editor only)' })
-  @ApiResponse({ status: 201, description: 'Task successfully created.' })
-  async create(@Body() createTaskDto: TaskCreateDto, @Req() req: UserRequest): Promise<TaskData> {
-    const userId = req.user.userId;
-    return this.tasksService.create(createTaskDto, userId);
-  }
-
   @Get()
+  @ApiOperation({ summary: 'Retrieve all tasks.' })
+  @ApiResponse({ status: 200, type: [TaskResponseDto] })
   @Permissions('read:tasks')
-  @ApiOperation({ summary: 'Retrieve all tasks (Editor/Viewer)' })
-  @ApiResponse({ status: 200, description: 'List of all tasks.' })
-  findAll(): Promise<TaskData[]> {
-    return this.tasksService.findAll();
+  findAll(): Promise<TaskResponseDto[]> {
+    return this.tasksService.findAllTasks();
   }
 
-  @Patch(':id/assign/:userId')
+  @Post()
+  @ApiOperation({ summary: 'Create a new task (Requires Editor role).' })
+  @ApiResponse({ status: 201, type: TaskResponseDto })
+  @HttpCode(HttpStatus.CREATED)
+  @Permissions('create:tasks')
+  create(
+    @Body() createTaskDto: TaskCreateDto,
+    @User() user: UserRequestPayload,
+  ): Promise<TaskResponseDto> {
+    return this.tasksService.createTask(createTaskDto, user.userId);
+  }
+
+  @Put(':taskId')
+  @ApiOperation({ summary: 'Update an existing task (Only creator/Editor role allowed).' })
+  @ApiResponse({ status: 200, type: TaskResponseDto })
+  @Permissions('update:own:tasks')
+  update(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @Body() updateTaskDto: TaskUpdateDto,
+    @User() user: UserRequestPayload,
+  ): Promise<TaskResponseDto> {
+    return this.tasksService.updateOwnTask(taskId, user.userId, updateTaskDto);
+  }
+
+  @Delete(':taskId')
+  @ApiOperation({ summary: 'Delete a task (Only creator/Editor role allowed).' })
+  @ApiResponse({ status: 204, description: 'Task successfully deleted.' })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Permissions('delete:own:tasks')
+  remove(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @User() user: UserRequestPayload,
+  ): Promise<void> {
+    return this.tasksService.deleteOwnTask(taskId, user.userId);
+  }
+
+  @Patch(':taskId/assign')
+  @ApiOperation({ summary: 'Assign an **unassigned** task to a user.' })
+  @ApiResponse({ status: 200, type: TaskResponseDto })
   @Permissions('assign:tasks')
-  @ApiOperation({ summary: 'Assign an unassigned task to a user (Editor/Viewer)' })
-  @ApiResponse({ status: 200, description: 'Task successfully assigned.' })
-  @ApiResponse({ status: 404, description: 'Task or User not found.' })
-  async assignTask(
-    @Param('id', ParseIntPipe) taskId: number,
-    @Param('userId', ParseIntPipe) assignedUserId: number
-  ): Promise<TaskData> {
-    return this.tasksService.assignTask(taskId, assignedUserId);
+  assign(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @Body() assignTaskDto: TaskAssignDto,
+  ): Promise<TaskResponseDto> {
+    return this.tasksService.assignTask(taskId, assignTaskDto.assignedUserId);
   }
 
-  @Patch(':id/unassign')
+  @Patch(':taskId/unassign')
+  @ApiOperation({ summary: 'Unassign any assigned task from any user.' })
+  @ApiResponse({ status: 200, type: TaskResponseDto })
   @Permissions('unassign:tasks')
-  @ApiOperation({ summary: 'Unassign an assigned task (Editor/Viewer)' })
-  @ApiResponse({ status: 200, description: 'Task successfully unassigned.' })
-  @ApiResponse({ status: 404, description: 'Task not found.' })
-  async unassignTask(@Param('id', ParseIntPipe) taskId: number): Promise<TaskData> {
+  unassign(
+    @Param('taskId', ParseIntPipe) taskId: number,
+  ): Promise<TaskResponseDto> {
     return this.tasksService.unassignTask(taskId);
   }
 
-  @Patch(':id/complete')
+  @Patch(':taskId/complete')
+  @ApiOperation({ summary: 'Mark an assigned task as completed (Only for the assigned user).' })
+  @ApiResponse({ status: 200, type: TaskResponseDto })
   @Permissions('mark:assigned:tasks')
-  @ApiOperation({ summary: 'Mark an assigned task as completed (Editor/Viewer, self-assigned)' })
-  @ApiResponse({ status: 200, description: 'Task marked completed.' })
-  async markComplete(@Param('id', ParseIntPipe) taskId: number, @Req() req: UserRequest): Promise<TaskData> {
-    const userId = req.user.userId;
-    return this.tasksService.markAsCompleted(taskId, userId);
+  markComplete(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @Body() statusDto: TaskStatusDto,
+    @User() user: UserRequestPayload,
+  ): Promise<TaskResponseDto> {
+    return this.tasksService.markTaskCompleted(taskId, user.userId, statusDto);
   }
 
-  @Patch(':id/incomplete')
+  @Patch(':taskId/incomplete')
+  @ApiOperation({ summary: 'Unmark a completed task as incomplete (Only for the assigned user).' })
+  @ApiResponse({ status: 200, type: TaskResponseDto })
   @Permissions('unmark:assigned:tasks')
-  @ApiOperation({ summary: 'Mark a completed task as incomplete (Editor/Viewer, self-assigned)' })
-  @ApiResponse({ status: 200, description: 'Task marked incomplete.' })
-  async markIncomplete(@Param('id', ParseIntPipe) taskId: number, @Req() req: UserRequest): Promise<TaskData> {
-    const userId = req.user.userId;
-    return this.tasksService.markAsIncomplete(taskId, userId);
-  }
-
-  @Patch(':id')
-  @Permissions('update:own:tasks')
-  @ApiOperation({ summary: 'Update own task (Editor only, creator-check in service)' })
-  @ApiResponse({ status: 200, description: 'Task successfully updated.' })
-  @ApiResponse({ status: 403, description: 'Forbidden: Not the task creator.' })
-  async update(
-    @Param('id', ParseIntPipe) taskId: number,
-    @Body() updateTaskDto: TaskUpdateDto,
-    @Req() req: UserRequest
-  ): Promise<TaskData> {
-    const userId = req.user.userId;
-    return this.tasksService.update(taskId, userId, updateTaskDto);
-  }
-
-  @Delete(':id')
-  @Permissions('delete:own:tasks')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiOperation({ summary: 'Delete own task (Editor only, creator-check in service)' })
-  @ApiResponse({ status: 204, description: 'Task successfully deleted.' })
-  @ApiResponse({ status: 403, description: 'Forbidden: Not the task creator.' })
-  async remove(@Param('id', ParseIntPipe) taskId: number, @Req() req: UserRequest): Promise<void> {
-    const userId = req.user.userId;
-    return this.tasksService.remove(taskId, userId);
+  markIncomplete(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @Body() statusDto: TaskStatusDto,
+    @User() user: UserRequestPayload,
+  ): Promise<TaskResponseDto> {
+    return this.tasksService.markTaskIncomplete(taskId, user.userId, statusDto);
   }
 }

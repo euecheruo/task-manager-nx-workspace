@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PermissionsGuard } from './guards/permissions.guard';
-import { CoreModule } from '../core/core.module'; // Assuming core module is where utilities might live
+import { CoreModule } from '@task-manager-nx-workspace/api/core';
 
 @Module({
   imports: [CoreModule],

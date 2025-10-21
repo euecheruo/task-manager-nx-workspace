@@ -69,7 +69,7 @@
       "@task-manager-nx-workspace/client/data-access/models/*": [
         "libs/taskmanagerchallengeapp/data-access/models/src/*"
       ],
-      "@task-manager-nx-workspace/core": [
+      "@task-manager-nx-workspace/api/core": [
         "libs/taskmanagerchallengeserver/core/src/index.ts"
       ],
       "@task-manager-nx-workspace/api/tasks": [

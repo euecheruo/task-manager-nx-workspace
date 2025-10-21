@@ -1,39 +1,26 @@
-import { Controller, Get, Body, Patch, UseGuards, Req, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from '../services/users.service';
-import { PermissionsGuard } from '@task-manager-nx-workspace/api/rbac/lib/guards/permissions.guard';
-import { Permissions } from '@task-manager-nx-workspace/api/rbac/lib/decorators/permissions.decorator';
-import { UserRequest } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request.interface';
+import { User } from '@task-manager-nx-workspace/api/auth/lib/decorators/user.decorator';
+import { UserRequestPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request-payload.interface';
+import { UserResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-response.dto';
 import { UserProfileDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-profile.dto';
-import { UserUpdateDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-update.dto';
+import { Permissions } from '@task-manager-nx-workspace/api/rbac/lib/decorators/permissions.decorator';
 
-@ApiTags('Users (Profile)')
+@ApiTags('users')
 @ApiBearerAuth()
-@UseGuards(PermissionsGuard) // Apply permissions check
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private usersService: UsersService) { }
 
   @Get('profile')
   @Permissions('read:own:accounts')
-  @ApiOperation({ summary: 'Retrieve the authenticated user’s profile, roles, and permissions.' })
-  @ApiResponse({ status: 200, type: UserProfileDto, description: 'User profile data with RBAC details.' })
-  async getProfile(@Req() req: UserRequest): Promise<UserProfileDto> {
-    const userId = req.user.userId;
-    return this.usersService.findProfileById(userId);
-  }
-
-  @Patch('profile')
-  @Permissions('update:own:accounts')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Update the authenticated user’s own password, requiring current password verification.' })
-  @ApiResponse({ status: 200, type: UserProfileDto, description: 'Updated user profile data.' })
-  @ApiResponse({ status: 403, description: 'Forbidden: Invalid current password.' })
-  async updateProfile(
-    @Req() req: UserRequest,
-    @Body() userUpdateDto: UserUpdateDto
+  @ApiOperation({ summary: 'Get the profile of the current authenticated user.' })
+  @ApiResponse({ status: 200, type: UserResponseDto, description: 'User profile retrieved successfully.' })
+  @ApiResponse({ status: 403, description: 'Forbidden resource.' })
+  async getProfile(
+    @User() user: UserRequestPayload,
   ): Promise<UserProfileDto> {
-    const userId = req.user.userId;
-    return this.usersService.update(userId, userUpdateDto);
+    return { email: user.email } as UserProfileDto;
   }
 }

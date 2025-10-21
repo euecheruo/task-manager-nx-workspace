@@ -1,142 +1,139 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { RoleEntity } from '../entities/role.entity'; // Updated path assumption
-import { PermissionEntity } from '../entities/permission.entity';
-import { UserRoleEntity } from '../entities/user-role.entity';
-import { RolePermissionEntity } from '../entities/role-permission.entity';
-import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { RoleRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/role.repository';
+import { PermissionRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/permission.repository';
+import { UserRoleRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/user-role.repository';
+import { UserEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user.entity';
+import { RolePermissionRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/role-permission.repository';
 
-interface UserAuthorizationData {
-  roles: string[];
-  permissions: string[];
-}
+export const CORE_PERMISSIONS = {
+  CREATE_TASKS: 'create:tasks',
+  READ_TASKS: 'read:tasks',
+  ASSIGN_TASKS: 'assign:tasks',
+  UPDATE_OWN_TASKS: 'update:own:tasks',
+  DELETE_OWN_TASKS: 'delete:own:tasks',
+  UNASSIGN_TASKS: 'unassign:tasks',
+  MARK_ASSIGNED_TASKS: 'mark:assigned:tasks',
+  UNMARK_ASSIGNED_TASKS: 'unmark:assigned:tasks',
+  CREATE_ACCOUNTS: 'create:accounts',
+  UPDATE_OWN_ACCOUNTS: 'update:own:accounts',
+  READ_OWN_ACCOUNTS: 'read:own:accounts',
+};
+
+const ROLE_PERMISSIONS_MAP = {
+  editor: [
+    CORE_PERMISSIONS.CREATE_TASKS,
+    CORE_PERMISSIONS.READ_TASKS,
+    CORE_PERMISSIONS.ASSIGN_TASKS,
+    CORE_PERMISSIONS.UPDATE_OWN_TASKS,
+    CORE_PERMISSIONS.DELETE_OWN_TASKS,
+    CORE_PERMISSIONS.UNASSIGN_TASKS,
+    CORE_PERMISSIONS.MARK_ASSIGNED_TASKS,
+    CORE_PERMISSIONS.UNMARK_ASSIGNED_TASKS,
+    CORE_PERMISSIONS.CREATE_ACCOUNTS,
+    CORE_PERMISSIONS.UPDATE_OWN_ACCOUNTS,
+    CORE_PERMISSIONS.READ_OWN_ACCOUNTS,
+  ],
+  viewer: [
+    CORE_PERMISSIONS.READ_TASKS,
+    CORE_PERMISSIONS.ASSIGN_TASKS,
+    CORE_PERMISSIONS.UNASSIGN_TASKS,
+    CORE_PERMISSIONS.MARK_ASSIGNED_TASKS,
+    CORE_PERMISSIONS.UNMARK_ASSIGNED_TASKS,
+    CORE_PERMISSIONS.CREATE_ACCOUNTS,
+    CORE_PERMISSIONS.UPDATE_OWN_ACCOUNTS,
+    CORE_PERMISSIONS.READ_OWN_ACCOUNTS,
+  ],
+};
+
+const DEFAULT_USER_ROLE = 'viewer';
 
 @Injectable()
-export class RolesService {
-  private readonly DEFAULT_ROLE_NAME = 'viewer';
+export class RolesService implements OnModuleInit {
+  private readonly logger = new Logger(RolesService.name);
 
   constructor(
-    @InjectRepository(RoleEntity)
-    private rolesRepository: Repository<RoleEntity>,
-    @InjectRepository(UserRoleEntity)
-    private userRolesRepository: Repository<UserRoleEntity>,
-    @InjectRepository(PermissionEntity)
-    private permissionRepository: Repository<PermissionEntity>,
-    @InjectRepository(RolePermissionEntity)
-    private rolePermissionRepository: Repository<RolePermissionEntity>,
-    private envService: EnvironmentService,
+    private readonly roleRepository: RoleRepository,
+    private readonly permissionRepository: PermissionRepository,
+    private readonly userRoleRepository: UserRoleRepository,
+    private readonly rolePermissionRepository: RolePermissionRepository,
   ) { }
 
-  async getRolesAndPermissionsForUser(userId: number): Promise<UserAuthorizationData> {
-    try {
-      const rolesResult = await this.rolesRepository.createQueryBuilder('role')
-        .innerJoin('role.userRoles', 'ur')
-        .where('ur.userId = :userId', { userId })
-        .select('role.roleId', 'roleId')
-        .addSelect('role.roleName', 'roleName')
-        .getRawMany();
+  async onModuleInit() {
+    await this.seedRolesAndPermissions();
+  }
 
-      const roleNames = rolesResult.map(r => r.roleName);
-      const roleIds = rolesResult.map(r => r.roleId);
+  private async seedRolesAndPermissions(): Promise<void> {
+    const permissionsToSeed = Object.values(CORE_PERMISSIONS);
 
-      if (roleIds.length === 0) {
-        return { roles: [], permissions: [] };
+    const existingPermissions = await this.permissionRepository.find();
+    const existingPermissionNames = new Set(existingPermissions.map(p => p.name));
+
+    for (const permName of permissionsToSeed) {
+      if (!existingPermissionNames.has(permName)) {
+        await this.permissionRepository.save(this.permissionRepository.create({ name: permName }));
+      }
+    }
+    this.logger.log(`Permissions seeded/verified: ${permissionsToSeed.length} total.`);
+
+    const allPermissionEntities = await this.permissionRepository.find();
+    const permissionMap = new Map(allPermissionEntities.map(p => [p.name, p.permissionId]));
+
+    for (const [roleName, requiredPermissions] of Object.entries(ROLE_PERMISSIONS_MAP)) {
+      let role = await this.roleRepository.findOneByName(roleName);
+
+      if (!role) {
+        role = await this.roleRepository.save(this.roleRepository.create({ roleName }));
+        this.logger.log(`Role '${roleName}' created.`);
       }
 
-      const permissionRecords = await this.permissionRepository.createQueryBuilder('permission')
-        .innerJoin('permission.rolePermissions', 'rp')
-        .where('rp.roleId IN (:...roleIds)', { roleIds })
-        .select('permission.permissionName', 'permissionName')
-        .distinct(true)
-        .getRawMany();
+      for (const permName of requiredPermissions) {
+        const permissionId = permissionMap.get(permName);
+        if (permissionId) {
+          const linkExists = await this.rolePermissionRepository.findOne({
+            where: { roleId: role.roleId, permissionId: permissionId }
+          });
 
-      const permissionNames = permissionRecords.map(p => p.permissionName);
-
-      return {
-        roles: roleNames,
-        permissions: permissionNames,
-      };
-    } catch (error) {
-      console.error(`Error fetching RBAC data for user ${userId}:`, error);
-      throw new InternalServerErrorException('Failed to retrieve user authorization data.');
+          if (!linkExists) {
+            await this.rolePermissionRepository.save(
+              this.rolePermissionRepository.create({ roleId: role.roleId, permissionId })
+            );
+            this.logger.log(`Permission '${permName}' linked to Role '${roleName}'.`);
+          }
+        }
+      }
     }
   }
 
-  async assignDefaultRoleToUser(userId: number): Promise<void> {
-    const defaultRole = await this.rolesRepository.findOne({
-      where: { roleName: this.DEFAULT_ROLE_NAME },
-    });
+  async findRoleByName(roleName: string) {
+    return this.roleRepository.findOneByName(roleName);
+  }
+
+  async assignDefaultRoleToUser(user: UserEntity): Promise<void> {
+    const defaultRole = await this.roleRepository.findOneByName(DEFAULT_USER_ROLE);
 
     if (!defaultRole) {
-      throw new NotFoundException(`Default role '${this.DEFAULT_ROLE_NAME}' not found. Database seeding required.`);
+      this.logger.error(`Default role '${DEFAULT_USER_ROLE}' not found during user signup.`);
+      throw new Error(`Default role '${DEFAULT_USER_ROLE}' not found.`);
     }
 
-    try {
-      const userRole = this.userRolesRepository.create({
-        userId: userId,
-        roleId: defaultRole.roleId,
-      });
-      await this.userRolesRepository.save(userRole);
-    } catch (error) {
-      if (error.code !== '23505') {
-        console.error(`Error assigning default role to user ${userId}:`, error);
-        throw new InternalServerErrorException('Failed to assign default role.');
-      }
-    }
+    await this.userRoleRepository.assignRoleToUser(user.userId, defaultRole.roleId);
   }
 
-  async getPermissionsByUserId(userId: number): Promise<string[]> {
-    const { permissions } = await this.getRolesAndPermissionsForUser(userId);
-    return permissions;
-  }
-
-  async getPermissionsByRoleName(roleName: string): Promise<string[]> {
-    const role = await this.rolesRepository.findOne({ where: { roleName } });
-    if (!role) {
-      throw new NotFoundException(`Role '${roleName}' not found.`);
-    }
-    const roleId = role.roleId;
-
-    const permissionRecords = await this.permissionRepository.createQueryBuilder('permission')
-      .innerJoin('permission.rolePermissions', 'rp')
-      .where('rp.roleId = :roleId', { roleId })
-      .select('permission.permissionName', 'permissionName')
-      .distinct(true)
-      .getRawMany();
-
-    return permissionRecords.map(p => p.permissionName);
-  }
-
-  async assignRoleToUser(userId: number, roleName: string): Promise<void> {
-    const role = await this.rolesRepository.findOne({ where: { roleName } });
-    if (!role) {
-      throw new NotFoundException(`Role '${roleName}' not found for assignment.`);
-    }
-    const userRole = this.userRolesRepository.create({
-      userId,
-      roleId: role.roleId,
-    });
-
-    await this.userRolesRepository.save(userRole);
-  }
-
-  getRefreshTokenExpirationMilliseconds(expirationString: string): number {
-    const match = expirationString.match(/^(\d+)([h|d])$/);
+  getRefreshTokenExpirationMilliseconds(expiresIn: string): number {
+    const match = expiresIn.match(/^(\d+)([smhd])$/);
     if (!match) {
-      return 7 * 24 * 60 * 60 * 1000;
+      this.logger.error(`Invalid JWT_REFRESH_EXPIRATION format: ${expiresIn}`);
+      throw new Error('Invalid JWT refresh expiration format.');
     }
     const value = parseInt(match[1], 10);
     const unit = match[2];
 
     switch (unit) {
-      case 'h': 
-        return value * 60 * 60 * 1000;
-      case 'd': 
-        return value * 24 * 60 * 60 * 1000;
-      default:
-        return 7 * 24 * 60 * 60 * 1000;
+      case 's': return value * 1000;
+      case 'm': return value * 60 * 1000;
+      case 'h': return value * 60 * 60 * 1000;
+      case 'd': return value * 24 * 60 * 60 * 1000;
+      default: return 0;
     }
   }
-
 }

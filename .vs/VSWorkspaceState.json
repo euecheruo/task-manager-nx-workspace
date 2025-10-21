@@ -3,15 +3,9 @@
     "",
     "\\libs",
     "\\libs\\taskmanagerchallengeserver",
-    "\\libs\\taskmanagerchallengeserver\\auth",
-    "\\libs\\taskmanagerchallengeserver\\auth\\src",
-    "\\libs\\taskmanagerchallengeserver\\auth\\src\\lib",
     "\\libs\\taskmanagerchallengeserver\\shared",
     "\\libs\\taskmanagerchallengeserver\\shared\\src",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\lib",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\dto",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\dto\\auth"
+    "\\libs\\taskmanagerchallengeserver\\shared\\src\\lib"
   ],
-  "SelectedNode": "\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\refresh-jwt.strategy.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -5,15 +5,22 @@ import * as crypto from 'crypto';
 import { UsersService } from '@task-manager-nx-workspace/api/users/lib/services/users.service';
 import { RolesService } from '@task-manager-nx-workspace/api/roles/lib/services/roles.service';
 import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
-import { SignUpDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/sign-up.dto';
 import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface';
 import { JwtPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/jwt-payload.interface';
 import { TokenResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-response.dto';
+import { LogInDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/log-in.dto';
 import { TokenRefreshDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-refresh.dto';
+
+interface UserProfileForTokens {
+  userId: number;
+  email: string;
+  roles: { roleName: string }[];
+  permissions: string[];
+}
 
 @Injectable()
 export class AuthService {
-  private readonly REFRESH_TOKEN_BYTES = 32; // 256-bit token for security
+  private readonly REFRESH_TOKEN_BYTES = 32;
 
   constructor(
     private usersService: UsersService,
@@ -33,33 +40,32 @@ export class AuthService {
           userId: user.userId,
           email: user.email,
           createdAt: user.createdAt,
-        };
+        } as UserData;
       }
     }
     return null;
   }
 
-  private async getTokens(userData: any): Promise<any> { // Using 'any' for brevity, replace with DTO/Interface
+  private async getTokens(userData: UserData): Promise<TokenResponseDto> {
     const { userId } = userData;
-    const userProfile = await this.usersService.findProfileById(userId);
+    const userProfile = await this.usersService.findProfileById(userId) as UserProfileForTokens | null;
 
-    const accessPayload: JwtPayload = { // Replace with actual JwtPayload fields
+    if (!userProfile) {
+      throw new UnauthorizedException('User profile not found. Account may be inactive or deleted.');
+    }
+
+    const accessPayload: JwtPayload = {
       userId: userProfile.userId,
       email: userProfile.email,
-      roles: userProfile.roles,
+      roles: userProfile.roles.map(r => r.roleName),
       permissions: userProfile.permissions,
     };
 
-    // FIX: Remove manual secret and expiresIn options. 
-    // This allows jwtService.sign(payload) to use the default options 
-    // set up in the JwtModule (via jwtAccessConfigFactory), fixing the overload error.
     const accessToken = this.jwtService.sign(accessPayload);
 
-    // 3. Create, Hash, and Store Refresh Token
     const refreshToken = crypto.randomBytes(this.REFRESH_TOKEN_BYTES).toString('hex');
     const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
 
-    // Use fixed RolesService function to parse expiration string (e.g., '30d')
     const expiresInStr = this.envService.get<string>('JWT_REFRESH_EXPIRATION');
     const expirationMs = this.rolesService.getRefreshTokenExpirationMilliseconds(expiresInStr);
     const expiresAt = new Date(Date.now() + expirationMs);
@@ -71,11 +77,17 @@ export class AuthService {
       refreshToken,
       expiresIn: expiresAt.getTime(),
       userId: userId,
-    };
+    } as TokenResponseDto;
   }
 
-  async signUp(signUpDto: SignUpDto): Promise<TokenResponseDto> {
-    const newUser = await this.usersService.create(signUpDto);
+  async signUp(signUpData: LogInDto): Promise<TokenResponseDto> {
+    const userExists = await this.usersService.userExistsByEmail(signUpData.email);
+
+    if (userExists) {
+      throw new BadRequestException('User with this email already exists.');
+    }
+
+    const newUser = await this.usersService.create(signUpData);
 
     return this.getTokens(newUser);
   }
@@ -84,14 +96,13 @@ export class AuthService {
     return this.getTokens(userData);
   }
 
-  async refreshToken(refreshTokenDto: TokenRefreshDto): Promise<TokenResponseDto> {
-    const { refreshToken } = refreshTokenDto;
+  async refreshToken(refreshTokenRequest: TokenRefreshDto): Promise<TokenResponseDto> {
+    const { refreshToken } = refreshTokenRequest;
 
     const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
-
     const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);
 
-    if (!tokenRecord) {
+    if (!tokenRecord || tokenRecord.isRevoked || tokenRecord.expiresAt < new Date()) {
       throw new UnauthorizedException('Invalid, revoked, or expired refresh token.');
     }
 
@@ -102,12 +113,11 @@ export class AuthService {
       email: tokenRecord.user.email,
       createdAt: tokenRecord.user.createdAt,
     });
-
     return newTokens;
   }
 
-  async logout(refreshTokenDto: TokenRefreshDto): Promise<void> {
-    const { refreshToken } = refreshTokenDto;
+  async logout(refreshTokenRequest: TokenRefreshDto): Promise<void> {
+    const { refreshToken } = refreshTokenRequest;
     const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
 
     const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);

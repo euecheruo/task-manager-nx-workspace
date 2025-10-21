@@ -23,6 +23,6 @@ export class RefreshTokenEntity {
   createdAt: Date;
 
   @ManyToOne(() => UserEntity, user => user.refreshTokens, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' }) // Specifies the foreign key column name
+  @JoinColumn({ name: 'user_id' }) 
   user: UserEntity;
 }

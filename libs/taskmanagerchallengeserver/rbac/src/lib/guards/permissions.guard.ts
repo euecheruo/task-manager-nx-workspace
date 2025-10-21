@@ -1,36 +1,33 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
-import { JwtPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/jwt-payload.interface';
-import { Permission } from '@task-manager-nx-workspace/api/shared/lib/types/permission.type';
+import { UserRequestPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request-payload.interface';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
   constructor(private reflector: Reflector) { }
 
   canActivate(context: ExecutionContext): boolean {
-    const requiredPermissions = this.reflector.getAllAndOverride<Permission[]>(PERMISSIONS_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredPermissions = this.reflector.getAllAndOverride<string[]>(
+      PERMISSIONS_KEY,
+      [context.getHandler(), context.getClass()],
+    );
 
-    if (!requiredPermissions || requiredPermissions.length === 0) {
+    if (!requiredPermissions) {
       return true;
     }
 
     const request = context.switchToHttp().getRequest();
-    const user: JwtPayload = request.user;
+    const user = request.user as UserRequestPayload;
 
-    if (!user || !user.permissions || user.permissions.length === 0) {
+    if (!user || !user.permissions) {
       return false;
     }
 
-    const userPermissions = new Set(user.permissions);
+    const userPermissions = user.permissions;
 
-    const hasRequiredPermissions = requiredPermissions.every(permission =>
-      userPermissions.has(permission)
+    return requiredPermissions.every((requiredPerm) =>
+      userPermissions.includes(requiredPerm),
     );
-
-    return hasRequiredPermissions;
   }
 }

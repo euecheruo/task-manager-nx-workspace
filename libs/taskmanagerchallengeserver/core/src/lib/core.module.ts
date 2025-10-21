@@ -2,13 +2,13 @@ import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@task-manager-nx-workspace/api/config';
 import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
-import { UserEntity } from '@task-manager-nx-workspace/api/users/lib/entities/user.entity';
-import { RefreshTokenEntity } from '@task-manager-nx-workspace/api/users/lib/entities/refresh-token.entity';
-import { RoleEntity } from '@task-manager-nx-workspace/api/roles/lib/entities/role.entity';
-import { PermissionEntity } from '@task-manager-nx-workspace/api/roles/lib/entities/permission.entity';
-import { UserRoleEntity } from '@task-manager-nx-workspace/api/roles/lib/entities/user-role.entity';
-import { RolePermissionEntity } from '@task-manager-nx-workspace/api/roles/lib/entities/role-permission.entity';
-import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/task.entity';
+import { UserEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user.entity';
+import { RefreshTokenEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/refresh-token.entity';
+import { RoleEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/role.entity';
+import { PermissionEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/permission.entity';
+import { UserRoleEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user-role.entity';
+import { RolePermissionEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/role-permission.entity';
+import { TaskEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/task.entity';
 
 @Global()
 @Module({
@@ -17,24 +17,23 @@ import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/ta
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (envService: EnvironmentService) => {
-
-        return ({
+        const dbConfig = envService.getDatabaseConfig();
+        const isDev = envService.isDevelopment();
+        return {
           type: 'postgres',
-          host: envService.get<string>('POSTGRES_HOST'),
-          port: envService.get<number>('POSTGRES_PORT'),
-          username: envService.get<string>('POSTGRES_USER'),
-          password: envService.get<string>('POSTGRES_PASSWORD'),
-          database: envService.get<string>('POSTGRES_DB'),
-
+          ...dbConfig,
           entities: [
-            UserEntity, RefreshTokenEntity,
-            RoleEntity, PermissionEntity,
-            UserRoleEntity, RolePermissionEntity,
+            UserEntity,
+            RefreshTokenEntity,
+            RoleEntity,
+            PermissionEntity,
+            UserRoleEntity,
+            RolePermissionEntity,
             TaskEntity,
           ],
-          synchronize: envService.get<boolean>('DB_SYNCHRONIZE'),
-          logging: envService.isDevelopment() ? ['query', 'error'] : ['error'],
-        });
+          synchronize: isDev,
+          logging: isDev ? ['query', 'error', 'schema'] : ['error'],
+        };
       },
       inject: [EnvironmentService],
     }),
@@ -42,4 +41,5 @@ import { TaskEntity } from '@task-manager-nx-workspace/api/tasks/lib/entities/ta
   providers: [],
   exports: [TypeOrmModule, ConfigModule],
 })
+
 export class CoreModule { }

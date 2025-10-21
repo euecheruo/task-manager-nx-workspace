@@ -1,5 +1,5 @@
-import { DataSource, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import { DataSource, Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
@@ -15,20 +15,15 @@ export class UserRepository extends Repository<UserEntity> {
     return count > 0;
   }
 
-  async findOneByEmailWithPassword(email: string): Promise<UserEntity | null> {
+  async findUserByEmailWithPassword(email: string): Promise<UserEntity | null> {
     return this.createQueryBuilder('user')
-      .where('user.email = :email', { email })
       .addSelect('user.passwordHash')
+      .where('user.email = :email', { email })
       .getOne();
   }
 
-  async findUserWithRolesAndPermissions(userId: number): Promise<UserEntity | null> {
-    return this.createQueryBuilder('user')
-      .leftJoinAndSelect('user.userRoles', 'userRole')
-      .leftJoinAndSelect('userRole.role', 'role')
-      .leftJoinAndSelect('role.rolePermissions', 'rolePermission')
-      .leftJoinAndSelect('rolePermission.permission', 'permission')
-      .where('user.userId = :userId', { userId })
-      .getOne();
+  async createUser(data: { email: string; passwordHash: string }): Promise<UserEntity> {
+    const newUser = this.create(data);
+    return this.save(newUser);
   }
 }

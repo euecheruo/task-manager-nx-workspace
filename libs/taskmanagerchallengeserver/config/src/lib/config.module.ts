@@ -1,31 +1,30 @@
 import { Module, Global } from '@nestjs/common';
-import { ConfigModule as NestConfigModule } from '@nestjs/config'; // Renamed import to avoid conflict
+import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { EnvironmentService } from './services/environment.service';
-import { environmentSchema } from './validations/environment.validation';
-import databaseConfig from './database.config';
-import jwtConfig from './jwt.config';
-import * as path from 'path';
-
+import { environmentValidationSchema } from './validations/environment.validation';
+import { databaseConfig } from './database.config';
+import { jwtConfig } from './jwt.config';
 
 @Global()
 @Module({
   imports: [
     NestConfigModule.forRoot({
-      envFilePath: [
-        process.env.NODE_ENV === 'production'
-          ? path.resolve(__dirname, '../../../../../apps/taskmanagerchallengeserver/.env.production')
-          : path.resolve(__dirname, '../../../../../apps/taskmanagerchallengeserver/.env.development'),
-      ],
+      isGlobal: true,
       load: [databaseConfig, jwtConfig],
-      validationSchema: environmentSchema,
+      envFilePath: [
+        `apps/taskmanagerchallengeserver/.env.${process.env.NODE_ENV}.local`,
+        `apps/taskmanagerchallengeserver/.env.${process.env.NODE_ENV}`,
+        'apps/taskmanagerchallengeserver/.env',
+      ],
+      validationSchema: environmentValidationSchema,
       validationOptions: {
         allowUnknown: false,
         abortEarly: true,
       },
-      isGlobal: true,
     }),
   ],
   providers: [EnvironmentService],
-  exports: [EnvironmentService],
+  exports: [NestConfigModule, EnvironmentService],
 })
+
 export class ConfigModule { }

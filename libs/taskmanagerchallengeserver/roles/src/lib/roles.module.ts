@@ -1,28 +1,32 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RoleEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/role.entity';
+import { PermissionEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/permission.entity';
+import { UserRoleEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user-role.entity';
+import { RolePermissionEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/role-permission.entity';
+import { RoleRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/role.repository';
+import { PermissionRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/permission.repository';
+import { UserRoleRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/user-role.repository';
+import { RolePermissionRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/role-permission.repository';
 import { RolesService } from './services/roles.service';
-import { RoleEntity } from './entities/role.entity';
-import { PermissionEntity } from './entities/permission.entity';
-import { RolePermissionEntity } from './entities/role-permission.entity';
-import { UserRoleEntity } from './entities/user-role.entity';
-import { RolesSeederService } from './services/roles-seeder.service';
-import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       RoleEntity,
       PermissionEntity,
-      RolePermissionEntity,
-      UserRoleEntity
+      UserRoleEntity,
+      RolePermissionEntity
     ]),
   ],
-  controllers: [],
   providers: [
     RolesService,
-    RolesSeederService,
-    EnvironmentService
+    RoleRepository,
+    PermissionRepository,
+    UserRoleRepository,
+    RolePermissionRepository,
   ],
   exports: [RolesService],
 })
+
 export class RolesModule { }

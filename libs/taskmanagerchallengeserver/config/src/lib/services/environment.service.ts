@@ -1,40 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvVars } from '../validations/environment.validation';
 
 @Injectable()
 export class EnvironmentService {
-  constructor(private configService: ConfigService<EnvVars, true>) { }
+  constructor(private configService: ConfigService) { }
 
-  public get<T>(key: keyof EnvVars): T {
-    return this.configService.get(key, { infer: true }) as T;
+  get<T>(key: string): T {
+    const value = this.configService.get<T>(key);
+    if (value === undefined) {
+      throw new Error(`Environment variable ${key} is not set.`);
+    }
+    return value;
   }
 
   getAppPort(): number {
-    return this.configService.get('APP_PORT');
-  }
-
-  isProduction(): boolean {
-    return this.configService.get('NODE_ENV') === 'production';
+    return this.get<number>('APP_PORT');
   }
 
   isDevelopment(): boolean {
-    return this.configService.get('NODE_ENV') === 'development';
+    return this.get<string>('NODE_ENV') === 'development';
   }
 
   getJwtAccessSecret(): string {
-    return this.configService.get('JWT_ACCESS_SECRET');
-  }
-
-  getJwtAccessExpiration(): string {
-    return this.configService.get('JWT_ACCESS_EXPIRATION');
+    return this.get<string>('JWT_ACCESS_SECRET');
   }
 
   getJwtRefreshSecret(): string {
-    return this.configService.get('JWT_REFRESH_SECRET');
+    return this.get<string>('JWT_REFRESH_SECRET');
+  }
+
+  getJwtAccessExpiration(): string {
+    return this.get<string>('JWT_ACCESS_EXPIRATION');
   }
 
   getJwtRefreshExpiration(): string {
-    return this.configService.get('JWT_REFRESH_EXPIRATION');
+    return this.get<string>('JWT_REFRESH_EXPIRATION');
+  }
+
+  getDatabaseConfig() {
+    return {
+      host: this.get<string>('POSTGRES_HOST'),
+      port: this.get<number>('POSTGRES_PORT'),
+      username: this.get<string>('POSTGRES_USER'),
+      password: this.get<string>('POSTGRES_PASSWORD'),
+      database: this.get<string>('POSTGRES_DB'),
+    };
   }
 }

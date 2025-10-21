@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
 import { UserEntity } from './entities/user.entity';
 import { RoleEntity } from './entities/role.entity';
 import { PermissionEntity } from './entities/permission.entity';
@@ -9,7 +8,6 @@ import { UserRoleEntity } from './entities/user-role.entity';
 import { RolePermissionEntity } from './entities/role-permission.entity';
 import { TaskEntity } from './entities/task.entity';
 import { RefreshTokenEntity } from './entities/refresh-token.entity';
-
 import { UserRepository } from './repositories/user.repository';
 import { RoleRepository } from './repositories/role.repository';
 import { RefreshTokenRepository } from './repositories/refresh-token.repository';

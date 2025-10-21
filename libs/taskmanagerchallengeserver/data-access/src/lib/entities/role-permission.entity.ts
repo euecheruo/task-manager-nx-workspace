@@ -1,31 +1,26 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  Unique,
-} from 'typeorm';
+import { Entity, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { PermissionEntity } from './permission.entity';
 
 @Entity('role_permissions')
-@Unique(['roleId', 'permissionId'])
 export class RolePermissionEntity {
-  @PrimaryGeneratedColumn({ name: 'role_permission_id' })
-  rolePermissionId: number;
-
-  @Column({ name: 'role_id', nullable: false })
+  @PrimaryColumn({ name: 'role_id' })
   roleId: number;
 
-  @Column({ name: 'permission_id', nullable: false })
+  @PrimaryColumn({ name: 'permission_id' })
   permissionId: number;
 
-  @ManyToOne(() => RoleEntity, (role) => role.rolePermissions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => RoleEntity, (role) => role.rolePermissions, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'role_id' })
   role: RoleEntity;
 
-  @ManyToOne(() => PermissionEntity, (permission) => permission.rolePermissions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => PermissionEntity, (permission) => permission.rolePermissions, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'permission_id' })
   permission: PermissionEntity;
 }

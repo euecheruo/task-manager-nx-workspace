@@ -1,4 +1,4 @@
-import { DataSource, Repository, LessThan } from 'typeorm';
+import { DataSource, Repository, MoreThan, LessThan } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { RefreshTokenEntity } from '../entities/refresh-token.entity';
 
@@ -17,17 +17,19 @@ export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {
       userId,
       tokenHash,
       expiresAt: expiresIn,
+      isRevoked: false,
     });
     return this.save(newToken);
   }
 
-  async findValidTokenByHash(tokenHash: string): Promise<RefreshTokenEntity | null> {
+  async findTokenByHashWithUser(tokenHash: string): Promise<RefreshTokenEntity | null> {
     return this.findOne({
       where: {
         tokenHash,
         isRevoked: false,
-        expiresAt: LessThan(new Date()), // Check for non-expired tokens
+        expiresAt: MoreThan(new Date()),
       },
+      relations: ['user'],
     });
   }
 
