@@ -1,26 +1,44 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, UseGuards, Logger, NotFoundException } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { User } from '@task-manager-nx-workspace/api/auth/lib/decorators/user.decorator';
-import { UserRequestPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/user-request-payload.interface';
-import { UserResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-response.dto';
-import { UserProfileDto } from '@task-manager-nx-workspace/api/shared/lib/dto/users/user-profile.dto';
-import { Permissions } from '@task-manager-nx-workspace/api/rbac/lib/decorators/permissions.decorator';
+import { JwtAuthGuard } from '../../../../auth/src/lib/guards/jwt-auth.guard';
+import { PermissionGuard } from '../../../../shared/src/lib/guards/permission.guard';
+import { CurrentUser } from '../../../../shared/src/lib/decorators/current-user.decorator';
+import { RequirePermission } from '../../../../shared/src/lib/decorators/permission.decorator';
 
-@ApiTags('users')
-@ApiBearerAuth()
+interface UserProfile {
+  userId: number; email: string; createdAt: Date;
+}
+
 @Controller('users')
 export class UsersController {
+  private readonly logger = new Logger(UsersController.name);
   constructor(private usersService: UsersService) { }
 
-  @Get('profile')
-  @Permissions('read:own:accounts')
-  @ApiOperation({ summary: 'Get the profile of the current authenticated user.' })
-  @ApiResponse({ status: 200, type: UserResponseDto, description: 'User profile retrieved successfully.' })
-  @ApiResponse({ status: 403, description: 'Forbidden resource.' })
-  async getProfile(
-    @User() user: UserRequestPayload,
-  ): Promise<UserProfileDto> {
-    return { email: user.email } as UserProfileDto;
+  /**
+   * Retrieves the authenticated user's profile details.
+   * Requires a valid JWT token and the 'read:own:accounts' permission.
+   * Expected status codes: 200, 401, 403, 500.
+   */
+  @Get('me')
+  @UseGuards(JwtAuthGuard, PermissionGuard)
+  @RequirePermission('read:own:accounts')
+  async getProfile(@CurrentUser() user: { userId: number }): Promise<UserProfile> {
+    this.logger.log(`Fetching profile for authenticated user ID: ${user.userId}`);
+    try {
+      const profile = await this.usersService.getProfile(user.userId);
+      this.logger.verbose(`Profile retrieved successfully for user ID: ${user.userId}`);
+      return profile;
+    } catch (error: unknown) {
+
+      if (error instanceof NotFoundException) {
+        this.logger.warn(`User ID ${user.userId} not found, despite valid token.`);
+        throw error;
+      }
+
+      const errorStack = error instanceof Error ? error.stack : undefined;
+
+      this.logger.error(`Error fetching profile for user ID ${user.userId}`, errorStack);
+      throw error;
+    }
   }
 }

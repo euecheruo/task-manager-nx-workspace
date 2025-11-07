@@ -1,129 +1,219 @@
-import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto';
-import { UsersService } from '@task-manager-nx-workspace/api/users/lib/services/users.service';
-import { RolesService } from '@task-manager-nx-workspace/api/roles/lib/services/roles.service';
-import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
-import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface';
-import { JwtPayload } from '@task-manager-nx-workspace/api/shared/lib/interfaces/auth/jwt-payload.interface';
-import { TokenResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-response.dto';
-import { LogInDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/log-in.dto';
-import { TokenRefreshDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-refresh.dto';
+import { UsersService } from '../../../../users/src/lib/services/users.service';
+import { RefreshTokensRepository } from '../repositories/refresh-tokens.repository';
+import { TokenResponseDto } from '../dtos/token-response.dto'; // Import DTO
+import { convertTimeStringToSeconds } from '../strategies/jwt.utils'; // Corrected relative path
 
-interface UserProfileForTokens {
-  userId: number;
-  email: string;
-  roles: { roleName: string }[];
-  permissions: string[];
+interface UserDetails {
+  userId: number;
+  email: string;
+  passwordHash: string;
+}
+
+interface UserProfileData {
+  userId: number;
+  email: string;
+}
+
+interface GeneratedTokens {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+
+interface TokenPayload {
+  userId: number;
+  email: string;
+  permissions: string;
 }
 
 @Injectable()
 export class AuthService {
-  private readonly REFRESH_TOKEN_BYTES = 32;
+  private readonly logger = new Logger(AuthService.name);
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+    private refreshTokensRepository: RefreshTokensRepository,
+  ) { }
 
-  constructor(
-    private usersService: UsersService,
-    private rolesService: RolesService,
-    private jwtService: JwtService,
-    private envService: EnvironmentService,
-  ) { }
+  /**
+   * Helper method to sign JWTs with standard claims (sub, aud, iss) and configuration.
+   * The expiresIn parameter is expected to be the duration in seconds (number).
+   * Note: This method is used by generateTokens and accepts the specific secret key required.
+   */
+  private async jwtServiceSignAsync<T>(
+    userId: number,
+    expiresIn: number,
+    secretKey: string,
+    payload?: T,
+  ): Promise<string> {
+    return await this.jwtService.signAsync(
+      {
+        sub: userId,
+        ...payload,
+      },
+      {
+        audience: this.configService.get<string>('JWT_TOKEN_AUDIENCE'),
+        issuer: this.configService.get<string>('JWT_TOKEN_ISSUER'),
+        secret: secretKey,
+        expiresIn,
+      },
+    );
+  }
 
-  async validateUser(email: string, password: string): Promise<UserData | null> {
-    const user = await this.usersService.findUserByEmailWithHash(email);
+  /**
+   * Validates user credentials (email and password). Used by LocalStrategy.
+   * @throws UnauthorizedException if credentials are invalid.
+   * @returns Minimal user object (userId, email) on success.
+   */
+  async validateUserCredentials(email: string, pass: string): Promise<UserProfileData> {
+    this.logger.debug(`Attempting credential validation for email: ${email}`);
 
-    if (user && user.passwordHash) {
-      const isMatch = await bcrypt.compare(password, user.passwordHash);
+    const user: UserDetails | null = await this.usersService.getByEmail(email);
 
-      if (isMatch) {
-        return {
-          userId: user.userId,
-          email: user.email,
-          createdAt: user.createdAt,
-        } as UserData;
-      }
-    }
-    return null;
-  }
+    if (!user || !(await bcrypt.compare(pass, user.passwordHash))) {
+      this.logger.warn(`Failed credential validation for email: ${email}`);
+      throw new UnauthorizedException('Invalid credentials.');
+    }
 
-  private async getTokens(userData: UserData): Promise<TokenResponseDto> {
-    const { userId } = userData;
-    const userProfile = await this.usersService.findProfileById(userId) as UserProfileForTokens | null;
+    return {
+      userId: user.userId,
+      email: user.email,
+    };
+  }
 
-    if (!userProfile) {
-      throw new UnauthorizedException('User profile not found. Account may be inactive or deleted.');
-    }
+  /**
+   * Validates user credentials, generates JWT pair (Access & Refresh),
+   * and securely stores the refresh token hash for session management.
+   * Returns the complete TokenResponseDto structure.
+   */
+  async login(email: string, pass: string): Promise<TokenResponseDto> {
+    const user: UserDetails | null = await this.usersService.getByEmail(email);
 
-    const accessPayload: JwtPayload = {
-      userId: userProfile.userId,
-      email: userProfile.email,
-      roles: userProfile.roles.map(r => r.roleName),
-      permissions: userProfile.permissions,
-    };
+    if (!user || !(await bcrypt.compare(pass, user.passwordHash))) {
+      this.logger.warn(`Failed login attempt for email: ${email}`);
+      throw new UnauthorizedException('Invalid credentials.');
+    }
 
-    const accessToken = this.jwtService.sign(accessPayload);
+    const permissions: string = await this.usersService.getPermissionsForUser(user.userId);
 
-    const refreshToken = crypto.randomBytes(this.REFRESH_TOKEN_BYTES).toString('hex');
-    const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+    const newTokens: GeneratedTokens = await this.generateTokens(
+      user.userId,
+      user.email,
+      permissions,
+    );
 
-    const expiresInStr = this.envService.get<string>('JWT_REFRESH_EXPIRATION');
-    const expirationMs = this.rolesService.getRefreshTokenExpirationMilliseconds(expiresInStr);
-    const expiresAt = new Date(Date.now() + expirationMs);
+    const refreshExpirationString = this.configService.get<string>('JWT_REFRESH_EXPIRATION');
+    const refreshExpirationSeconds = convertTimeStringToSeconds(refreshExpirationString);
+    const expiresAt = new Date();
+    expiresAt.setSeconds(expiresAt.getSeconds() + refreshExpirationSeconds);
 
-    await this.usersService.saveRefreshToken(userId, refreshTokenHash, expiresAt);
+    await this.refreshTokensRepository.createToken(
+      user.userId,
+      newTokens.refreshToken,
+      expiresAt,
+    );
+    this.logger.log(`User ${user.userId} logged in successfully and refresh token stored.`);
 
-    return {
-      accessToken,
-      refreshToken,
-      expiresIn: expiresAt.getTime(),
-      userId: userId,
-    } as TokenResponseDto;
-  }
+    return {
+      tokenType: 'Bearer',
+      accessToken: newTokens.accessToken,
+      refreshToken: newTokens.refreshToken,
+      expiresIn: newTokens.expiresIn,
+    };
+  }
 
-  async signUp(signUpData: LogInDto): Promise<TokenResponseDto> {
-    const userExists = await this.usersService.userExistsByEmail(signUpData.email);
+  /**
+   * Generates a new pair of Access and Refresh tokens, and returns the access token's expiration.
+   * Access Token contains the comprehensive list of user permissions for RBAC checks.
+   */
+  private async generateTokens(
+    userId: number,
+    email: string,
+    permissions: string,
+  ): Promise<GeneratedTokens> {
+    const accessPayload: TokenPayload = { userId, email, permissions };
+    const refreshPayload = { email };
 
-    if (userExists) {
-      throw new BadRequestException('User with this email already exists.');
-    }
+    const accessExpirationString = this.configService.get<string>('JWT_ACCESS_EXPIRATION') as string;
+    const refreshExpirationString = this.configService.get<string>('JWT_REFRESH_EXPIRATION') as string;
 
-    const newUser = await this.usersService.create(signUpData);
+    const accessSecret = this.configService.get<string>('JWT_ACCESS_SECRET') as string;
+    const refreshSecret = this.configService.get<string>('JWT_REFRESH_SECRET') as string;
 
-    return this.getTokens(newUser);
-  }
+    const accessExpiration = convertTimeStringToSeconds(accessExpirationString);
+    const refreshExpiration = convertTimeStringToSeconds(refreshExpirationString);
 
-  async login(userData: UserData): Promise<TokenResponseDto> {
-    return this.getTokens(userData);
-  }
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtServiceSignAsync(userId, accessExpiration, accessSecret, accessPayload),
+      this.jwtServiceSignAsync(userId, refreshExpiration, refreshSecret, refreshPayload),
+    ]);
 
-  async refreshToken(refreshTokenRequest: TokenRefreshDto): Promise<TokenResponseDto> {
-    const { refreshToken } = refreshTokenRequest;
+    return { accessToken, refreshToken, expiresIn: accessExpiration };
+  }
 
-    const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
-    const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);
+  /**
+   * Validates the old refresh token, revokes it, and issues a new token pair (rotation).
+   */
+  async refreshTokens(
+    userId: number,
+    currentRefreshToken: string,
+  ): Promise<TokenResponseDto> {
+    const isValidToken: boolean = await this.refreshTokensRepository.validateAndRevokeToken(
+      userId,
+      currentRefreshToken,
+    );
+    if (!isValidToken) {
+      this.logger.warn(
+        `Refresh token validation failed for user ${userId}. Token may be expired or revoked.`,
+      );
+      throw new ForbiddenException('Invalid or revoked refresh token.');
+    }
 
-    if (!tokenRecord || tokenRecord.isRevoked || tokenRecord.expiresAt < new Date()) {
-      throw new UnauthorizedException('Invalid, revoked, or expired refresh token.');
-    }
+    const user: UserProfileData | null = await this.usersService.getById(userId);
+    if (!user) {
+      this.logger.error(
+        `User profile not found during token refresh for user ID ${userId}.`,
+      );
+      throw new UnauthorizedException('User profile not found.');
+    }
+    const permissions: string = await this.usersService.getPermissionsForUser(user.userId);
 
-    await this.usersService.revokeRefreshToken(tokenRecord.tokenId);
+    const newTokens: GeneratedTokens = await this.generateTokens(
+      user.userId,
+      user.email,
+      permissions,
+    );
 
-    const newTokens = await this.getTokens({
-      userId: tokenRecord.userId,
-      email: tokenRecord.user.email,
-      createdAt: tokenRecord.user.createdAt,
-    });
-    return newTokens;
-  }
+    const refreshExpirationString = this.configService.get<string>('JWT_REFRESH_EXPIRATION');
+    const refreshExpirationSeconds = convertTimeStringToSeconds(refreshExpirationString);
+    const expiresAt = new Date();
+    expiresAt.setSeconds(expiresAt.getSeconds() + refreshExpirationSeconds);
 
-  async logout(refreshTokenRequest: TokenRefreshDto): Promise<void> {
-    const { refreshToken } = refreshTokenRequest;
-    const incomingTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+    await this.refreshTokensRepository.createToken(
+      userId,
+      newTokens.refreshToken,
+      expiresAt,
+    );
+    this.logger.log(`User ${userId} successfully rotated refresh token.`);
 
-    const tokenRecord = await this.usersService.findRefreshTokenByHash(incomingTokenHash);
+    return {
+      tokenType: 'Bearer',
+      accessToken: newTokens.accessToken,
+      refreshToken: newTokens.refreshToken,
+      expiresIn: newTokens.expiresIn,
+    };
+  }
 
-    if (tokenRecord) {
-      await this.usersService.revokeRefreshToken(tokenRecord.tokenId);
-    }
-  }
+  /**
+   * Revokes the user's persistent session by invalidating their refresh token(s).
+   */
+  async logout(userId: number): Promise<void> {
+    await this.refreshTokensRepository.revokeAllTokensForUser(userId);
+    this.logger.log(`User ${userId} successfully logged out and all refresh tokens revoked.`);
+  }
 }

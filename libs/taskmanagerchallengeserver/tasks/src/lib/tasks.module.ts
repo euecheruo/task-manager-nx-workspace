@@ -1,18 +1,26 @@
 import { Module } from '@nestjs/common';
-import { TasksService } from './services/tasks.service';
 import { TasksController } from './controllers/tasks.controller';
-import { DataAccessModule } from '@task-manager-nx-workspace/api/data-access';
-import { TaskRepository } from '@task-manager-nx-workspace/api/data-access/lib/repositories/task.repository';
-import { UsersModule } from '@task-manager-nx-workspace/api/users';
+import { TasksService } from './services/tasks.service';
+import { TasksRepository } from './repositories/tasks.repository';
+import { TaskOwnershipGuard } from './guards/task-ownership.guard';
+import { TaskAssignedToUserGuard } from './guards/task-assigned-to-user.guard';
+import { TaskAssignmentStateGuard } from './guards/task-assignment-state.guard';
+import { UsersModule } from '../../../users/src/lib/users.module';
 
 @Module({
   imports: [
-    DataAccessModule,
     UsersModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService, TaskRepository],
-  exports: [TasksService],
+  providers: [
+    TasksService,
+    TasksRepository,
+    TaskOwnershipGuard,
+    TaskAssignedToUserGuard,
+    TaskAssignmentStateGuard,
+  ],
+  exports: [
+    TasksService,
+  ],
 })
-
 export class TasksModule { }

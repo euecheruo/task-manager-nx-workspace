@@ -1,42 +1,49 @@
 import { Module, forwardRef } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { AuthService } from './services/auth.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
+import { RefreshTokensRepository } from './repositories/refresh-tokens.repository';
+import { UsersModule } from '../../../users/src/lib/users.module';
+import { DataAccessModule } from '../../../data-access/src/lib/data-access.module';
+import { convertTimeStringToSeconds } from './strategies/jwt.utils';
 import { LocalStrategy } from './strategies/local.strategy';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { RefreshJwtStrategy } from './strategies/refresh-jwt.strategy';
-import { UsersModule } from '@task-manager-nx-workspace/api/users';
-import { RolesModule } from '@task-manager-nx-workspace/api/roles';
-import { ConfigModule } from '@task-manager-nx-workspace/api/config';
+import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
+import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 
 @Module({
   imports: [
-    ConfigModule,
-    UsersModule,
-    RolesModule,
+    forwardRef(() => UsersModule),
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    DataAccessModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        const jwtConfig = configService.get('jwt');
-        return {
-          secret: jwtConfig.access.secret,
-          signOptions: { expiresIn: jwtConfig.access.expiresIn },
-        };
-      },
       inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_ACCESS_SECRET'),
+        signOptions: {
+          audience: config.get<string>('JWT_TOKEN_AUDIENCE'),
+          issuer: config.get<string>('JWT_TOKEN_ISSUER'),
+          expiresIn: convertTimeStringToSeconds(config.get<string>('JWT_ACCESS_EXPIRATION')),
+        },
+      }),
     }),
   ],
-  controllers: [AuthController],
+  controllers: [
+    AuthController,
+  ],
   providers: [
     AuthService,
+    RefreshTokensRepository,
     LocalStrategy,
-    JwtStrategy,
-    RefreshJwtStrategy,
+    JwtAccessStrategy,
+    JwtRefreshStrategy,
   ],
-  exports: [AuthService, JwtModule, PassportModule],
+  exports: [
+    AuthService,
+    JwtModule,
+    RefreshTokensRepository,
+  ],
 })
-
 export class AuthModule { }

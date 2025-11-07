@@ -1,51 +1,58 @@
-import { Controller, Post, Body, UseGuards, HttpCode, HttpStatus, Req } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, Body, UseGuards, Req, Logger, HttpStatus } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { SignUpDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/sign-up.dto';
-import { LogInDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/log-in.dto';
-import { TokenRefreshDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-refresh.dto';
-import { TokenResponseDto } from '@task-manager-nx-workspace/api/shared/lib/dto/auth/token-response.dto';
-import { UserData } from '@task-manager-nx-workspace/api/shared/lib/interfaces/users/user-data.interface'; 
+import { LoginDto } from '../dtos/login.dto';
+import { TokenResponseDto } from '../dtos/token-response.dto';
+import { RefreshTokenGuard } from '../guards/refresh-token.guard';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Request } from 'express';
+import { CurrentUser } from '../../../../shared/src/lib/decorators/current-user.decorator';
+interface JwtPayloadWithRt { userId: number; refreshToken: string; }
 
-@ApiTags('Authentication')
+
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  private readonly logger = new Logger(AuthController.name);
+  constructor(private authService: AuthService) { }
 
-  @Post('signup')
-  @ApiOperation({ summary: 'Register a new user account with email and password.' })
-  @ApiResponse({ status: 201, type: TokenResponseDto, description: 'User created successfully, returns access and refresh tokens.' })
-  @HttpCode(HttpStatus.CREATED)
-  async signUp(@Body() signUpDto: SignUpDto): Promise<TokenResponseDto> {
-    return this.authService.signUp(signUpDto);
-  }
-
+  /**
+   * Endpoint for user login. Public route.
+   * Expected status codes: 200 (Success), 500 (Internal Server Error)
+   */
   @Post('login')
-  @UseGuards(AuthGuard('local'))
-  @ApiOperation({ summary: 'Authenticate a user with email and password to receive tokens.' })
-  @ApiBody({ type: LogInDto, description: 'User credentials.' })
-  @ApiResponse({ status: 200, type: TokenResponseDto, description: 'Login successful, returns access and refresh tokens.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized due to invalid credentials.' })
-  @HttpCode(HttpStatus.OK)
-  async login(@Req() req: { user: UserData }): Promise<TokenResponseDto> {
-    return this.authService.login(req.user);
+  async login(@Body() loginDto: LoginDto): Promise<TokenResponseDto> {
+    const { email } = loginDto;
+    this.logger.log(`Attempting login for email: ${email}`);
+    const tokens = await this.authService.login(email, loginDto.password);
+    this.logger.verbose(`Login successful for email: ${email}`);
+    return tokens;
   }
 
+  /**
+   * Endpoint to refresh the access token using a valid refresh token.
+   * Protected by RefreshTokenGuard.
+   * Expected status codes: 200 (Success), 401 (Unauthorized), 500 (Internal Server Error)
+   */
+  @UseGuards(RefreshTokenGuard)
   @Post('refresh')
-  @ApiOperation({ summary: 'Use a refresh token to obtain a new access token and a new refresh token.' })
-  @ApiResponse({ status: 200, type: TokenResponseDto, description: 'Token rotation successful.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized due to invalid, revoked, or expired refresh token.' })
-  @HttpCode(HttpStatus.OK)
-  async refreshToken(@Body() refreshTokenDto: TokenRefreshDto): Promise<TokenResponseDto> {
-    return this.authService.refreshToken(refreshTokenDto);
+  async refreshTokens(@CurrentUser() user: JwtPayloadWithRt): Promise<TokenResponseDto> {
+    const { userId, refreshToken } = user;
+    this.logger.log(`Received refresh token request for user: ${userId}`);
+    const tokens = await this.authService.refreshTokens(userId, refreshToken);
+    this.logger.verbose(`Tokens refreshed successfully for user: ${userId}`);
+    return tokens;
   }
 
+  /**
+   * Endpoint to invalidate the refresh token/session.
+   * Protected by JwtAuthGuard (requires a valid access token for session context).
+   * Expected status codes: 200 (Success), 401 (Unauthorized), 500 (Internal Server Error)
+   */
+  @UseGuards(JwtAuthGuard)
   @Post('logout')
-  @ApiOperation({ summary: 'Revoke the current refresh token to end the session.' })
-  @ApiResponse({ status: 200, description: 'Logout successful (refresh token revoked).' })
-  @HttpCode(HttpStatus.OK)
-  async logout(@Body() refreshTokenDto: TokenRefreshDto): Promise<void> {
-    return this.authService.logout(refreshTokenDto);
+  async logout(@CurrentUser() user: { userId: number }): Promise<{ success: boolean }> {
+    this.logger.log(`Attempting logout for user: ${user.userId}`);
+    await this.authService.logout(user.userId);
+    this.logger.verbose(`Logout successful for user: ${user.userId}`);
+    return { success: true };
   }
 }

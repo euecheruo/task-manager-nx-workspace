@@ -1,9 +1,16 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { PermissionGuard } from './guards/permission.guard';
 
+@Global()
 @Module({
-  imports: [], 
-  providers: [], 
-  exports: [],
+  providers: [
+    Reflector,
+    PermissionGuard,
+  ],
+  exports: [
+    PermissionGuard,
+  ],
 })
 
-export class SharedModule {}
+export class SharedModule { }

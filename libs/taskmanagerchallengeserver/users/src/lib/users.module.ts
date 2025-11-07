@@ -1,18 +1,18 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './services/users.service';
+import { Module } from '@nestjs/common';
 import { UsersController } from './controllers/users.controller';
-import { UserEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/user.entity';
-import { RefreshTokenEntity } from '@task-manager-nx-workspace/api/data-access/lib/entities/refresh-token.entity';
-import { RolesModule } from '@task-manager-nx-workspace/api/roles/lib/roles.module';
+import { UsersService } from './services/users.service';
+import { UsersRepository } from './repositories/users.repository';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserEntity, RefreshTokenEntity]),
-    RolesModule,
-  ],
+  imports: [],
   controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService, TypeOrmModule],
+  providers: [
+    UsersService,
+    UsersRepository,
+  ],
+  exports: [
+    UsersService,
+    UsersRepository,
+  ],
 })
 export class UsersModule { }

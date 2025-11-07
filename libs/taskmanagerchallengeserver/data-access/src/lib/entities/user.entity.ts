@@ -1,39 +1,26 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  OneToMany,
-  Index
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index } from 'typeorm';
 import { RefreshTokenEntity } from './refresh-token.entity';
-import { UserRoleEntity } from './user-role.entity';
 import { TaskEntity } from './task.entity';
+import { UserRoleEntity } from './user-role.entity';
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn('increment', { name: 'user_id' })
+  @PrimaryGeneratedColumn({ name: 'user_id' })
   userId: number;
-
+  @Column({ type: 'varchar', length: 100, unique: true, nullable: false })
   @Index({ unique: true })
-  @Column({ unique: true, length: 100 })
   email: string;
-
-  @Column({ name: 'password_hash', length: 60, select: false })
+  @Column({ name: 'password_hash', type: 'char', length: 60, nullable: false })
   passwordHash: string;
-
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
+  @Column({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToMany(() => RefreshTokenEntity, refreshToken => refreshToken.user)
-  refreshTokens: RefreshTokenEntity[];
-
-  @OneToMany(() => UserRoleEntity, userRole => userRole.user)
-  userRoles: UserRoleEntity[];
-
   @OneToMany(() => TaskEntity, task => task.creator)
-  createdTasks: TaskEntity[];
-
+  createdTasks: TaskEntity;
   @OneToMany(() => TaskEntity, task => task.assignedUser)
-  assignedTasks: TaskEntity[];
+  assignedTasks: TaskEntity;
+  @OneToMany(() => RefreshTokenEntity, token => token.user)
+  refreshTokens: RefreshTokenEntity;
+  @OneToMany(() => UserRoleEntity, userRole => userRole.user)
+  userRoles: UserRoleEntity;
 }
