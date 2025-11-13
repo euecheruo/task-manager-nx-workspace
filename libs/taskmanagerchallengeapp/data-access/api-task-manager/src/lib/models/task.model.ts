@@ -1,22 +1,16 @@
-// /workspace-root/libs/app/data-access/api-task-manager/lib/models/task.model.ts
-
 import { UserProfileResponse } from '../../../../../shared/util-auth/src/lib/models/user.model';
 
-// Task model representing the structure of a single task from the backend
 export interface Task {
   taskId: number;
   title: string;
   description: string;
   creatorId: number;
-  // Details of the task creator (fetched by the backend)
   creator: UserProfileResponse;
-  // Nullable ID for unassigned tasks
   assignedUserId: number | null;
-  // Details of the assigned user (will be null if assignedUserId is null)
   assignedUser: UserProfileResponse | null;
   isCompleted: boolean;
-  createdAt: string; // ISO date string
-  completedAt: string | null; // ISO date string or null
+  createdAt: string;
+  completedAt: string | null;
 }
 
 // DTO for task list response (used on Dashboard)

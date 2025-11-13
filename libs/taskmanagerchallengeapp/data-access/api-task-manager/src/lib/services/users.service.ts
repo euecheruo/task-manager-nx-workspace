@@ -1,5 +1,3 @@
-// UsersService in /workspace-root/libs/app/data-access/api-task-manager/lib/services/users.service.ts
-
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

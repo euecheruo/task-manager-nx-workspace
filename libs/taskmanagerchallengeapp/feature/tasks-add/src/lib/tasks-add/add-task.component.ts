@@ -1,5 +1,3 @@
-// AddTaskComponent in /workspace-root/libs/app/feature/tasks-add/lib/add-task.component.ts
-
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,13 +25,11 @@ export class AddTaskComponent implements OnInit {
   // Form state
   public title = signal<string>('');
   public description = signal<string>('');
-  // Assigned by default is null (unassigned)
   public assignedUserId = signal<number | null>(null);
 
-  // UI state
   public users: WritableSignal<UserProfileResponse[]> = signal([]);
-  public loading: WritableSignal<boolean> = signal(false); // For initial user fetch
-  public isSaving: WritableSignal<boolean> = signal(false); // For form submission
+  public loading: WritableSignal<boolean> = signal(false);
+  public isSaving: WritableSignal<boolean> = signal(false);
   public errorMessage: WritableSignal<string | null> = signal(null);
 
   ngOnInit(): void {
@@ -76,7 +72,7 @@ export class AddTaskComponent implements OnInit {
     ).subscribe({
       next: (task) => {
         this.logger.log(`Task created successfully with ID: ${task.taskId}.`);
-        this.router.navigate(['/dashboard']); // Redirect to dashboard
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.logger.error('Task creation failed.', err);

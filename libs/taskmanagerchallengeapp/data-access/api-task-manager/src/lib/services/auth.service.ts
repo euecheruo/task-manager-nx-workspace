@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/data-access/api-task-manager/0l0ib/services/auth.service.ts
-
 import { Injectable, computed, signal, inject, WritableSignal, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,7 +10,6 @@ import { LoggerService } from '../../../../../shared/util-logger/src/lib/service
  */
 function decodeJwtPayload(token: string): CurrentUserPayload | null {
   try {
-    // Check if token is null or undefined before splitting
     if (!token) {
       return null;
     }
@@ -20,7 +17,6 @@ function decodeJwtPayload(token: string): CurrentUserPayload | null {
     const decoded = atob(payload);
     return JSON.parse(decoded) as CurrentUserPayload;
   } catch (e) {
-    // Use logger for internal errors
     console.error('Failed to decode JWT payload:', e);
     return null;
   }
@@ -33,11 +29,8 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly logger = inject(LoggerService);
-  // NOTE: Assuming the proxy.conf.json routes /api to the NestJS backend on port 3000
   private readonly API_URL = '/api/auth';
 
-  // State Signals (Source of Truth)
-  // Store token retrieval logic here to avoid doing it outside the class body
   public accessToken: WritableSignal<string | null> = signal<string | null>(
     typeof localStorage !== 'undefined' ? localStorage.getItem('accessToken') : null
   );
@@ -45,10 +38,8 @@ export class AuthService {
     typeof localStorage !== 'undefined' ? localStorage.getItem('refreshToken') : null
   );
 
-  // Internal state to track ongoing refresh requests (used by Interceptor)
   public refreshInProgress = signal<boolean>(false);
 
-  // Derived/Computed Signals
   /**
    * Corrected type annotation to use Signal<T>. Decodes the access token payload for user data.
    */
@@ -73,9 +64,8 @@ export class AuthService {
   public userPermissions: Signal<string[]> = computed(() => {
     const permissionsString = this.currentUser()?.permissions;
     if (!permissionsString) {
-      return []; // Return an empty array if no permissions are present
+      return [];
     }
-    // Convert comma-separated string to array, filter out empty strings
     return permissionsString.split(',').map(p => p.trim()).filter(p => p.length > 0);
   });
 
@@ -128,16 +118,13 @@ export class AuthService {
   refreshTokens(): Observable<TokenResponse> {
     const currentRefreshToken = this.refreshTokenValue();
     if (!currentRefreshToken) {
-      // Force logout if no refresh token exists
       this.logout(false);
       return throwError(() => new Error('No refresh token available. Forced logout.'));
     }
 
-    // Indicate that a refresh is in progress
     this.refreshInProgress.set(true);
     this.logger.debug('Refresh token request initiated.');
 
-    // The interceptor will inject the refresh token as the Bearer token for this specific call.
     return this.http.post<TokenResponse>(`${this.API_URL}/refresh`, {}).pipe(
       tap((tokens) => {
         this.setTokens(tokens);
@@ -147,7 +134,7 @@ export class AuthService {
         this.logger.error('Token refresh failed.', err);
         this.clearTokens();
         this.refreshInProgress.set(false);
-        this.router.navigate(['/login']); // Redirect on failure
+        this.router.navigate(['/login']);
         return throwError(() => err);
       })
     );
@@ -159,7 +146,6 @@ export class AuthService {
   logout(callApi: boolean = true): void {
     this.logger.log('Initiating logout process.');
     if (callApi && this.isAuthenticated()) {
-      // Call backend to revoke refresh token
       this.http.post<any>(`${this.API_URL}/logout`, {})
         .pipe(
           tap(() => this.logger.log('Backend logout successful (token revoked).')),
@@ -169,11 +155,10 @@ export class AuthService {
           })
         )
         .subscribe({
-          // Next/Error/Complete: always clear tokens and navigate
           next: () => this.clearTokens(),
           error: () => this.clearTokens(),
           complete: () => {
-            this.clearTokens(); // Ensure it's cleared if complete without error
+            this.clearTokens();
             this.router.navigate(['/login']);
           },
         });
@@ -183,7 +168,6 @@ export class AuthService {
     }
   }
 
-  // Getter for the raw refresh token, needed by the TokenInterceptor
   public getRefreshToken(): string | null {
     return this.refreshTokenValue();
   }

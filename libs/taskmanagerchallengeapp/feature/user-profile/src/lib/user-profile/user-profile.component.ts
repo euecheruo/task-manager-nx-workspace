@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/user-profile/lib/user-profile.component.ts
-
 import { Component, inject, signal, OnInit, computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -17,13 +15,11 @@ import { catchError, of, finalize } from 'rxjs';
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent implements OnInit {
-  // Dependency Injection
   private readonly usersService = inject(UsersService);
   private readonly authService = inject(AuthService);
   private readonly logger = inject(LoggerService);
   private readonly router = inject(Router);
 
-  // Component State Signals
   public userProfile = signal<UserProfileResponse | null>(null);
   public isLoading = signal<boolean>(true);
   public errorMessage = signal<string | null>(null);
@@ -44,7 +40,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.logger.info('UserProfileComponent initialized. Loading profile.');
 
-    // Check if authenticated before attempting API call
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return;

@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/tasks-dashboard/lib/dashboard.component.ts
-
 import { Component, inject, signal, WritableSignal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +11,6 @@ import { Task, TaskListResponse, TaskFilterQuery } from '../../../../../data-acc
 import { UserProfileResponse } from '../../../../../shared/util-auth/src/lib/models/user.model';
 import { catchError, finalize, of, tap } from 'rxjs';
 
-// Initial state for task dashboard
 const INITIAL_TASK_STATE: TaskListResponse = {
   tasks: [],
   total: 0,
@@ -28,7 +25,6 @@ const INITIAL_TASK_STATE: TaskListResponse = {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  // EXPOSE JAVASCRIPT'S MATH OBJECT TO THE TEMPLATE for min/ceil calculations
   public Math = Math;
 
   private readonly taskService = inject(TasksService);
@@ -37,30 +33,26 @@ export class DashboardComponent implements OnInit {
   private readonly logger = inject(LoggerService);
   private readonly router = inject(Router);
 
-  // --- UI State Signals ---
   public taskState: WritableSignal<TaskListResponse> = signal(INITIAL_TASK_STATE);
   public isLoading: WritableSignal<boolean> = signal(false);
   public users: WritableSignal<UserProfileResponse[]> = signal([]);
   public errorMessage: WritableSignal<string | null> = signal(null);
 
-  // --- Filter State Signals ---
   public currentPage: WritableSignal<number> = signal(1);
   public tasksPerPage: WritableSignal<number> = signal(10);
   public filterStatus: WritableSignal<TaskFilterQuery['completionFilter']> = signal('all');
   public filterAssignment: WritableSignal<TaskFilterQuery['assignmentFilter']> = signal('assigned');
 
-  // --- Pagination Logic ---
   public totalPages = signal(0);
   public paginationRange = signal<number[]>([]);
 
-  // --- Utility Accessors ---
   public currentUser = this.authService.currentUser;
   public userPermissions = this.authService.userPermissions;
 
   ngOnInit(): void {
     this.logger.info('DashboardComponent initialized. Fetching data.');
     this.fetchTasks();
-    this.fetchUsers(); // Get list of users for assignment options
+    this.fetchUsers();
   }
 
   /**
@@ -73,7 +65,6 @@ export class DashboardComponent implements OnInit {
     const query: TaskFilterQuery = {
       page: this.currentPage(),
       limit: this.tasksPerPage(),
-      // Only include completion filter if assignment filter is not 'unassigned'
       completionFilter: this.filterAssignment() === 'unassigned' ? undefined : this.filterStatus(),
       assignmentFilter: this.filterAssignment(),
     };
@@ -118,7 +109,6 @@ export class DashboardComponent implements OnInit {
     const pages = Math.ceil(total / limit);
     this.totalPages.set(pages);
 
-    // Logic to create a pagination range with ellipsis (simplified)
     const range: number[] = [];
     const maxVisiblePages = 5;
     const startPage = Math.max(1, page - Math.floor(maxVisiblePages / 2));
@@ -128,10 +118,9 @@ export class DashboardComponent implements OnInit {
       range.push(i);
     }
 
-    // Simple ellipsis logic
     if (startPage > 1) {
       range.unshift(1);
-      if (startPage > 2) range.splice(1, 0, 0); // 0 is placeholder for ellipsis
+      if (startPage > 2) range.splice(1, 0, 0);
     }
     if (endPage < pages) {
       if (endPage < pages - 1) range.push(0);
@@ -167,12 +156,9 @@ export class DashboardComponent implements OnInit {
   onToggleCompletion(task: Task): void {
     const newCompletionStatus = !task.isCompleted;
 
-    // Determine required permission based on intended action
     const requiredPermission = newCompletionStatus ? 'mark:assigned:tasks' : 'unmark:assigned:tasks';
 
     if (!this.userPermissions().includes(requiredPermission)) {
-      // NOTE: This client-side check is technically redundant as the server performs the authoritative check, 
-      // but it provides a better UX by giving instant feedback.
       this.errorMessage.set(`Permission denied: You need '${requiredPermission}' to perform this action.`);
       this.logger.warn(`User tried to toggle completion without '${requiredPermission}'.`);
       return;
@@ -182,12 +168,11 @@ export class DashboardComponent implements OnInit {
       catchError((err) => {
       this.logger.error(`Failed to toggle completion for task ${task.taskId}.`, err);
       this.errorMessage.set(`Failed to change task status. Check if you are the assigned user and have permission.`);
-      this.fetchTasks(); // Re-fetch to revert the UI state to actual state
+      this.fetchTasks();
       return of(null);
     })
     ).subscribe((updatedTask) => {
       if (updatedTask) {
-        // Update the task list in place to reflect the change
         this.taskState.update(state => ({
           ...state,
           tasks: state.tasks.map(t => t.taskId === updatedTask.taskId ? updatedTask : t)
@@ -226,12 +211,10 @@ export class DashboardComponent implements OnInit {
     const assignedUserId = parseInt(selectElement.value, 10);
     if (isNaN(assignedUserId)) return;
 
-    // Client-side permission check (server will double-check state and permission)
     if (!this.userPermissions().includes('assign:tasks')) {
       this.errorMessage.set(`Permission denied: You need 'assign:tasks' permission.`);
       return;
     }
-    // The DTO property is `assignedUserId` for general updates in the backend.
     this.taskService.updateTask(task.taskId, { assignedUserId }).pipe(
       tap(() => this.logger.log(`Task ${task.taskId} assigned to user ${assignedUserId}.`)),
       catchError((err) => {
@@ -241,7 +224,7 @@ export class DashboardComponent implements OnInit {
       })
     ).subscribe((updatedTask) => {
       if (updatedTask) {
-        this.fetchTasks(); // Refresh the entire table 
+        this.fetchTasks();
       }
     });
   }
@@ -251,12 +234,10 @@ export class DashboardComponent implements OnInit {
    */
   onUnassignTask(task: Task): void {
     
-    // Client-side permission check
     if (!this.userPermissions().includes('unassign:tasks')) {
       this.errorMessage.set(`Permission denied: You need 'unassign:tasks' permission.`);
       return;
     }
-    // The DTO property is `assignedUserId` (set to null) for unassignment.
     this.taskService.updateTask(task.taskId, { assignedUserId: null }).pipe(
       tap(() => this.logger.log(`Task ${task.taskId} unassigned.`)),
       catchError((err) => {
@@ -266,7 +247,7 @@ export class DashboardComponent implements OnInit {
       })
     ).subscribe((updatedTask) => {
       if (updatedTask) {
-        this.fetchTasks(); // Refresh the entire table
+        this.fetchTasks();
       }
     });
   }

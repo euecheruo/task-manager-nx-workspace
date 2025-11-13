@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/data-access/api-task-manager/lib/services/tasks.service.ts
-
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -30,7 +28,6 @@ export class TasksService {
     Object.keys(query).forEach((key) => {
       const value = query[key as keyof TaskFilterQuery];
       if (value !== undefined && value !== null) {
-        // Ensure values are strings for HttpParams
         params = params.set(key, String(value));
       }
     });

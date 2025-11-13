@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/ui-layout/lib/main-layout/main-layout.component.ts
-
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,7 +16,6 @@ export class MainLayoutComponent {
   public readonly authService = inject(AuthService);
   private readonly logger = inject(LoggerService);
 
-  // Expose signals for template access
   public isAuthenticated = this.authService.isAuthenticated;
   public currentUser = this.authService.currentUser;
 

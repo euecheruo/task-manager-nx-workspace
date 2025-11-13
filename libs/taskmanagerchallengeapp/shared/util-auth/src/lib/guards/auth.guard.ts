@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/util-auth/lib/guards/auth.guard.ts
-
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../../../../data-access/api-task-manager/src/lib/services/auth.service';
@@ -22,6 +20,5 @@ export const AuthGuard: CanActivateFn = () => {
   }
 
   logger.warn('AuthGuard failed: User is not authenticated. Redirecting to login.');
-  // Redirect to the login page
   return router.createUrlTree(['/login']);
 };

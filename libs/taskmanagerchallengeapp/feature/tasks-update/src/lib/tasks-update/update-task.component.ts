@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/tasks-update/lib/update-task.component.ts
-
 import { ChangeDetectionStrategy, Component, OnInit, signal, inject, computed, WritableSignal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,32 +32,36 @@ export class UpdateTaskComponent implements OnInit {
   private readonly logger = inject(LoggerService);
   private readonly authService = inject(AuthService);
 
-  // --- State Signals ---
-  /** Stores the fetched task details */
+  /**
+   * Stores the fetched task details
+   */
   public taskDetails: WritableSignal<Task | null> = signal(null);
-  /** Stores the list of all users for assignment dropdown */
+  /**
+   * Stores the list of all users for assignment dropdown
+   */
   public users: WritableSignal<UserProfileResponse[]> = signal([]);
   public loading: WritableSignal<boolean> = signal(true);
   public isSaving: WritableSignal<boolean> = signal(false);
   public errorMessage: WritableSignal<string | null> = signal(null);
 
-  // --- Form Signals (Bind directly to ngModel in template) ---
   public taskId: WritableSignal<number | null> = signal(null);
   public title: WritableSignal<string> = signal('');
   public description: WritableSignal<string> = signal('');
   public isCompleted: WritableSignal<boolean> = signal(false);
   public assignedUserId: WritableSignal<number | null> = signal(null);
 
-  // --- Computed Signals for Authorization (ABAC) ---
   private currentUserId = computed(() => this.authService.currentUser()?.userId);
   private userPermissions = this.authService.userPermissions;
 
-  /** Checks if the current user is the creator of the task, used for core edit access. */
+  /**
+   * Checks if the current user is the creator of the task, used for core edit access.
+   */
   public isTaskCreator: Signal<boolean> = computed(() => {
     return this.taskDetails()?.creatorId === this.currentUserId();
   });
 
-  /** Determines if the user can edit core task fields (title/description/assignment). 
+  /**
+   * Determines if the user can edit core task fields (title/description/assignment). 
    * Rule: Must have 'update:own:tasks' permission AND be the creator (ABAC). 
    */
   public canEditCoreDetails: Signal<boolean> = computed(() => {
@@ -68,26 +70,24 @@ export class UpdateTaskComponent implements OnInit {
     return hasPermission && isCreator;
   });
 
-  /** Determines if the user can change the completion status.
+  /**
+   * Determines if the user can change the completion status.
    * Rule: Must be the assigned user AND have the necessary mark/unmark permission.
    */
   public canToggleCompletion: Signal<boolean> = computed(() => {
     const task = this.taskDetails();
     if (!task) return false;
 
-    // Must be assigned to the current user
     const isAssigned = task.assignedUserId === this.currentUserId();
 
     if (!isAssigned) return false;
 
-    // Must have the specific permission based on current completion state
     const requiredPermission = this.isCompleted() ? 'unmark:assigned:tasks' : 'mark:assigned:tasks';
     return this.userPermissions().includes(requiredPermission);
   });
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      // 1. Get the task ID from the route parameters
       switchMap(params => {
         const id = Number(params.get('id'));
         if (isNaN(id)) {
@@ -98,7 +98,6 @@ export class UpdateTaskComponent implements OnInit {
         this.taskId.set(id);
         this.logger.log(`Fetching task details for ID: ${id}`);
 
-        // 2. Fetch both task details and the list of users concurrently
         return forkJoin({
           task: this.tasksService.getTask(id).pipe(
             catchError(err => {
@@ -110,7 +109,6 @@ export class UpdateTaskComponent implements OnInit {
           users: this.usersService.getAllUsers().pipe(
             catchError(err => {
               this.logger.error('Error fetching users list.', err);
-              // Allow task details to load even if user list fails
               return of([]);
             })
           )
@@ -123,7 +121,6 @@ export class UpdateTaskComponent implements OnInit {
         this.users.set(result.users);
         this.initializeForm(result.task);
       } else if (result && !this.errorMessage()) {
-        // Handle case where task fetch failed but error message wasn't set (e.g., 404, 403)
         this.errorMessage.set('Task details could not be loaded.');
       }
     });
@@ -154,12 +151,10 @@ export class UpdateTaskComponent implements OnInit {
     const id = this.taskId();
     if (id === null) return;
 
-    // Only include fields that are part of the core update DTO
     const updateDto: UpdateTaskDto = {
       title: this.title(),
       description: this.description(),
       assignedUserId: this.assignedUserId(),
-      // isCompleted is included here, although primary toggle is handled by onCompletionToggle
       isCompleted: this.isCompleted()
     };
 
@@ -193,7 +188,6 @@ export class UpdateTaskComponent implements OnInit {
 
     if (!this.canToggleCompletion()) {
       this.errorMessage.set(`You do not have permission to mark this task as ${newStatus ? 'complete' : 'incomplete'}. You must be the assigned user and have the correct role.`);
-      // Revert the checkbox state if unauthorized
       this.isCompleted.set(!newStatus);
       return;
     }
@@ -201,13 +195,11 @@ export class UpdateTaskComponent implements OnInit {
     this.isSaving.set(true);
     const updateDto: UpdateTaskDto = { isCompleted: newStatus };
 
-    // Use the standard updateTask service call
     this.tasksService.updateTask(id, updateDto).pipe(
       finalize(() => this.isSaving.set(false)),
       catchError(err => {
         this.logger.error(`Failed to toggle task ${id} completion status`, err);
         this.errorMessage.set(`Status toggle failed: ${err.error?.message || 'Server error.'}`);
-        // Revert UI state if API call fails
         this.isCompleted.set(!newStatus);
         return of(null);
       })

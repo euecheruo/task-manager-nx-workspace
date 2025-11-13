@@ -1,12 +1,7 @@
-/* /workspace-root/apps/app/src/styles.css */
-
-/* This file is used for global styles and imports */
-
 body {
   background-color: #f4f7f6;
 }
 
-/* Ensure full height for layout responsiveness */
 html, body {
   height: 100%;
 }

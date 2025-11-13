@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/util-logger/lib/services/logger.service.ts
-
 import { Injectable, isDevMode } from '@angular/core';
 import { LogLevel, LogEntry } from '../models/log.model';
 
@@ -28,18 +26,15 @@ export class LoggerService {
       optionalParams,
     };
 
-    // Store in history
     this.logHistory.push(logEntry);
     if (this.logHistory.length > this.MAX_LOG_HISTORY) {
       this.logHistory.shift();
     }
 
-    // Console output logic: Hide DEBUG/INFO in production
     if (this.isProduction && (level === 'DEBUG' || level === 'INFO')) {
       return;
     }
 
-    // Determine console method
     const consoleMethod = this.getConsoleMethod(level);
     console[consoleMethod](`[${level}][${timestamp}] ${message}`, ...optionalParams);
   }
@@ -59,7 +54,6 @@ export class LoggerService {
     }
   }
 
-  // Public logging methods
   debug(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('DEBUG', message, ...optionalParams);
   }

@@ -1,19 +1,17 @@
-// /workspace-root/libs/app/feature/tasks-view/lib/view-task.component.ts
-
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TasksService } from '../../../../../data-access/api-task-manager/src/lib/services/tasks.service';
 import { Task } from '../../../../../data-access/api-task-manager/src/lib/models/task.model';
 import { LoggerService } from '../../../../../shared/util-logger/src/lib/services/logger.service';
-import { finalize, catchError, of } from 'rxjs'; // Import RxJS operators
+import { finalize, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-view-task',
   standalone: true,
   imports: [
-    CommonModule, // Required for *ngIf, *ngFor, pipes like date, and the Elvis operator (?)
-    RouterLink,   // Required for the [routerLink] directive on the "Back to Dashboard" button
+    CommonModule,
+    RouterLink,
   ],
   templateUrl: './view-task.component.html',
   styleUrl: './view-task.component.css',
@@ -28,7 +26,6 @@ export class ViewTaskComponent implements OnInit {
   public errorMessage = signal<string | null>(null);
 
   ngOnInit(): void {
-    // Retrieve Task ID from the route parameters
     const taskId = Number(this.route.snapshot.paramMap.get('id'));
     if (taskId) {
       this.loadTaskDetails(taskId);
@@ -43,7 +40,7 @@ export class ViewTaskComponent implements OnInit {
    * @param id The ID of the task to load.
    */
   loadTaskDetails(id: number): void {
-    this.tasksService.getTask(id).pipe( // <-- Corrected service call from findOne to getTask
+    this.tasksService.getTask(id).pipe(
       finalize(() => this.isLoading.set(false)),
       catchError((err) => {
         this.logger.error(`Failed to load task ${id}.`, err);
@@ -68,7 +65,6 @@ export class ViewTaskComponent implements OnInit {
    */
   formatDate(dateString: string | Date | null): string {
     if (!dateString) return 'N/A';
-    // Using simple toLocaleDateString() for presentation
     return new Date(dateString).toLocaleDateString();
   }
 }

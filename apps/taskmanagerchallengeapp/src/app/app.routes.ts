@@ -1,5 +1,3 @@
-// /workspace-root/apps/app/src/app/app.routes.ts
-
 import { Route } from '@angular/router';
 import { AuthGuard } from '../../../../libs/taskmanagerchallengeapp/shared/util-auth/src/lib/guards/auth.guard'; // Aliased path
 import { LoginComponent } from '../../../../libs/taskmanagerchallengeapp/feature/auth-login/src/lib/auth-login/login.component';
@@ -11,18 +9,15 @@ import { ViewTaskComponent } from '../../../../libs/taskmanagerchallengeapp/feat
 import { UserProfileComponent } from '../../../../libs/taskmanagerchallengeapp/feature/user-profile/src/lib/user-profile/user-profile.component';
 
 export const appRoutes: Route[] = [
-  // 1. PUBLIC ROUTES (No Layout, No AuthGuard)
   {
     path: 'login',
     component: LoginComponent,
     title: 'Login',
   },
-
-  // 2. AUTHENTICATED ROUTES (Using MainLayoutComponent as the shell)
   {
     path: '',
-    component: MainLayoutComponent, // This component provides the header/sidebar for all internal pages
-    canActivate: [AuthGuard],      // All children must be authenticated
+    component: MainLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -60,14 +55,11 @@ export const appRoutes: Route[] = [
       {
         path: 'profile',
         title: 'User Profile',
-        // STATIC LOAD
         component: UserProfileComponent,
         canActivate: [AuthGuard],
       },
     ],
   },
-
-  // 3. FALLBACK ROUTE
   {
     path: '**',
     redirectTo: 'dashboard',
