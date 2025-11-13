@@ -1,0 +1,32 @@
+/* /workspace-root/ libs/app/feature/auth-login/lib/login.component.css */
+/* Center the content vertically and horizontally */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Use min-height to push it down */
+}
+
+/* Enhance the card appearance */
+.card {
+  max-width: 450px;
+  background: #ffffff;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-title {
+  color: #0d6efd; /* Bootstrap primary color */
+}
+
+/* Input fields styling */
+.form-control.rounded-pill {
+  height: 48px;
+  padding: 0.5rem 1.5rem;
+}
+
+/* Button styling */
+.btn-lg.rounded-pill {
+  font-weight: 600;
+  height: 50px;
+}

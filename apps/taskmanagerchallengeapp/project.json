@@ -12,7 +12,7 @@
       "options": {
         "outputPath": "dist/apps/taskmanagerchallengeapp",
         "browser": "apps/taskmanagerchallengeapp/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [ "zone.js" ],
         "tsConfig": "apps/taskmanagerchallengeapp/tsconfig.app.json",
         "assets": [
           {
@@ -20,7 +20,18 @@
             "input": "apps/taskmanagerchallengeapp/public"
           }
         ],
-        "styles": ["apps/taskmanagerchallengeapp/src/styles.css"]
+        "styles": [
+          "apps/taskmanagerchallengeapp/src/styles.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+        ],
+        "scripts": [
+          {
+            "input": "apps/taskmanagerchallengeapp/src/bootstrap.bundle.min.js",
+            "bundleName": "custom-bootstrap-script",
+            "inject": true
+          }
+        ]
       },
       "configurations": {
         "production": {

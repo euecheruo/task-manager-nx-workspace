@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Interface</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    /* Custom styles to match the TaskFlow design */
+    body {
+      background-color: #f8f9fa; /* Light background */
+    }
+
+    .navbar-brand-taskflow {
+      font-weight: bold;
+      color: #0d6efd !important; /* Blue color for TaskFlow */
+    }
+
+    .main-card {
+      max-width: 600px;
+      margin: 50px auto;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08); /* Soft shadow */
+    }
+
+    .nav-tabs-custom {
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 0;
+      margin-bottom: 2rem;
+    }
+
+      .nav-tabs-custom .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        margin-right: 1.5rem;
+        padding-bottom: 0.5rem;
+        color: #6c757d;
+      }
+
+        .nav-tabs-custom .nav-link.active {
+          color: #0d6efd;
+          border-bottom-color: #0d6efd;
+          font-weight: 500;
+          background-color: transparent;
+        }
+
+    .profile-icon-container {
+      width: 100px;
+      height: 100px;
+      background-color: #e9ecef; /* Light gray background */
+      border-radius: 50%;
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-icon {
+      font-size: 4rem;
+      color: #adb5bd; /* Medium gray icon color */
+    }
+
+    .user-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    .user-email-info {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-label-custom {
+      font-weight: 500;
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    .form-control-task {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .logout-link {
+      color: #0d6efd;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .input-group-text-lock {
+      background-color: #f8f9fa; /* Light background for the lock icon area */
+      border-left: none;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+    <div class="card main-card">
+      <div class="card-body p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+          <div class="d-flex align-items-center">
+            <a class="navbar-brand navbar-brand-taskflow d-flex align-items-center me-4" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.42 10.32l-.7-1.127a.75.75 0 0 0-1.21-.064l-.063.064a.75.75 0 0 0-1.08.022l-1.5 2.5a.75.75 0 0 0 .525 1.25H12a.75.75 0 0 0 .525-1.25l-2-3a.75.75 0 0 0-.022-1.08z" />
+              </svg>
+              TaskFlow
+            </a>
+            <ul class="nav nav-tabs-custom">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Profile</a>
+              </li>
+            </ul>
+          </div>
+          <a href="#" class="logout-link">Logout</a>
+        </div>
+
+        <div class="p-3 text-center">
+
+          <h3 class="mb-5 text-start">User Profile</h3>
+
+          <div class="profile-icon-container">
+            <i class="bi bi-person-fill profile-icon"></i>
+          </div>
+          <p class="user-name">John Doe</p>
+          <p class="user-email-info">john.doe@taskflow.com</p>
+
+          <form class="text-start">
+            <div class="mb-4" style="max-width: 400px; margin: 0 auto;">
+              <label for="emailInput" class="form-label form-label-custom">Email</label>
+              <div class="input-group">
+                <input type="email" class="form-control form-control-task" id="emailInput" value="john.doe@taskflow.com" disabled>
+                <span class="input-group-text input-group-text-lock"><i class="bi bi-lock-fill"></i></span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center pt-4">
+              <button type="button" class="btn btn-primary me-3">Change Password</button>
+              <button type="submit" class="btn btn-light me-3">Save Changes</button>
+              <button type="button" class="btn btn-light">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

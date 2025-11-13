@@ -1,44 +1,51 @@
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
-import { EnvironmentService } from '@task-manager-nx-workspace/api/config/lib/services/environment.service';
-
+import { ConfigService } from '@nestjs/config';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new Logger('NestApplication'),
+  });
+  const configService = app.get(ConfigService);
+  const logger = app.get(Logger);
 
-  const envService = app.get(EnvironmentService);
-  const port = envService.getAppPort();
-  const isDev = envService.isDevelopment();
+  const appPort = configService.get<number>('APP_PORT', 3333);
+  const nodeEnv = configService.get<string>('NODE_ENV', 'development');
+  const globalPrefix = 'api';
 
-  app.setGlobalPrefix('api');
-
+  app.setGlobalPrefix(globalPrefix);
   app.enableCors({
-    origin: isDev ? '*' : false,
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-
-  const config = new DocumentBuilder()
-    .setTitle('Task Management API')
-    .setDescription('Local Auth, RBAC, and Task Management System.')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
-
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: ${await app.getUrl()}/api`,
-    'Bootstrap',
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
   );
-  if (isDev) {
-    Logger.warn(
-      '⚠️ Running in DEVELOPMENT mode with TypeORM synchronize=true.',
-      'Bootstrap',
-    );
-  }
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Task Management API')
+    .setDescription('JWT Secure and RBAC Authorized API Backend Service.')
+    .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: 'header',
+    }, 'accessToken')
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('swagger', app, document);
+
+  await app.listen(appPort, () => {
+    logger.log(`Server running in ${nodeEnv} mode.`, 'Bootstrap');
+    logger.log(`Listening at http://localhost:${appPort}/${globalPrefix}`, 'Bootstrap');
+    logger.log(`Swagger documentation available at http://localhost:${appPort}/swagger`, 'Bootstrap');
+  });
 }
 
 bootstrap();

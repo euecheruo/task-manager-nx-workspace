@@ -1,0 +1,15 @@
+/* /workspace-root/apps/app/src/app/app.css */
+
+/* Global styles for the main app component (root level) */
+
+:host {
+  /* Ensure the app takes full height */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* General Link/Button color consistency */
+a, button {
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}

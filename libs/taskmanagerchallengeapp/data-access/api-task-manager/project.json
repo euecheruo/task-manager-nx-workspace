@@ -1,0 +1,21 @@
+{
+  "name": "api-task-manager",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/taskmanagerchallengeapp/data-access/api-task-manager/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/taskmanagerchallengeapp/data-access/api-task-manager/jest.config.ts",
+        "tsConfig": "libs/taskmanagerchallengeapp/data-access/api-task-manager/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

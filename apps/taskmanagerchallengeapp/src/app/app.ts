@@ -1,13 +1,14 @@
+// /workspace-root/apps/app/src/app/app.ts
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'],
 })
-export class App {
-  protected title = 'taskmanagerchallengeapp';
-}
+export class App { }

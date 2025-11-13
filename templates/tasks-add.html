@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Task Interface</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    /* Custom styles to better match the visual layout */
+    .navbar-brand-taskflow {
+      font-weight: bold;
+      color: #0d6efd !important; /* Blue color for TaskFlow */
+    }
+
+    .main-card {
+      max-width: 500px;
+      margin: 20px auto;
+      border: none; /* Removing default card border */
+      box-shadow: 0 4px 12px rgba(0,0,0,.08); /* Soft shadow */
+    }
+
+    .nav-link.active-top {
+      color: #0d6efd !important;
+      border-bottom: 2px solid #0d6efd;
+    }
+
+    .task-type-btn.active {
+      background-color: #e9ecef; /* Light gray background for active button */
+      color: #212529; /* Dark text */
+      border-color: #e9ecef;
+    }
+
+    .task-type-btn {
+      margin-right: 5px;
+      border-radius: 0.25rem;
+    }
+
+    .form-control-lg {
+      padding: 0.75rem 1rem;
+    }
+
+    .page-indicator {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    .page-control {
+      cursor: pointer;
+    }
+
+    .footer-control {
+      border-top: 1px solid #dee2e6;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+    <div class="container-fluid mx-4">
+      <a class="navbar-brand navbar-brand-taskflow d-flex align-items-center" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.42 10.32l-.7-1.127a.75.75 0 0 0-1.21-.064l-.063.064a.75.75 0 0 0-1.08.022l-1.5 2.5a.75.75 0 0 0 .525 1.25H12a.75.75 0 0 0 .525-1.25l-2-3a.75.75 0 0 0-.022-1.08z" />
+        </svg>
+        TaskFlow
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="card main-card">
+      <div class="card-body p-4">
+
+        <h2 class="card-title mb-4">Add New Task</h2>
+
+        <div class="mb-4">
+          <button class="btn btn-primary btn-sm mb-3">+ Create Task</button>
+          <p class="text-muted mb-2 small">Task Type:</p>
+          <div class="d-flex">
+            <button class="btn btn-light btn-sm task-type-btn active">All Tasks</button>
+            <button class="btn btn-light btn-sm task-type-btn">Apply Filters</button>
+            <button class="btn btn-light btn-sm task-type-btn">Custombs</button>
+          </div>
+        </div>
+
+        <form>
+          <div class="mb-4">
+            <label for="taskDescription" class="form-label small text-muted">Task Description</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-lg" id="taskDescription" value="Develop Desktconrpoints">
+              <span class="input-group-text bg-white border-start-0"><i class="bi bi-search"></i></span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="taskTitle" class="form-label small text-muted">Task Title</label>
+            <input type="text" class="form-control form-control-lg" id="taskTitle" placeholder="Unassigned">
+          </div>
+
+          <div class="mb-4">
+            <label for="assignDescription" class="form-label small text-muted">Assign Description</label>
+            <textarea class="form-control form-control-lg" id="assignDescription" rows="3" placeholder="Amszpsmxt EvE Dsmail"></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label for="assignToUser" class="form-label small text-muted">Assign to User</label>
+            <input type="text" class="form-control form-control-lg" id="assignToUser">
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center footer-control">
+            <div>
+              <button type="submit" class="btn btn-primary">Create Task</button>
+              <button type="button" class="btn btn-light ms-2">Cancel</button>
+            </div>
+            <div class="d-flex align-items-center">
+              <a href="#" class="text-decoration-none page-control text-muted me-2">&lt;</a>
+              <span class="page-indicator">Page 1 of 3</span>
+              <a href="#" class="text-decoration-none page-control text-muted ms-2">&gt;</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

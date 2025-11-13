@@ -1,0 +1,40 @@
+
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-8">
+    <div *ngIf="isLoading(); else content" class="text-center">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+      <p>Loading Task Details...</p>
+    </div>
+
+    <ng-template #content>
+      <div *ngIf="errorMessage()" class="alert alert-danger" role="alert">
+        {{ errorMessage() }}
+      </div>
+      <div *ngIf="task()">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{{ task()!.title }}</h3>
+          </div>
+          <div class="card-body">
+
+            <p class="card-text text-muted mb-4">{{ task()!.description || 'No description provided.' }}</p>
+
+            <table class="table table-sm table-borderless">
+              <tbody>
+                <tr><th class="w-25">Status</th><td><span class="badge" [class.bg-success]="task()!.isCompleted" [class.bg-warning]="!task()!.isCompleted">{{ task()!.isCompleted? 'Complete' : 'Incomplete' }}</span></td></tr>
+                <tr><th>Task ID</th><td>{{ task()!.taskId }}</td></tr>
+                <tr><th>Creator ID</th><td>{{ task()!.creatorId }}</td></tr>
+                <tr><th>Assigned User</th><td>{{ task()!.assignedUserId !== null ? ('User ID: ' + task()!.assignedUserId) : 'Unassigned' }}</td></tr>
+                <tr><th>Date Created</th><td>{{ formatDate(task()!.createdAt) }}</td></tr>
+                <tr *ngIf="task()!.isCompleted"><th>Date Completed</th><td>{{ formatDate(task()!.completedAt) }}</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer d-flex justify-content-end">
+            <a [routerLink]="['/dashboard']" class="btn btn-outline-secondary me-2">Back to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

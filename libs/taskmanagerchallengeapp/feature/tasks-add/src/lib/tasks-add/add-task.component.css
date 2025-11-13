@@ -1,0 +1,29 @@
+/* /workspace-root/libs/app/feature/tasks-add/lib/add-task.component.css */
+
+.card {
+  border: 1px solid #dee2e6; /* Light border */
+}
+
+/* Style for the form labels */
+.form-label {
+  color: #343a40; /* Darker text for better readability */
+  font-size: 0.95rem;
+}
+
+/* Customizing select for a better look */
+.form-select {
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+/* Styling for the submit button */
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+  .btn-success:hover {
+    background-color: #157347;
+    transform: translateY(-1px);
+  }

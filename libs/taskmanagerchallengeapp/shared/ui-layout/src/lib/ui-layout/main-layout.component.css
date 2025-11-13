@@ -1,0 +1,22 @@
+/* /workspace-root/libs/app/shared/ui-layout/lib/main-layout/main-layout.component.css */
+
+/* Add basic styles to ensure full height layout */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  flex-grow: 1; /* Allows the content area to take up remaining space */
+}
+
+/* Custom styles for dropdown and navbar for a clean look */
+.navbar-brand {
+  font-size: 1.25rem;
+}
+
+.dropdown-menu {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}

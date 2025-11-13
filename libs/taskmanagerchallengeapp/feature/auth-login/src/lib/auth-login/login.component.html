@@ -1,0 +1,57 @@
+<!-- /workspace-root/libs/app/feature/auth-login/lib/login.component.html -->
+
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body p-4 p-md-5">
+        <h2 class="card-title text-center mb-4 fw-bold text-dark">Task Manager Login</h2>
+        <form (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email"
+                   class="form-control rounded-pill"
+                   id="email"
+                   [(ngModel)]="email"
+                   name="email"
+                   placeholder="name@example.com"
+                   required />
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <input type="password"
+                   class="form-control rounded-pill"
+                   id="password"
+                   [(ngModel)]="password"
+                   name="password"
+                   required />
+          </div>
+
+          <!-- Error Message Display -->
+          @if (errorMessage()) {
+          <div class="alert alert-danger rounded-3 p-2 mb-3 text-center" role="alert">
+            {{ errorMessage() }}
+          </div>
+          }
+
+          <div class="d-grid">
+            <button type="submit"
+                    class="btn btn-primary btn-lg rounded-pill shadow-sm"
+                    [disabled]="loading()">
+              @if (loading()) {
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Logging in...
+              } @else {
+              Login
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center text-muted small py-3">
+        Task Manager - Role Based Access Control Demo
+      </div>
+    </div>
+  </div>
+</div>

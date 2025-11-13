@@ -1,0 +1,81 @@
+<!-- /workspace-root/libs/app/feature/tasks-add/lib/add-task.component.html -->
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-lg rounded-4 border-0 mt-4">
+      <div class="card-header bg-success text-white p-4 rounded-top-4">
+        <h3 class="mb-0 fw-bold">Create New Task</h3>
+      </div>
+      <div class="card-body p-4 p-md-5">
+
+        <!-- Loading/Error Messages -->
+        @if (loading()) {
+        <div class="text-center p-3"><div class="spinner-border text-success" role="status"></div> Loading users...</div>
+        } @if (errorMessage()) {
+        <div class="alert alert-danger rounded-3">{{ errorMessage() }}</div>
+        }
+
+        <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="needs-validation" novalidate>
+
+          <!-- Task Title -->
+          <div class="mb-4">
+            <label for="title" class="form-label fw-medium">Task Title <span class="text-danger">*</span></label>
+            <input type="text"
+                   class="form-control rounded-3"
+                   id="title"
+                   [(ngModel)]="title"
+                   name="title"
+                   placeholder="E.g., Complete backend service integration"
+                   required>
+          </div>
+
+          <!-- Task Description -->
+          <div class="mb-4">
+            <label for="description" class="form-label fw-medium">Description</label>
+            <textarea class="form-control rounded-3"
+                      id="description"
+                      [(ngModel)]="description"
+                      name="description"
+                      rows="4"
+                      placeholder="Detailed steps and requirements for the task."></textarea>
+          </div>
+
+          <!-- Assign Task Option -->
+          <div class="mb-5">
+            <label for="assignedUser" class="form-label fw-medium">Assign To User (Optional)</label>
+            <select id="assignedUser"
+                    class="form-select rounded-3"
+                    [(ngModel)]="assignedUserId"
+                    name="assignedUser"
+                    [disabled]="loading()">
+              <option [ngValue]="null">-- Unassigned (Default) --</option>
+              @for (user of users(); track user.userId) {
+              <option [ngValue]="user.userId">{{ user.email }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-between pt-3 border-top">
+            <button type="button"
+                    class="btn btn-outline-secondary rounded-pill px-4"
+                    (click)="onCancel()">
+              Cancel
+            </button>
+
+            <button type="submit"
+                    class="btn btn-success btn-lg rounded-pill px-5 shadow-sm"
+                    [disabled]="isSaving() || taskForm.invalid || !title()">
+              @if (isSaving()) {
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Saving...
+              } @else {
+              Create Task
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

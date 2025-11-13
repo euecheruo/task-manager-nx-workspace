@@ -1,11 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\apps",
+    "\\apps\\taskmanagerchallengeapp\\src\\app",
     "\\libs",
-    "\\libs\\taskmanagerchallengeserver",
-    "\\libs\\taskmanagerchallengeserver\\shared",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src",
-    "\\libs\\taskmanagerchallengeserver\\shared\\src\\lib"
+    "\\libs\\taskmanagerchallengeapp",
+    "\\libs\\taskmanagerchallengeapp\\feature",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-view",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view"
   ],
+  "SelectedNode": "\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
   "PreviewInSolutionExplorer": false
 }
