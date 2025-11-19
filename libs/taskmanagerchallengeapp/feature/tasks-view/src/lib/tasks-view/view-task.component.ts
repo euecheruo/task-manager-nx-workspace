@@ -11,7 +11,7 @@ import { finalize, catchError, of } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
+    RouterLink
   ],
   templateUrl: './view-task.component.html',
   styleUrl: './view-task.component.css',
@@ -26,6 +26,7 @@ export class ViewTaskComponent implements OnInit {
   public errorMessage = signal<string | null>(null);
 
   ngOnInit(): void {
+    // Retrieve Task ID from the route parameters
     const taskId = Number(this.route.snapshot.paramMap.get('id'));
     if (taskId) {
       this.loadTaskDetails(taskId);
@@ -40,7 +41,9 @@ export class ViewTaskComponent implements OnInit {
    * @param id The ID of the task to load.
    */
   loadTaskDetails(id: number): void {
+    // FIX: Using tasksService.getTask which is defined as returning Observable<Task>
     this.tasksService.getTask(id).pipe(
+      // Ensure loading flag is turned off when the stream completes (success or error)
       finalize(() => this.isLoading.set(false)),
       catchError((err) => {
         this.logger.error(`Failed to load task ${id}.`, err);
@@ -48,9 +51,11 @@ export class ViewTaskComponent implements OnInit {
         if (err.status === 404) {
           msg = 'Task not found.';
         } else if (err.status === 403) {
+          // Explicitly state the required permission
           msg = 'Forbidden: Missing read:tasks permission.';
         }
         this.errorMessage.set(msg);
+        // Return an observable of null to allow the main stream to complete
         return of(null);
       })
     ).subscribe((task) => {
@@ -65,6 +70,7 @@ export class ViewTaskComponent implements OnInit {
    */
   formatDate(dateString: string | Date | null): string {
     if (!dateString) return 'N/A';
+    // Using DatePipe format in HTML, but providing fallback for potential in-component use
     return new Date(dateString).toLocaleDateString();
   }
 }

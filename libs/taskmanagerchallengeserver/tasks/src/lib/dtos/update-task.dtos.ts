@@ -1,3 +1,5 @@
+// /workspace-root/libs/api/tasks/dtos/update-task.dtos.ts
+
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsNumber, Min } from 'class-validator';
 
@@ -7,8 +9,10 @@ export class UpdateTaskDto {
   @IsOptional()
   title?: string;
 
-  @ApiPropertyOptional({ example: 'Ensure token rotation logic works.', description:
-  'New detailed description of the task.' })
+  @ApiPropertyOptional({
+    example: 'Ensure token rotation logic works.', description:
+      'New detailed description of the task.'
+  })
   @IsString()
   @IsOptional()
   description?: string;
@@ -22,5 +26,5 @@ export class UpdateTaskDto {
   @IsNumber()
   @IsOptional()
   @Min(1)
-  assignToUserId?: number | null;
+  assignedUserId?: number | null; // Renamed to assignedUserId
 }

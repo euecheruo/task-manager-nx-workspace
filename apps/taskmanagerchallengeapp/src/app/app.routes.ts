@@ -1,3 +1,5 @@
+// /workspace-root/apps/app/src/app/app.routes.ts
+
 import { Route } from '@angular/router';
 import { AuthGuard } from '../../../../libs/taskmanagerchallengeapp/shared/util-auth/src/lib/guards/auth.guard'; // Aliased path
 import { LoginComponent } from '../../../../libs/taskmanagerchallengeapp/feature/auth-login/src/lib/auth-login/login.component';
@@ -17,7 +19,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     component: MainLayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // AuthGuard protects all child routes
     children: [
       {
         path: '',
@@ -29,38 +31,34 @@ export const appRoutes: Route[] = [
         title: 'Task Dashboard',
         // STATIC LOAD
         component: DashboardComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'tasks/add',
         title: 'Add Task',
         // STATIC LOAD
         component: AddTaskComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'tasks/update/:id',
         title: 'Update Task',
         // STATIC LOAD
         component: UpdateTaskComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'tasks/view/:id',
         title: 'View Task',
         // STATIC LOAD
         component: ViewTaskComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'profile',
         title: 'User Profile',
         component: UserProfileComponent,
-        canActivate: [AuthGuard],
       },
     ],
   },
   {
+    // Wildcard route redirects to dashboard (which is then protected by AuthGuard)
     path: '**',
     redirectTo: 'dashboard',
   },

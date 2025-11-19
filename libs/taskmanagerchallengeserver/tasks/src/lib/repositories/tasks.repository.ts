@@ -1,3 +1,5 @@
+// /workspace-root/libs/api/tasks/repositories/tasks.repository.ts
+
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
@@ -23,23 +25,42 @@ export class TasksRepository {
    * Ensures all fields required for SingleTaskResponse mapping are selected.
    */
   async findAndCountTasks(query: TaskFilterQuery): Promise<TaskFindResult> {
-    const { page = 1, limit = 10, filter = 'all' } = query;
-    const skip = (page - 1) * limit;
+    const { page = 1, limit = 10, assignmentFilter = 'all', completionFilter = 'all' } = query;
+    const skip = (Number(page) - 1) * Number(limit);
+    const currentLimit = Number(limit);
 
-    const queryBuilder = this.tasksRepository.createQueryBuilder('task')
-      .orderBy('task.created_at', 'DESC');
+    const queryBuilder = this.tasksRepository.createQueryBuilder('task');
 
-    if (filter === 'completed') {
-      queryBuilder.where('task.is_completed = :isCompleted', { isCompleted: true });
-    } else if (filter === 'assigned') {
-      queryBuilder.where('task.assigned_user_id IS NOT NULL');
-    } else if (filter === 'unassigned') {
-      queryBuilder.where('task.assigned_user_id IS NULL');
+    // --- 1. Apply Assignment Filtering ---
+    if (assignmentFilter === 'assigned') {
+      queryBuilder.andWhere('task.assigned_user_id IS NOT NULL');
+    } else if (assignmentFilter === 'unassigned') {
+      queryBuilder.andWhere('task.assigned_user_id IS NULL');
     }
 
-    queryBuilder.skip(skip).take(limit);
+    // --- 2. Apply Completion Filtering (only if assignmentFilter is not 'unassigned') ---
+    if (assignmentFilter !== 'unassigned' && completionFilter !== 'all') {
+      if (completionFilter === 'completed') {
+        queryBuilder.andWhere('task.is_completed = :isCompleted', { isCompleted: true });
+      } else if (completionFilter === 'incomplete') {
+        queryBuilder.andWhere('task.is_completed = :isCompleted', { isCompleted: false });
+      }
+    }
 
-    const [tasks, count] = await queryBuilder.getManyAndCount();
+    // --- 3. Apply Ordering (Newest first) ---
+    queryBuilder.orderBy('task.created_at', 'DESC');
+
+
+    // --- 4. Apply Pagination ---
+    queryBuilder.skip(skip).take(currentLimit);
+
+    // --- 5. Execute query and count ---
+    const [tasks, count] = await queryBuilder
+      // Also fetch relations for assigned user and creator for DTO mapping
+      .leftJoinAndSelect('task.creator', 'creator')
+      .leftJoinAndSelect('task.assignedUser', 'assignedUser')
+      .getManyAndCount();
+
     this.logger.verbose(`DB operation: Fetched ${tasks.length}/${count} tasks (Page ${page}).`);
 
     return { tasks, count };
@@ -50,8 +71,10 @@ export class TasksRepository {
    */
   async findOneById(taskId: number): Promise<TaskEntity | null> {
     this.logger.debug(`DB lookup: find task by ID ${taskId}`);
+    // CRITICAL FIX: Ensure relations are loaded as the service layer relies on them for DTO mapping
     return await this.tasksRepository.findOne({
-      where: { task_id: taskId },
+      where: { task_id: taskId as any },
+      relations: ['creator', 'assignedUser']
     });
   }
 

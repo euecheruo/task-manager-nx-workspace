@@ -1,50 +1,48 @@
-<!-- /workspace-root/libs/app/feature/user-profile/lib/user-profile.component.html -->
+<div class="card main-card">
+  <div class="card-body p-5">
 
-<div class="row justify-content-center mt-5">
-  <div class="col-lg-6">
-    <div class="card shadow">
-      <div class="card-header bg-secondary text-white">
-        <h3 class="mb-0">User Profile</h3>
+    @if (isLoading()) {
+    <div class="text-center p-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
-      <div class="card-body">
-        <div *ngIf="isLoading(); else profileContent" class="text-center">
-          <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
-          <p>Loading Profile...</p>
-        </div>
-
-        <ng-template #profileContent>
-          <div *ngIf="errorMessage()" class="alert alert-danger" role="alert">
-            {{ errorMessage() }}
-          </div>
-          <div *ngIf="userProfile()">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-
-                  <th scope="row" class="w-25">User ID</th>
-                  <td>{{ userProfile()!.userId }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Email</th>
-
-                  <td>{{ userProfile()!.email }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Role</th>
-                  <td><span class="badge bg-info text-dark">{{ userRole() }}</span></td>
-                </tr>
-
-                <tr>
-                  <th scope="row">Account Created</th>
-                  <td>
-                    {{ userProfile()!.createdAt | date }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </ng-template>
-      </div>
+      <p class="mt-2 text-muted">Loading Profile...</p>
     </div>
+    }
+
+    @if (!isLoading() && userProfile()) {
+
+    <h3 class="card-title mb-4">
+      <i class="bi bi-person-fill"></i>
+      User Profile
+    </h3>
+
+    @if (errorMessage()) {
+    <div class="alert alert-danger rounded-3 p-2 mb-4 text-center" role="alert">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <div class="profile-icon-container">
+      <i class="bi bi-person-fill profile-icon"></i>
+    </div>
+
+    <form class="text-start">
+      <div class="mb-4" style="max-width: 400px; margin: 0 auto;">
+        <label for="email" class="form-label form-label-custom">Email</label>
+        <div class="input-group">
+          <input type="email" class="form-control form-control-task" id="email" value="{{ userProfile()!.email }}" disabled>
+          <span class="input-group-text input-group-text-lock"><i class="bi bi-lock-fill"></i></span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-start pt-4">
+        <a [routerLink]="['/dashboard']" class="btn btn-light">Cancel</a>
+      </div>
+
+    </form>
+
+    }
+
   </div>
 </div>

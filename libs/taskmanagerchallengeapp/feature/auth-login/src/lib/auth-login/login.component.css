@@ -1,27 +1,16 @@
-:host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-}
 
-.card {
-  max-width: 450px;
-  background: #ffffff;
+.login-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
   border: none;
-  transition: transform 0.3s ease-in-out;
 }
 
-.card-title {
-  color: #0d6efd;
+.form-floating > .form-control {
+  height: calc(3.5rem + 2px);
 }
 
-.form-control.rounded-pill {
-  height: 48px;
-  padding: 0.5rem 1.5rem;
-}
-
-.btn-lg.rounded-pill {
-  font-weight: 600;
-  height: 50px;
+.form-floating > label {
+  padding: 1rem 0.75rem;
 }

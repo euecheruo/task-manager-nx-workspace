@@ -43,13 +43,13 @@ export class TaskOwnershipGuard implements CanActivate {
         throw new NotFoundException(`Task with ID ${taskId} not found.`);
       }
 
-      const isOwner = task.creator_id === userId;
+      const isOwner = task.creatorId === userId;
 
       if (isOwner) {
         this.logger.verbose(`User ${userId} is authorized for task ${taskId} (Owner).`);
         return true;
       } else {
-        this.logger.warn(`User ${userId} denied access to task ${taskId}. Not the creator (Creator ID: ${task.creator_id}).`);
+        this.logger.warn(`User ${userId} denied access to task ${taskId}. Not the creator (Creator ID: ${task.creatorId}).`);
         throw new ForbiddenException('You can only update or delete tasks you have created.');
       }
     } catch (error: unknown) {

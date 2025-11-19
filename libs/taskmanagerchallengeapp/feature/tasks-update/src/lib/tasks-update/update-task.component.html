@@ -1,5 +1,5 @@
-<div class="row justify-content-center mt-5">
-  <div class="col-lg-8">
+<div class="card main-card">
+  <div class="card-body p-5">
 
     @if (loading()) {
     <div class="text-center p-5">
@@ -9,113 +9,134 @@
     }
 
     @if (!loading() && taskDetails()) {
-    <div class="card shadow-lg rounded-4 border-0">
-      <div class="card-header bg-warning text-dark p-4 rounded-top-4">
-        <h3 class="mb-0 fw-bold">Update Task ID: {{ taskId() }}</h3>
-        <small class="text-muted">
-          Creator: {{ taskDetails()!.creator.email || 'Unknown User' }}
-        </small>
-      </div>
 
-      <div class="card-body p-4 p-md-5">
+    <h3 class="card-title mb-4">
+      <i class="bi bi-list-check"></i>
+      Edit Task
+    </h3>
 
-        @if (errorMessage()) {
-        <div class="alert alert-danger rounded-3 p-2 mb-4 text-center" role="alert">
-          {{ errorMessage() }}
-        </div>
-        }
-
-        <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
-
-          <div class="mb-4">
-            <label for="title" class="form-label fw-medium">Task Title <span class="text-danger">*</span></label>
-            <input type="text"
-                   class="form-control rounded-3"
-                   id="title"
-                   [(ngModel)]="title"
-                   name="title"
-                   required
-                   [disabled]="!canEditCoreDetails()"
-                   placeholder="Task Title">
-            @if (!canEditCoreDetails()) {
-            <small class="form-text text-muted">Title/Description modification requires 'update:own:tasks' permission and being the task creator.</small>
-            }
-          </div>
-
-          <div class="mb-4">
-            <label for="description" class="form-label fw-medium">Description</label>
-            <textarea class="form-control rounded-3"
-                      id="description"
-                      [(ngModel)]="description"
-                      name="description"
-                      rows="4"
-                      [disabled]="!canEditCoreDetails()"
-                      placeholder="Detailed steps and requirements."></textarea>
-          </div>
-
-          <div class="form-check form-switch mb-4 p-4 border rounded-3"
-               [class.border-success]="isCompleted()"
-               [class.bg-light]="isCompleted()"
-               [title]="canToggleCompletion()? 'Toggle completion status' : 'You must be the assigned user to toggle completion status'">
-
-            <input class="form-check-input"
-                   type="checkbox"
-                   role="switch"
-                   id="isCompletedSwitch"
-                   [ngModel]="isCompleted()"
-                   (ngModelChange)="onCompletionToggle($event)"
-                   name="isCompleted"
-                   [disabled]="!canToggleCompletion()">
-
-            <label class="form-check-label fw-bold" for="isCompletedSwitch">
-              Mark task as {{ isCompleted()? 'Completed' : 'Incomplete' }}
-            </label>
-            @if (!canToggleCompletion()) {
-            <small class="form-text text-danger d-block">This action requires you to be the assigned user and possess the correct permission (mark/unmark).</small>
-            }
-          </div>
-
-          <div class="mb-5">
-            <label for="assignedUser" class="form-label fw-medium">Assign To User</label>
-            <select id="assignedUser"
-                    class="form-select rounded-3"
-                    [(ngModel)]="assignedUserId"
-                    name="assignedUser"
-                    [disabled]="!canEditCoreDetails() || users().length === 0">
-              <option [ngValue]="null">-- Unassigned --</option>
-              @for (user of users(); track user.userId) {
-              <option [ngValue]="user.userId">{{ user.email }}</option>
-              }
-            </select>
-          </div>
-
-          <div class="d-flex justify-content-between pt-3 border-top">
-            <button type="button"
-                    class="btn btn-outline-secondary rounded-pill px-4"
-                    (click)="onCancel()">
-              Cancel
-            </button>
-
-            <button type="submit"
-                    class="btn btn-warning btn-lg rounded-pill px-5 shadow-sm"
-                    [disabled]="isSaving() || taskForm.invalid ||!canEditCoreDetails()"
-                    *appHasPermission="'update:own:tasks'">
-              @if (isSaving()) {
-              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Saving...
-              } @else {
-              Update Core Details
-              }
-            </button>
-          </div>
-        </form>
-      </div>
+    @if (errorMessage()) {
+    <div class="alert alert-danger rounded-3 p-2 mb-4 text-center" role="alert">
+      {{ errorMessage() }}
     </div>
     }
-    @if (!loading() &&!taskDetails()) {
+
+    <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+      <div class="mb-4">
+        <label for="title" class="form-label">Task Title</label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control form-control-task"
+                 id="title"
+                 [ngModel]="title()"
+                 (ngModelChange)="title.set($event)"
+                 name="title"
+                 required
+                 [disabled]="!canEditCoreDetails()">
+          <span class="input-group-text input-group-text-custom"><i class="bi bi-search"></i></span>
+        </div>
+        @if (!canEditCoreDetails()) {
+        <small class="form-text text-muted">Title/Description modification requires 'update:own:tasks' permission and being the task creator.</small>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="form-label">Assign Description</label>
+        <textarea class="form-control form-control-task"
+                  id="description" [ngModel]="description()"
+                  (ngModelChange)="description.set($event)"
+                  name="description"
+                  rows="4"
+                  [disabled]="!canEditCoreDetails()"
+                  placeholder="Detailed steps and requirements."></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="assignedUser" class="form-label">Assign to User</label>
+        <div class="d-flex align-items-center toggle-switch-container">
+          <select class="form-select form-control-task me-2"
+                  aria-label="UserAssignments"
+                  id="assignedUser"
+                  [ngModel]="assignedUserId()"
+                  (ngModelChange)="assignedUserId.set($event)"
+                  name="assignedUser"
+                  [disabled]="!canEditCoreDetails() || users().length === 0">
+            <option [ngValue]="null">Task will be unassigned</option>
+            @for (user of users(); track user.userId) {
+            <option [ngValue]="user.userId">{{ user.email }}</option>
+            }
+          </select>
+          @if (!canEditCoreDetails()) {
+          <small class="form-text text-muted">Assignment/Unassignment capability is part of core details update, restricted to the creator with 'update:own:tasks' permission.</small>
+          }
+        </div>
+      </div>
+
+      <div class="mark-complete-section">
+        <label class="form-label mb-2">Mark as Complete</label>
+        <div class="d-flex align-items-center mb-3">
+          <div class="form-check me-4">
+            <div class="form-check-task form-switch">
+              <input class="form-check-input"
+                     type="checkbox"
+                     role="switch"
+                     id="isCompletedSwitch"
+                     [ngModel]="isCompleted()"
+                     (ngModelChange)="onCompletionToggle($event)"
+                     name="isCompleted"
+                     [disabled]="!canToggleCompletion()">
+              <label class="form-check-label" for="isCompletedSwitch">
+                Mark task as {{ isCompleted() ? 'Completed' : 'Incomplete' }}
+              </label>
+            </div>
+          </div>
+        </div>
+        @if (!canToggleCompletion()) {
+        <small class="form-text text-danger d-block">This action requires you to be the assigned user and possess the correct permission (mark:assigned:tasks/unmark:assigned:tasks).</small>
+        }
+      </div>
+
+      <div class="d-flex justify-content-start pt-3">
+        <button type="submit"
+                class="btn btn-success me-3"
+                [disabled]="isSaving() || taskForm.invalid || !canEditCoreDetails()"
+                *appHasPermission="'update:own:tasks'">
+          @if (isSaving()) {
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Saving...
+          } @else {
+          Update Task
+          }
+        </button>
+        <button type="button"
+                class="btn btn-outline-danger me-3"
+                (click)="onDelete()"
+                [disabled]="isSaving() || !isTaskCreator() || !userPermissions().includes('delete:own:tasks')"
+                *appHasPermission="'delete:own:tasks'">
+          Delete Task
+        </button>
+
+        <button type="button"
+                class="btn btn-light"
+                (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+
+    </form>
+
+    }
+
+    @if (!loading() && !taskDetails()) {
     <div class="alert alert-warning text-center">
       Task details not available or access denied.
     </div>
     }
+
   </div>
 </div>
+
+
+
+
+

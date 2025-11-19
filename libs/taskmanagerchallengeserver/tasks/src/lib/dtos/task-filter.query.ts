@@ -1,6 +1,12 @@
+// /workspace-root/libs/api/tasks/dtos/task-filter.query.ts
+
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsNumberString, IsIn } from 'class-validator';
 
+/**
+ * UPDATED: Matches the Angular frontend's TaskFilterQuery interface.
+ * Query parameters for the dashboard list.
+ */
 export class TaskFilterQuery {
   @ApiPropertyOptional({ example: 1, description: 'Page number for pagination (defaults to 1).' })
   @IsNumberString()
@@ -12,8 +18,13 @@ export class TaskFilterQuery {
   @IsOptional()
   limit?: number;
 
-  @ApiPropertyOptional({ example: 'assigned', enum: ['all', 'completed', 'assigned', 'unassigned'], description: 'Filter tasks by status.' })
-  @IsIn(['all', 'completed', 'assigned', 'unassigned'])
+  @ApiPropertyOptional({ example: 'assigned', enum: ['all', 'assigned', 'unassigned'], description: 'Filter tasks by assignment status.' })
+  @IsIn(['all', 'assigned', 'unassigned'])
   @IsOptional()
-  filter?: 'all' | 'completed' | 'assigned' | 'unassigned';
+  assignmentFilter?: 'all' | 'assigned' | 'unassigned';
+
+  @ApiPropertyOptional({ example: 'completed', enum: ['all', 'completed', 'incomplete'], description: 'Filter tasks by completion status (only used if assignmentFilter is not "unassigned").' })
+  @IsIn(['all', 'completed', 'incomplete'])
+  @IsOptional()
+  completionFilter?: 'all' | 'completed' | 'incomplete';
 }

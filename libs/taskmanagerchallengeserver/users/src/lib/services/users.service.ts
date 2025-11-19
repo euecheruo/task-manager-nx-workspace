@@ -1,6 +1,7 @@
+// /workspace-root/libs/api/users/services/users.service.ts
+
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from '../repositories/users.repository';
-
 interface UserDetails {
   userId: number;
   email: string;
@@ -15,7 +16,6 @@ interface UserProfile {
 @Injectable()
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);
-
   constructor(
     private usersRepository: UsersRepository,
   ) { }
@@ -24,11 +24,11 @@ export class UsersService {
    * Retrieves a user by their ID, returning a simplified profile object.
    * Used primarily by Guards and AuthService for token validation.
    */
-  async getById(userId: number): Promise<UserProfile | null> {
+  async getById(userId: number): Promise<UserProfile |
+    null> {
     this.logger.verbose(`Fetching user profile by ID: ${userId}`);
 
     const user = await this.usersRepository.findOneById(userId);
-
     if (!user) {
       this.logger.warn(
         `User with ID ${userId} not found during lookup. Possible stale token or user deleted.`,
@@ -48,10 +48,10 @@ export class UsersService {
    * Retrieves a user by their email, including the password hash for login verification.
    * Used exclusively by the AuthService.login.
    */
-  async getByEmail(email: string): Promise<UserDetails | null> {
+  async getByEmail(email: string): Promise<UserDetails |
+    null> {
     this.logger.verbose(`Attempting to retrieve user details by email: ${email}`);
     const user = await this.usersRepository.findOneByEmail(email);
-
     if (!user) {
       this.logger.warn(`User with email ${email} not found. Login failure likely.`);
       return null;
@@ -89,5 +89,25 @@ export class UsersService {
       throw new NotFoundException(`User with ID ${userId} not found.`);
     }
     return profile;
+  }
+
+  /**
+   * Retrieves a list of all user profiles (excluding sensitive data like password hash).
+   */
+  // FIX: Corrected return type to Promise<UserProfile[]>
+  async getAllUsers(): Promise<UserProfile[]> {
+    this.logger.log('Retrieving all public user profiles.');
+    const users = await this.usersRepository.findAllProfiles();
+
+    // Map UserEntity array to UserProfile DTO array
+    // FIX: Corrected type assignment to UserProfile[]
+    const profiles: UserProfile[] = users.map(user => ({
+      userId: user.userId,
+      email: user.email,
+      createdAt: user.createdAt,
+    }));
+
+    this.logger.verbose(`Retrieved ${profiles.length} user profiles.`);
+    return profiles;
   }
 }

@@ -1,48 +1,5 @@
-<div class="card shadow-lg rounded-4 border-0">
-  <div class="card-header bg-primary text-white p-4 rounded-top-4">
-    <h3 class="mb-0 fw-bold">Task Dashboard</h3>
-  </div>
-
-  <div class="card-body p-4">
-
-    <div class="d-flex flex-wrap align-items-center mb-4 gap-3">
-
-      <button class="btn btn-success rounded-pill px-4" [routerLink]="['/tasks/add']" *appHasPermission="'create:tasks'">
-        <i class="bi bi-plus-lg me-1"></i> Create Task
-      </button>
-
-      <div class="d-flex align-items-center me-3">
-        <label for="filterAssignment" class="form-label mb-0 me-2 fw-medium text-muted">Assignment:</label>
-        <select id="filterAssignment"
-                class="form-select form-select-sm rounded-pill"
-                style="width: 150px;"
-                [(ngModel)]="filterAssignment"
-                (ngModelChange)="onFilterChange()">
-          <option value="all">All Tasks</option>
-          <option value="assigned">Assigned Tasks</option>
-          <option value="unassigned">Unassigned Tasks</option>
-        </select>
-      </div>
-
-      @if (filterAssignment()!== 'unassigned') {
-      <div class="d-flex align-items-center">
-        <label for="filterStatus" class="form-label mb-0 me-2 fw-medium text-muted">Completion:</label>
-        <select id="filterStatus"
-                class="form-select form-select-sm rounded-pill"
-                style="width: 150px;"
-                [(ngModel)]="filterStatus"
-                (ngModelChange)="onFilterChange()">
-          <option value="all">All Status</option>
-          <option value="completed">Completed</option>
-          <option value="incomplete">Incomplete</option>
-        </select>
-      </div>
-      }
-      <button class="btn btn-outline-secondary btn-sm rounded-pill" (click)="fetchTasks()">
-        <i class="bi bi-arrow-clockwise"></i> Refresh
-      </button>
-
-    </div>
+<div class="card p-4 task-card">
+  <div class="card-body">
 
     @if (isLoading()) {
     <div class="text-center p-5">
@@ -51,32 +8,96 @@
       </div>
       <p class="mt-2 text-muted">Loading tasks...</p>
     </div>
-    } @else if (errorMessage()) {
+    }
+
+    @if (!isLoading()) {
+
+    <h2 class="card-title fw-bold mb-4">
+      <i class="bi bi-speedometer"></i>
+      Task Dashboard
+    </h2>
+
+    <div class="pb-4">
+      <button class="btn btn-success d-flex align-items-center" [routerLink]="['/tasks/add']" *appHasPermission="'create:tasks'">
+        <i class="bi bi-plus"></i>
+        Create Task
+      </button>
+    </div>
+
+    @if (errorMessage()) {
     <div class="alert alert-danger rounded-3">{{ errorMessage() }}</div>
-    } @else if (taskState().tasks.length === 0 &&!isLoading()) {
+    } @else if (taskState().tasks.length === 0) {
     <div class="alert alert-info rounded-3 text-center p-4">
       No tasks found matching your filters.
     </div>
     }
 
-    @if (!isLoading() && taskState().tasks.length > 0) {
-    <div class="table-responsive rounded-3 border">
-      <table class="table table-hover align-middle mb-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+      <div class="mb-3">
+        <label for="filterAssignment" class="form-label">Filter By Assignment</label>
+        <select class="form-select"
+                aria-label="AssignmentFilter"
+                id="filterAssignment"
+                [(ngModel)]="filterAssignment"
+                (ngModelChange)="onFilterChange()">
+          <option value="all">All Tasks</option>
+          <option value="assigned">Assigned Tasks</option>
+          <option value="unassigned">Unassigned Tasks</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+
+        @if (filterAssignment()!== 'unassigned') {
+
+        <label for="filterStatus" class="form-label">Filter By Completion</label>
+        <select class="form-select"
+                aria-label="CompletionFilter"
+                id="filterStatus"
+                [(ngModel)]="filterStatus"
+                (ngModelChange)="onFilterChange()">
+          <option value="all">All Status</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+
+        }
+
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-dark btn-sm" (click)="fetchTasks()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Refresh
+        </button>
+      </div>
+
+    </div>
+
+    @if (taskState().tasks.length > 0) {
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
         <thead class="table-light">
           <tr>
-            <th scope="col" style="width: 5%">Done</th>
-            <th scope="col" style="width: 30%">Task Title</th>
-            <th scope="col" style="width: 20%">Assigned To</th>
-            <th scope="col" style="width: 15%">Created On</th>
-            <th scope="col" style="width: 15%">Completed On</th>
-            <th scope="col" style="width: 15%" class="text-center">Actions</th>
+            <th scope="col" style="width: 5%;"></th>
+            <th scope="col" style="width: 30%;">Task Title</th>
+            <th scope="col" style="width: 20%;">Assigned To</th>
+            <th scope="col" style="width: 15%;">Created</th>
+            <th scope="col" style="width: 15%;">Completed</th>
+            <th scope="col" style="width: 15%;" class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
+
           @for (task of taskState().tasks; track task.taskId) {
-          <tr [class.table-success]="task.isCompleted">
-            <td>
+
+          <tr [class.table-primary]="task.isCompleted">
+            <td class="task-checkbox">
+
               @if (task.assignedUserId!== null && isAssignedUser(task)) {
+
               <input class="form-check-input"
                      type="checkbox"
                      [checked]="task.isCompleted"
@@ -86,52 +107,25 @@
               } @else if (task.isCompleted) {
               <i class="bi bi-check-circle-fill text-success" title="Completed"></i>
               } @else {
-              <i class="bi bi-x-circle text-muted" title="Unassigned/Not Your Task"></i>
               }
-            </td>
 
+            </td>
             <td>
               <span [class.text-decoration-line-through]="task.isCompleted">
                 {{ task.title }}
               </span>
-              <small class="text-muted d-block" title="Creator">{{ task.creator.email }}</small>
+              <small class="text-muted d-block" title="Creator">Created by: {{ task.creator.email }}</small>
             </td>
-
             <td>
-              @if (task.assignedUser) {
-              <span class="badge bg-primary text-white me-2" title="Assigned User">
+              <span class="badge bg-dark text-white" title="User Assignment">
+                @if (task.assignedUser) {
                 {{ task.assignedUser.email }}
+                } @else {
+                Unassigned Task
+                }
               </span>
-              <button class="btn btn-outline-danger btn-sm"
-                      (click)="onUnassignTask(task)"
-                      *appHasPermission="'unassign:tasks'"
-                      title="Unassign Task">
-                <i class="bi bi-person-x"></i>
-              </button>
-              } @else {
-              @if (users().length > 0 && userPermissions().includes('assign:tasks')) {
-              <div class="d-flex align-items-center">
-                <select class="form-select form-select-sm me-2"
-                        #assignSelect>
-                  <option [value]="null" selected disabled>Assign to...</option>
-                  @for (user of users(); track user.userId) {
-                  <option [value]="user.userId">{{ user.email }}</option>
-                  }
-                </select>
-                <button class="btn btn-outline-primary btn-sm"
-                        (click)="onAssignTask(task, assignSelect)"
-                        title="Assign Task">
-                  <i class="bi bi-person-plus"></i>
-                </button>
-              </div>
-              } @else {
-              <span class="text-muted fst-italic">Unassigned</span>
-              }
-              }
             </td>
-
             <td>{{ task.createdAt | date:'shortDate' }}</td>
-
             <td>
               @if (task.completedAt) {
               {{ task.completedAt | date:'shortDate' }}
@@ -139,64 +133,86 @@
               <span class="text-muted">N/A</span>
               }
             </td>
+            <td>
 
-            <td class="text-center">
-              <div class="btn-group btn-group-sm" role="group">
-                <button class="btn btn-outline-info" (click)="onViewTask(task.taskId)" title="View Details">
-                  <i class="bi bi-eye"></i>
+              <div class="btn-group" role="group" aria-label="Task Actions">
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="onViewTask(task.taskId)"
+                        title="View Task">
+                  View
                 </button>
 
                 @if (isCreator(task)) {
-                <button class="btn btn-outline-warning"
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm"
                         (click)="onEditTask(task.taskId)"
                         *appHasPermission="'update:own:tasks'"
                         title="Edit Task">
-                  <i class="bi bi-pencil"></i>
+                  Edit
                 </button>
                 } @else {
-                <button class="btn btn-outline-warning disabled"
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm disabled"
                         title="Only the creator can edit (update:own:tasks)">
-                  <i class="bi bi-pencil"></i>
+                  Edit
                 </button>
                 }
 
+                <button type="button"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="onDeleteTask(task)"
+                        *appHasPermission="'delete:own:tasks'"
+                        [disabled]="!isCreator(task)"
+                        title="Delete Task (Requires delete:own:tasks and creator status)">
+                  Delete
+                </button>
+
               </div>
+
             </td>
           </tr>
+
           }
+
         </tbody>
       </table>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-3 w-100">
-      <span class="text-muted small">
-        Showing {{ (currentPage() - 1) * tasksPerPage() + 1 }} - {{ Math.min(currentPage() * tasksPerPage(), taskState().total) }} of {{ taskState().total }} tasks
-      </span>
+    }
 
-      <nav aria-label="Task pagination">
-        <ul class="pagination pagination-sm my-0 shadow-sm rounded-pill">
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination my-0">
           <li class="page-item" [class.disabled]="currentPage() === 1">
-            <a class="page-link rounded-start-pill" href="javascript:void(0)" (click)="onPageChange(currentPage() - 1)">&laquo;</a>
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage() - 1)">&lt;</a>
           </li>
 
           @for (page of paginationRange(); track page) {
             @if (page === 0) {
+
           <li class="page-item disabled"><span class="page-link">...</span></li>
+
             } @else {
+
           <li class="page-item" [class.active]="page === currentPage()">
             <a class="page-link" href="javascript:void(0)" (click)="onPageChange(page)">{{ page }}</a>
           </li>
+
             }
           }
 
           <li class="page-item" [class.disabled]="currentPage() === totalPages() || totalPages() === 0">
-            <a class="page-link rounded-end-pill" href="javascript:void(0)" (click)="onPageChange(currentPage() + 1)">&raquo;</a>
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage() + 1)">&gt;</a>
           </li>
         </ul>
+        <span class="ms-3 text-muted small">Page {{ currentPage() }} of {{ totalPages() }}</span>
       </nav>
 
-      <span class="ms-3 text-muted small">Page {{ currentPage() }} of {{ totalPages() }}</span>
     </div>
+
     }
+
   </div>
 </div>
+

@@ -1,7 +1,11 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsString, IsOptional, IsBoolean, IsDateString } from 'class-validator';
-import { TaskEntity } from '../../../../data-access/src/lib/entities/task.entity';
+// /workspace-root/libs/api/tasks/dtos/task-response.dto.ts
 
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsArray, IsNumber, IsString, IsOptional, IsBoolean, IsDateString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { UserProfileDto } from '../../../../users/src/lib/dtos/user-profile.dto'; // Import for creator/assignedUser profiles
+
+// Defines the structure for a single task returned via the API
 export class SingleTaskResponse {
   @ApiProperty({ example: 101, description: 'Unique identifier of the task.' })
   @IsNumber()
@@ -20,10 +24,23 @@ export class SingleTaskResponse {
   @IsNumber()
   creatorId: number;
 
+  // Added full user profile for the creator
+  @ApiProperty({ type: UserProfileDto, description: 'The user who created the task.' })
+  @ValidateNested()
+  @Type(() => UserProfileDto)
+  creator: UserProfileDto;
+
   @ApiPropertyOptional({ example: 5, description: 'ID of the user currently assigned, or null if unassigned.' })
   @IsNumber()
   @IsOptional()
   assignedUserId?: number | null;
+
+  // Added full user profile for the assigned user (can be null)
+  @ApiPropertyOptional({ type: UserProfileDto, nullable: true, description: 'The user currently assigned to the task (if assigned).' })
+  @ValidateNested()
+  @Type(() => UserProfileDto)
+  @IsOptional()
+  assignedUser: UserProfileDto | null;
 
   @ApiProperty({ example: false, description: 'Completion status of the task.' })
   @IsBoolean()
@@ -39,12 +56,23 @@ export class SingleTaskResponse {
   completedAt?: Date | null;
 }
 
+// Defines the paginated response structure for task lists
 export class TaskResponseDto {
-  @ApiProperty({ example: [SingleTaskResponse], description: 'Array of tasks returned by the query.' })
+  @ApiProperty({ type: [SingleTaskResponse], description: 'Array of tasks returned by the query.' })
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SingleTaskResponse)
   tasks: SingleTaskResponse[];
 
   @ApiProperty({ example: 50, description: 'Total number of tasks matching the query without pagination.' })
   @IsNumber()
   total: number;
+
+  @ApiProperty({ example: 1, description: 'The current page number returned.' })
+  @IsNumber()
+  page: number;
+
+  @ApiProperty({ example: 10, description: 'The number of tasks per page (limit).' })
+  @IsNumber()
+  limit: number;
 }

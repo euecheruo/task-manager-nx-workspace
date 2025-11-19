@@ -1,3 +1,4 @@
+// /workspace-root/libs/api/tasks/services/tasks.service.ts
 
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from '../dtos/create-task.dtos';
@@ -7,6 +8,9 @@ import { SingleTaskResponse, TaskResponseDto } from '../dtos/task-response.dtos'
 import { TasksRepository } from '../repositories/tasks.repository';
 import { UsersRepository } from '../../../../users/src/lib/repositories/users.repository';
 import { TaskEntity } from '../../../../data-access/src/lib/entities/task.entity';
+import { UserEntity } from '../../../../data-access/src/lib/entities/user.entity';
+import { UserProfileDto } from '../../../../users/src/lib/dtos/user-profile.dto';
+
 
 @Injectable()
 export class TasksService {
@@ -17,35 +21,66 @@ export class TasksService {
   ) { }
 
   /**
-   * Utility function to map TaskEntity (DB structure) to SingleTaskResponse (API DTO structure).
+   * Utility function to map a UserEntity (with minimal fields) to UserProfileDto.
+   */
+  private mapUserEntityToProfileDto(entity: UserEntity): UserProfileDto {
+    // Only include fields present in UserProfileDto
+    return {
+      userId: entity.userId,
+      email: entity.email,
+      createdAt: entity.createdAt,
+    };
+  }
+
+  /**
+   * Utility function to map TaskEntity (DB structure) including relations to SingleTaskResponse (API DTO structure).
    */
   private mapTaskEntityToDto(entity: TaskEntity): SingleTaskResponse {
+    // Ensure relations exist before trying to map them
+    const creatorProfile = entity.creator ? this.mapUserEntityToProfileDto(entity.creator) : null;
+    const assignedUserProfile = entity.assignedUser ? this.mapUserEntityToProfileDto(entity.assignedUser) : null;
+
+    if (!creatorProfile) {
+      this.logger.error(`Task ${entity.task_id} missing creator relation!`);
+      // Should only happen if creator row was deleted without enforcing foreign key constraint (which we restrict)
+      throw new Error('Task entity missing required creator relation.');
+    }
+
     return {
       taskId: entity.task_id,
       title: entity.title,
       description: entity.description,
       creatorId: entity.creator_id,
+      creator: creatorProfile,
       assignedUserId: entity.assigned_user_id,
+      assignedUser: assignedUserProfile,
       isCompleted: entity.is_completed,
       createdAt: entity.created_at,
       completedAt: entity.completed_at,
     };
   }
 
-
   /**
    * Retrieves a paginated list of tasks based on filters.
    */
   async findAll(query: TaskFilterQuery): Promise<TaskResponseDto> {
     this.logger.log(`Fetching tasks with query: ${JSON.stringify(query)}`);
+
+    const { page = 1, limit = 10 } = query;
+
+    // The repository now handles loading relations and filtering
     const result = await this.tasksRepository.findAndCountTasks(query);
 
-    const taskDtos: SingleTaskResponse[] = result.tasks.map(task => this.mapTaskEntityToDto(task));
 
+    const taskDtos: SingleTaskResponse[] = result.tasks.map(task => this.mapTaskEntityToDto(task));
     this.logger.verbose(`Found ${result.count} tasks matching criteria.`);
+
+    // Include page and limit in the response DTO
     return {
       tasks: taskDtos,
-      total: result.count
+      total: result.count,
+      page: Number(page),
+      limit: Number(limit),
     };
   }
 
@@ -53,25 +88,29 @@ export class TasksService {
    * Retrieves a single task by ID.
    * @throws NotFoundException if the task does not exist.
    */
-  async findOne(taskId: number): Promise<TaskEntity> {
+  async findOne(taskId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Fetching single task by ID: ${taskId}`);
+    // Ensure relations are loaded for the DTO mapping
     const task = await this.tasksRepository.findOneById(taskId);
 
     if (!task) {
       this.logger.warn(`Task ID ${taskId} not found.`);
       throw new NotFoundException(`Task with ID ${taskId} not found.`);
     }
-    return task;
+
+    return this.mapTaskEntityToDto(task);
   }
 
   /**
-   * Creates a new task, setting the creatorId.
+   * Creates a new task, sets the creatorId, and returns the full DTO.
+   * @returns SingleTaskResponse DTO
    */
-  async create(createTaskDto: CreateTaskDto, creatorId: number): Promise<TaskEntity> {
+  async create(createTaskDto: CreateTaskDto, creatorId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Creating new task for creator ${creatorId}`);
-    // FIX: Corrected operator from bitwise OR (|) to logical OR (||)
-    const assignedUserId = createTaskDto.assignToUserId || null;
 
+    const assignedUserId = createTaskDto.assignedUserId || null;
+
+    // Validate if the user assigned exists (if assignedUserId is provided)
     if (assignedUserId) {
       const user = await this.usersRepository.findOneById(assignedUserId);
       if (!user) {
@@ -91,15 +130,16 @@ export class TasksService {
     };
     const createdTask = await this.tasksRepository.save(newTaskData);
     this.logger.verbose(`Task created with ID: ${createdTask.task_id} by user ${creatorId}`);
-    return createdTask;
+
+    // Fetch the newly created task with its relations (creator) before mapping to DTO
+    return this.findOne(createdTask.task_id);
   }
 
   /**
-   * Updates an existing task's core properties.
-   * NOTE: Authorization (ownership check) is handled by TaskOwnershipGuard in the Controller.
-   * @throws NotFoundException if the task does not exist.
+   * Updates an existing task's core properties and returns the full DTO.
+   * @returns SingleTaskResponse DTO
    */
-  async update(taskId: number, updateTaskDto: UpdateTaskDto): Promise<TaskEntity> {
+  async update(taskId: number, updateTaskDto: UpdateTaskDto): Promise<SingleTaskResponse> {
     this.logger.log(`Updating task ID: ${taskId}`);
     const existingTask = await this.tasksRepository.findOneById(taskId);
     if (!existingTask) {
@@ -107,24 +147,31 @@ export class TasksService {
       throw new NotFoundException(`Task with ID ${taskId} not found.`);
     }
 
-    if (updateTaskDto.assignToUserId !== undefined && updateTaskDto.assignToUserId !== null) {
-      const user = await this.usersRepository.findOneById(updateTaskDto.assignToUserId);
-      if (!user) {
-        this.logger.error(`Update failed: User ID ${updateTaskDto.assignToUserId} for assignment not found.`);
-        throw new NotFoundException(`User ID ${updateTaskDto.assignToUserId} designated for assignment not found.`);
+    // Handle assignment change if provided and validate assigned user existence
+    if (updateTaskDto.assignedUserId !== undefined) {
+      const assignedUserId = updateTaskDto.assignedUserId;
+
+      if (assignedUserId !== null) {
+        const user = await this.usersRepository.findOneById(assignedUserId);
+        if (!user) {
+          this.logger.error(`Update failed: User ID ${assignedUserId} for assignment not found.`);
+          throw new NotFoundException(`User ID ${assignedUserId} designated for assignment not found.`);
+        }
       }
     }
-    else if (updateTaskDto.assignToUserId === null) {
-      updateTaskDto.assignToUserId = null;
-    }
 
-
+    // Prepare update payload for DB (mapping DTO field to Entity column)
     const updatePayload: Partial<TaskEntity> = {
-      ...updateTaskDto,
+      title: updateTaskDto.title,
+      description: updateTaskDto.description,
+      is_completed: updateTaskDto.isCompleted,
+      ...(updateTaskDto.assignedUserId !== undefined && { assigned_user_id: updateTaskDto.assignedUserId }),
     };
 
+    // If marked complete/incomplete via update endpoint, adjust completedAt timestamp
     if (updateTaskDto.isCompleted !== undefined) {
       if (updateTaskDto.isCompleted === true) {
+        // Only mark complete if it wasn't already 
         if (!existingTask.is_completed) {
           updatePayload.completed_at = new Date();
         }
@@ -135,7 +182,9 @@ export class TasksService {
 
     const updatedTask = await this.tasksRepository.update(taskId, updatePayload);
     this.logger.verbose(`Task ID ${taskId} updated successfully.`);
-    return updatedTask;
+
+    // Fetch the updated task with relations before returning the DTO
+    return this.findOne(updatedTask.task_id);
   }
 
   /**
@@ -154,67 +203,65 @@ export class TasksService {
   }
 
   /**
-   * Assigns a task to a user.
-   * NOTE: Guard checks ensure the task is currently unassigned before this call.
+   * Assigns a task to a user and returns the full DTO.
    */
-  async assign(taskId: number, assignedUserId: number): Promise<TaskEntity> {
+  async assign(taskId: number, assignedUserId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Assigning task ${taskId} to user ${assignedUserId}`);
+
     const user = await this.usersRepository.findOneById(assignedUserId);
     if (!user) {
       this.logger.error(`Assignment failed: User ${assignedUserId} does not exist.`);
       throw new NotFoundException(`User with ID ${assignedUserId} not found.`);
     }
 
-    // Update assignment field
+
     const updatedTask = await this.tasksRepository.update(taskId, {
       assigned_user_id: assignedUserId,
       is_completed: false,
       completed_at: null,
     });
     this.logger.verbose(`Task ${taskId} assigned to user ${assignedUserId}.`);
-    return updatedTask;
+    return this.findOne(updatedTask.task_id);
   }
 
   /**
-   * Unassigns a task.
-   * NOTE: Guard checks ensure the task is currently assigned before this call.
+   * Unassigns a task and returns the full DTO.
    */
-  async unassign(taskId: number): Promise<TaskEntity> {
+  async unassign(taskId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Unassigning task ${taskId}.`);
+
     const updatedTask = await this.tasksRepository.update(taskId, {
       assigned_user_id: null,
       is_completed: false,
       completed_at: null,
     });
     this.logger.verbose(`Task ${taskId} successfully unassigned.`);
-    return updatedTask;
+    return this.findOne(updatedTask.task_id);
   }
 
   /**
-   * Marks a task as complete, setting the completion date.
-   * NOTE: Guard checks ensure the task is assigned to the requester.
+   * Marks a task as complete, setting the completion date, and returns the full DTO.
    */
-  async markComplete(taskId: number): Promise<TaskEntity> {
+  async markComplete(taskId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Marking task ${taskId} as complete.`);
     const updatedTask = await this.tasksRepository.update(taskId, {
       is_completed: true,
       completed_at: new Date(),
     });
     this.logger.verbose(`Task ${taskId} marked complete.`);
-    return updatedTask;
+    return this.findOne(updatedTask.task_id);
   }
 
   /**
-   * Marks a task as incomplete, clearing the completion date.
-   * NOTE: Guard checks ensure the task is assigned to the requester.
+   * Marks a task as incomplete, clearing the completion date, and returns the full DTO.
    */
-  async markIncomplete(taskId: number): Promise<TaskEntity> {
+  async markIncomplete(taskId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Marking task ${taskId} as incomplete.`);
     const updatedTask = await this.tasksRepository.update(taskId, {
       is_completed: false,
       completed_at: null,
     });
     this.logger.verbose(`Task ${taskId} marked incomplete.`);
-    return updatedTask;
+    return this.findOne(updatedTask.task_id);
   }
 }

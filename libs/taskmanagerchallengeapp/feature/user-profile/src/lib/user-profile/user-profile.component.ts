@@ -1,6 +1,7 @@
 import { Component, inject, signal, OnInit, computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UsersService } from '../../../../../data-access/api-task-manager/src/lib/services/users.service';
 import { UserProfileResponse } from '../../../../../shared/util-auth/src/lib/models/user.model';
 import { LoggerService } from '../../../../../shared/util-logger/src/lib/services/logger.service';
@@ -10,7 +11,10 @@ import { catchError, of, finalize } from 'rxjs';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterLink
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
 })

@@ -1,3 +1,5 @@
+// /workspace-root/libs/api/tasks/dtos/create-task.dtos.ts
+
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsOptional, IsNumber, Min } from 'class-validator';
 
@@ -16,5 +18,5 @@ export class CreateTaskDto {
   @IsNumber()
   @IsOptional()
   @Min(1)
-  assignToUserId?: number;
+  assignedUserId?: number; // Updated property name
 }
