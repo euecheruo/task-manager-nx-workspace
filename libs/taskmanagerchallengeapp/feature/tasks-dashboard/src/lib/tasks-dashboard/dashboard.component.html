@@ -26,10 +26,6 @@
 
     @if (errorMessage()) {
     <div class="alert alert-danger rounded-3">{{ errorMessage() }}</div>
-    } @else if (taskState().tasks.length === 0) {
-    <div class="alert alert-info rounded-3 text-center p-4">
-      No tasks found matching your filters.
-    </div>
     }
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -75,6 +71,12 @@
 
     </div>
 
+    @if (taskState().tasks.length === 0) {
+    <div class="alert alert-info rounded-3 text-center p-4">
+      No tasks found matching your filters.
+    </div>
+    }
+
     @if (taskState().tasks.length > 0) {
 
     <div class="table-responsive">
@@ -101,9 +103,10 @@
               <input class="form-check-input"
                      type="checkbox"
                      [checked]="task.isCompleted"
-                     (change)="onToggleCompletion(task)"
                      [title]="task.isCompleted? 'Mark Incomplete' : 'Mark Complete'"
-                     [disabled]="!userPermissions().includes(task.isCompleted? 'unmark:assigned:tasks' : 'mark:assigned:tasks')">
+                     [disabled]="!userPermissions().includes(task.isCompleted? 'unmark:assigned:tasks' : 'mark:assigned:tasks') ||!isAssignedUser(task)"
+                     (change)="onToggleCompletion(task)">
+
               } @else if (task.isCompleted) {
               <i class="bi bi-check-circle-fill text-success" title="Completed"></i>
               } @else {
@@ -189,17 +192,17 @@
           </li>
 
           @for (page of paginationRange(); track page) {
-            @if (page === 0) {
+          @if (page === 0) {
 
           <li class="page-item disabled"><span class="page-link">...</span></li>
 
-            } @else {
+          } @else {
 
           <li class="page-item" [class.active]="page === currentPage()">
             <a class="page-link" href="javascript:void(0)" (click)="onPageChange(page)">{{ page }}</a>
           </li>
 
-            }
+          }
           }
 
           <li class="page-item" [class.disabled]="currentPage() === totalPages() || totalPages() === 0">

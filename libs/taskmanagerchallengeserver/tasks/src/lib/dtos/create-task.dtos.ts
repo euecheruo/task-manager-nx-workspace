@@ -7,7 +7,7 @@ export class CreateTaskDto {
   @ApiProperty({ example: 'Implement login screen', description: 'Title of the task.' })
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @ApiPropertyOptional({ example: 'Design and build the Angular login component.', description: 'Detailed description of the task.' })
   @IsString()

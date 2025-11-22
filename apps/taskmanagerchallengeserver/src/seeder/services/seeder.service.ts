@@ -170,7 +170,7 @@ export class SeederService {
     const passwordHash1 = await bcrypt.hash('MK2~DT?8R^=G~5oaM6Gw+8', this.BCRYPT_SALT_ROUNDS);
     const passwordHash2 = await bcrypt.hash('4V+726=mk>esc9DjH4=5r8', this.BCRYPT_SALT_ROUNDS);
     const passwordHash3 = await bcrypt.hash('6M*>pypL527g#N7J,AQf4W', this.BCRYPT_SALT_ROUNDS);
-    const passwordHash4 = await bcrypt.hash('6M*>pypL527g#N7J,AQf4W', this.BCRYPT_SALT_ROUNDS);
+    const passwordHash4 = await bcrypt.hash('R^?De8uf4Ffc~AgQAoWqo2', this.BCRYPT_SALT_ROUNDS);
 
     const seedUsersData = [
       { userId: 1, email: 'user1@faketest.com', passwordHash: passwordHash1, roleId: ROLES.EDITOR.roleId },

@@ -1,6 +1,4 @@
-// /workspace-root/libs/api/tasks/services/tasks.service.ts
-
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from '../dtos/create-task.dtos';
 import { UpdateTaskDto } from '../dtos/update-task.dtos';
 import { TaskFilterQuery } from '../dtos/task-filter.query';
@@ -24,7 +22,6 @@ export class TasksService {
    * Utility function to map a UserEntity (with minimal fields) to UserProfileDto.
    */
   private mapUserEntityToProfileDto(entity: UserEntity): UserProfileDto {
-    // Only include fields present in UserProfileDto
     return {
       userId: entity.userId,
       email: entity.email,
@@ -36,13 +33,11 @@ export class TasksService {
    * Utility function to map TaskEntity (DB structure) including relations to SingleTaskResponse (API DTO structure).
    */
   private mapTaskEntityToDto(entity: TaskEntity): SingleTaskResponse {
-    // Ensure relations exist before trying to map them
     const creatorProfile = entity.creator ? this.mapUserEntityToProfileDto(entity.creator) : null;
     const assignedUserProfile = entity.assignedUser ? this.mapUserEntityToProfileDto(entity.assignedUser) : null;
 
     if (!creatorProfile) {
       this.logger.error(`Task ${entity.task_id} missing creator relation!`);
-      // Should only happen if creator row was deleted without enforcing foreign key constraint (which we restrict)
       throw new Error('Task entity missing required creator relation.');
     }
 
@@ -68,14 +63,11 @@ export class TasksService {
 
     const { page = 1, limit = 10 } = query;
 
-    // The repository now handles loading relations and filtering
     const result = await this.tasksRepository.findAndCountTasks(query);
-
 
     const taskDtos: SingleTaskResponse[] = result.tasks.map(task => this.mapTaskEntityToDto(task));
     this.logger.verbose(`Found ${result.count} tasks matching criteria.`);
 
-    // Include page and limit in the response DTO
     return {
       tasks: taskDtos,
       total: result.count,
@@ -90,7 +82,6 @@ export class TasksService {
    */
   async findOne(taskId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Fetching single task by ID: ${taskId}`);
-    // Ensure relations are loaded for the DTO mapping
     const task = await this.tasksRepository.findOneById(taskId);
 
     if (!task) {
@@ -108,9 +99,13 @@ export class TasksService {
   async create(createTaskDto: CreateTaskDto, creatorId: number): Promise<SingleTaskResponse> {
     this.logger.log(`Creating new task for creator ${creatorId}`);
 
+    const existingTitle = await this.tasksRepository.findOneByTitle(createTaskDto.title);
+    if (existingTitle) {
+      throw new ConflictException(`A task with the title '${createTaskDto.title}' already exists.`);
+    }
+
     const assignedUserId = createTaskDto.assignedUserId || null;
 
-    // Validate if the user assigned exists (if assignedUserId is provided)
     if (assignedUserId) {
       const user = await this.usersRepository.findOneById(assignedUserId);
       if (!user) {
@@ -131,7 +126,6 @@ export class TasksService {
     const createdTask = await this.tasksRepository.save(newTaskData);
     this.logger.verbose(`Task created with ID: ${createdTask.task_id} by user ${creatorId}`);
 
-    // Fetch the newly created task with its relations (creator) before mapping to DTO
     return this.findOne(createdTask.task_id);
   }
 
@@ -147,7 +141,13 @@ export class TasksService {
       throw new NotFoundException(`Task with ID ${taskId} not found.`);
     }
 
-    // Handle assignment change if provided and validate assigned user existence
+    if (updateTaskDto.title && updateTaskDto.title !== existingTask.title) {
+      const duplicateCheck = await this.tasksRepository.findOneByTitle(updateTaskDto.title);
+      if (duplicateCheck) {
+        throw new ConflictException(`A task with the title '${updateTaskDto.title}' already exists.`);
+      }
+    }
+
     if (updateTaskDto.assignedUserId !== undefined) {
       const assignedUserId = updateTaskDto.assignedUserId;
 
@@ -160,7 +160,6 @@ export class TasksService {
       }
     }
 
-    // Prepare update payload for DB (mapping DTO field to Entity column)
     const updatePayload: Partial<TaskEntity> = {
       title: updateTaskDto.title,
       description: updateTaskDto.description,
@@ -168,10 +167,8 @@ export class TasksService {
       ...(updateTaskDto.assignedUserId !== undefined && { assigned_user_id: updateTaskDto.assignedUserId }),
     };
 
-    // If marked complete/incomplete via update endpoint, adjust completedAt timestamp
     if (updateTaskDto.isCompleted !== undefined) {
       if (updateTaskDto.isCompleted === true) {
-        // Only mark complete if it wasn't already 
         if (!existingTask.is_completed) {
           updatePayload.completed_at = new Date();
         }
@@ -183,7 +180,6 @@ export class TasksService {
     const updatedTask = await this.tasksRepository.update(taskId, updatePayload);
     this.logger.verbose(`Task ID ${taskId} updated successfully.`);
 
-    // Fetch the updated task with relations before returning the DTO
     return this.findOne(updatedTask.task_id);
   }
 

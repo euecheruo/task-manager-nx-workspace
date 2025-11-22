@@ -15,4 +15,5 @@ import { UsersRepository } from './repositories/users.repository';
     UsersRepository,
   ],
 })
+
 export class UsersModule { }

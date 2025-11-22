@@ -43,7 +43,7 @@ export class UsersRepository {
    */
   async getUserRolesAndPermissions(userId: number): Promise<string> {
     this.logger.debug(`DB complex lookup: aggregating permissions for user ${userId}`);
-    const queryResult: { permissionName: string }[] = await this.usersRepository // FIX: Changed type to array and fixed bitwise OR
+    const queryResult: { permissionName: string }[] = await this.usersRepository
       .createQueryBuilder('user')
       .leftJoin('user.userRoles', 'userRole')
       .leftJoin('userRole.role', 'role')
@@ -53,7 +53,6 @@ export class UsersRepository {
       .where('user.userId = :userId', { userId })
       .distinct(true)
       .getRawMany();
-    // FIX: Corrected syntax from bitwise OR (|) to logical OR (||)
     if (!queryResult || queryResult.length === 0) {
       this.logger.warn(`User ${userId} found, but has no assigned permissions.`);
       return '';
@@ -67,14 +66,12 @@ export class UsersRepository {
   /**
    * Finds all users, retrieving only non-sensitive profile fields.
    */
-  // FIX: Changed return type to Promise<UserEntity[]>
   async findAllProfiles(): Promise<UserEntity[]> {
     this.logger.debug(`DB lookup: find all user profiles.`);
     const users = await this.usersRepository.find({
       select: ['userId', 'email', 'createdAt'],
       order: { userId: 'ASC' },
     });
-    // FIX: Changed return type from UserEntity to UserEntity[]
     return users;
   }
 }

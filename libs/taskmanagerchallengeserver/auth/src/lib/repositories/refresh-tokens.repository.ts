@@ -43,31 +43,19 @@ export class RefreshTokensRepository {
    */
   async validateAndRevokeToken(userId: number, rawToken: string): Promise<boolean> {
     const tokenHash = hashToken(rawToken);
-    const now = new Date();
+    const tokenRecord = await this.refreshTokensRepository.findOne({ where: { userId, tokenHash } });
 
-    const tokenRecord = await this.refreshTokensRepository.findOne({
-      where: { userId: userId as any, tokenHash: tokenHash },
-    });
-    if (!tokenRecord) {
-      this.logger.warn(`Token validation failed for user ${userId}: Token hash not found.`);
+    if (!tokenRecord) return false;
+
+    // Critical Security Check: Reuse Detection
+    if (tokenRecord.isRevoked) {
+      this.logger.warn(`Security Alert: Token reuse detected for user ${userId}. Revoking all sessions.`);
+      await this.revokeAllTokensForUser(userId); // "Family" revocation
       return false;
     }
 
-    const isExpired = tokenRecord.expiresAt < now;
-    const isRevoked = tokenRecord.isRevoked === true;
-
-    if (isExpired) {
-      this.logger.warn(`Token validation failed for user ${userId}: Token expired at ${tokenRecord.expiresAt.toISOString()}.`);
-      return false;
-    }
-
-    if (isRevoked) {
-      this.logger.warn(`Token validation failed for user ${userId}: Token already revoked.`);
-      return false;
-    }
-
+    // Standard Rotation: Revoke the current token
     await this.refreshTokensRepository.update({ tokenId: tokenRecord.tokenId }, { isRevoked: true });
-    this.logger.log(` Revoked old refresh token (ID: ${tokenRecord.tokenId}) for user ${userId}.`);
     return true;
   }
 

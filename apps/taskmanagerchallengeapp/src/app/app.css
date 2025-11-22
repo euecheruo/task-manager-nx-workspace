@@ -1,9 +1,0 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-a, button {
-  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
-}

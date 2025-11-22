@@ -1,3 +1,5 @@
+// /workspace-root/libs/api/tasks/guards/task-ownership.guard.ts
+
 import {
   Injectable,
   CanActivate,
@@ -9,14 +11,6 @@ import {
 import { TasksService } from '../services/tasks.service';
 import { CurrentUserPayload } from '../../../../shared/src/lib/decorators/current-user.decorator';
 
-/**
- * TaskOwnershipGuard ensures that the authenticated user is the creator 
- * of the task resource being accessed (Update/Delete operations).
- * This enforces the "update:own:tasks" and "delete:own:tasks" policies.
- * 
- * NOTE: This guard should run AFTER the PermissionGuard has confirmed the user 
- * has the *right* to perform the *type* of action (RBAC). This guard checks the *resource scope* (ABAC).
- */
 @Injectable()
 export class TaskOwnershipGuard implements CanActivate {
   private readonly logger = new Logger(TaskOwnershipGuard.name);
@@ -43,24 +37,36 @@ export class TaskOwnershipGuard implements CanActivate {
         throw new NotFoundException(`Task with ID ${taskId} not found.`);
       }
 
+      // === OWNERSHIP CHECK ===
       const isOwner = task.creatorId === userId;
 
-      if (isOwner) {
-        this.logger.verbose(`User ${userId} is authorized for task ${taskId} (Owner).`);
-        return true;
-      } else {
-        this.logger.warn(`User ${userId} denied access to task ${taskId}. Not the creator (Creator ID: ${task.creatorId}).`);
+      if (!isOwner) {
+        this.logger.warn(
+          `User ${userId} denied access to task ${taskId}. Not the creator (Creator ID: ${task.creatorId}).`,
+        );
         throw new ForbiddenException('You can only update or delete tasks you have created.');
       }
+
+      // === OPTIMIZATION ===
+      // Attach the task to the request object so the Controller doesn't need to fetch it again.
+      request['task'] = task;
+
+      this.logger.verbose(`User ${userId} is authorized for task ${taskId} (Owner).`);
+      return true;
+
     } catch (error: unknown) {
       if (error instanceof NotFoundException || error instanceof ForbiddenException) {
         throw error;
       }
 
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      // It is often helpful to log the stack trace for unhandled errors
       const errorStack = error instanceof Error ? error.stack : undefined;
 
-      this.logger.error(`Error during task ownership check for task ${taskId}: ${errorMessage}`, errorStack);
+      this.logger.error(
+        `Error during task ownership check for task ${taskId}: ${errorMessage}`,
+        errorStack,
+      );
       throw error;
     }
   }

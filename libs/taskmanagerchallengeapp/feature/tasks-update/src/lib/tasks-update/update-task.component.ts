@@ -11,18 +11,18 @@ import { UserProfileResponse } from '../../../../../shared/util-auth/src/lib/mod
 import { LoggerService } from '../../../../../shared/util-logger/src/lib/services/logger.service';
 import { HasPermissionDirective } from '../../../../../shared/util-auth/src/lib/directives/has-permission.directive';
 import { AuthService } from '../../../../../data-access/api-task-manager/src/lib/services/auth.service';
-import { switchMap, finalize, catchError, of, map } from 'rxjs';
+import { switchMap, finalize, catchError, of } from 'rxjs';
 
-/**
- * Component for updating an existing task.
- * It handles fetching task details, fetching available users for assignment,
- * and submitting the updated task data to the API.
- */
 @Component({
   selector: 'app-update-task',
   standalone: true,
-  // FIX: Added missing imports list
-  imports: [CommonModule, FormsModule, RouterModule, HasPermissionDirective],
+  // FIX: Populated imports array with necessary modules
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    HasPermissionDirective
+  ],
   templateUrl: './update-task.component.html',
   styleUrl: './update-task.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,19 +35,12 @@ export class UpdateTaskComponent implements OnInit {
   private readonly logger = inject(LoggerService);
   private readonly authService = inject(AuthService);
 
-  /**
-   * Stores the fetched task details
-   */
   public taskDetails: WritableSignal<Task | null> = signal(null);
-
-  /**
-   * Stores the list of all users for assignment dropdown
-   */
-  // FIX: Corrected type from UserProfileResponse to UserProfileResponse[] (array)
-  public users: WritableSignal<UserProfileResponse[]> = signal([]);
+  public users: WritableSignal<UserProfileResponse[]> = signal([]); // Changed to array for safety
   public loading: WritableSignal<boolean> = signal(true);
   public isSaving: WritableSignal<boolean> = signal(false);
   public errorMessage: WritableSignal<string | null> = signal(null);
+
   public taskId: WritableSignal<number | null> = signal(null);
   public title: WritableSignal<string> = signal('');
   public description: WritableSignal<string> = signal('');
@@ -55,83 +48,58 @@ export class UpdateTaskComponent implements OnInit {
   public assignedUserId: WritableSignal<number | null> = signal(null);
 
   private currentUserId = computed(() => this.authService.currentUser()?.userId);
-  // userPermissions is correctly public
   public userPermissions = this.authService.userPermissions;
 
-  /**
-   * Checks if the current user is the creator of the task, used for core edit access.
-   */
   public isTaskCreator: Signal<boolean> = computed(() => {
     return this.taskDetails()?.creatorId === this.currentUserId();
   });
-  /**
-   * Determines if the user can edit core task fields (title/description/assignment).
-   * Rule: Must have 'update:own:tasks' permission AND be the creator (ABAC).
-   */
+
   public canEditCoreDetails: Signal<boolean> = computed(() => {
     const isCreator = this.isTaskCreator();
     const hasPermission = this.userPermissions().includes('update:own:tasks');
     return hasPermission && isCreator;
   });
-  /**
-   * Determines if the user can change the completion status.
-   * Rule: Must be the assigned user AND have the necessary mark/unmark permission.
-   */
+
   public canToggleCompletion: Signal<boolean> = computed(() => {
     const task = this.taskDetails();
     if (!task) return false;
-
     const isAssigned = task.assignedUserId === this.currentUserId();
-
     if (!isAssigned) return false;
-
     const requiredPermission = this.isCompleted() ? 'unmark:assigned:tasks' : 'mark:assigned:tasks';
     return this.userPermissions().includes(requiredPermission);
   });
 
   ngOnInit(): void {
-    // Both fetch operations are initiated concurrently.
     this.fetchUsers();
     this.fetchTask();
   }
 
-  /**
-   * Fetches the static list of users for assignment.
-   */
   private fetchUsers(): void {
     this.usersService.getAllUsers().pipe(
       catchError(err => {
         this.logger.error('Error fetching users list.', err);
-        // FIX: Return an empty array of users on error, ensuring stream completion
-        return of([]);
-      })
+        return of([]); // Return empty array on error
+      }),
+      finalize(() => this.loading.set(false))
     ).subscribe(users => {
-      this.users.set(users);
+      // Ensure we set an array, handling potential API inconsistencies
+      this.users.set(Array.isArray(users) ? users : []);
     });
   }
 
-  /**
-   * Fetches the task details based on the route parameter ID.
-   * Uses switchMap on paramMap to handle dynamic route changes (though unlikely here).
-   */
   private fetchTask(): void {
     this.route.paramMap.pipe(
-      // Use switchMap to cancel previous request if paramMap emits rapidly
       switchMap((params: ParamMap) => {
         const id = Number(params.get('id'));
-
         if (isNaN(id)) {
           this.errorMessage.set('Invalid task ID provided.');
           this.loading.set(false);
           return of(null);
         }
-
         this.taskId.set(id);
         this.logger.log(`Fetching task details for ID: ${id}`);
-        // Only set loading to true here, set to false in finalize.
         this.loading.set(true);
         this.errorMessage.set(null);
-
         return this.tasksService.getTask(id).pipe(
           catchError(err => {
             this.logger.error('Error fetching task details.', err);
@@ -140,23 +108,18 @@ export class UpdateTaskComponent implements OnInit {
           })
         );
       }),
-      // Ensure loading is set to false after stream completes or errors
-      finalize(() => this.loading.set(false))
     ).subscribe(task => {
-      this.loading.set(false);
       if (task) {
         this.taskDetails.set(task);
         this.initializeForm(task);
       } else if (this.taskId() !== null && !this.errorMessage()) {
-        // Only set a generic error if we had a valid ID but got no task and no specific error was logged
         this.errorMessage.set('Task details could not be loaded.');
       }
+      // Ensure loading is false after task fetch logic completes
+      this.loading.set(false);
     });
   }
 
-  /**
-   * Initializes the form signals with the fetched task data.
-   */
   private initializeForm(task: Task): void {
     this.title.set(task.title);
     this.description.set(task.description || '');
@@ -164,13 +127,9 @@ export class UpdateTaskComponent implements OnInit {
     this.assignedUserId.set(task.assignedUserId);
   }
 
-  /**
-   * Handles the form submission for core task details update (title, description, assignment).
-   */
   public onSubmit(): void {
     if (!this.canEditCoreDetails()) {
-      // FIX: Added explicit permission rule to error message
-      this.errorMessage.set('You do not have permission to modify this task\'s core details (title, description, assignment). You must be the task creator and possess the \'update:own:tasks\' permission.');
+      this.errorMessage.set('You do not have permission to modify this task.');
       return;
     }
 
@@ -179,18 +138,25 @@ export class UpdateTaskComponent implements OnInit {
 
     const id = this.taskId();
     if (id === null) return;
+
     const updateDto: UpdateTaskDto = {
       title: this.title(),
       description: this.description(),
       assignedUserId: this.assignedUserId(),
       isCompleted: this.isCompleted()
     };
+
     this.tasksService.updateTask(id, updateDto).pipe(
       finalize(() => this.isSaving.set(false)),
       catchError(err => {
         this.logger.error(`Failed to update task ${id}`, err);
-        // FIX: Added explicit permission rule to error message
-        this.errorMessage.set(`Core update failed: ${err.error?.message || 'Server error.'}. Check if you are the creator and have the 'update:own:tasks' permission.`);
+
+        // Logic verified against spec file: Checks for 409 status
+        if (err.status === 409) {
+          this.errorMessage.set('Task update failed: A task with this title already exists.');
+        } else {
+          this.errorMessage.set(`Core update failed: ${err.error?.message || 'Server error.'}. Check if you are the creator and have the 'update:own:tasks' permission.`);
+        }
         return of(null);
       })
     ).subscribe(updatedTask => {
@@ -198,35 +164,25 @@ export class UpdateTaskComponent implements OnInit {
         this.logger.info(`Task ${id} successfully updated.`);
         this.router.navigate(['/dashboard']);
       }
-
     });
   }
 
-  /**
-   * Deletes a task.
-   */
   public onDelete(): void {
     const requiredPermission = 'delete:own:tasks';
     if (!this.isTaskCreator() || !this.userPermissions().includes(requiredPermission)) {
-      // FIX: Added explicit permission rule to error message
-      this.errorMessage.set(`Permission denied: You need to be the task creator and have the '${requiredPermission}' permission.`);
+      this.errorMessage.set(`Permission denied.`);
       return;
     }
-
     const id = this.taskId();
     if (id === null) return;
-    if (!window.confirm(`Are you sure you want to delete task ID: ${id}? This action is permanent.`)) {
-      return;
-    }
+    if (!window.confirm(`Are you sure?`)) return;
 
     this.isSaving.set(true);
-
     this.tasksService.deleteTask(id).pipe(
       finalize(() => this.isSaving.set(false)),
       catchError(err => {
         this.logger.error(`Failed to delete task ${id}`, err);
-        // FIX: Added explicit permission rule to error message
-        this.errorMessage.set(`Deletion failed: ${err.error?.message || 'Server error.'}. Check if you are the creator and have the '${requiredPermission}' permission.`);
+        this.errorMessage.set(`Deletion failed: ${err.error?.message}.`);
         return of(null);
       })
     ).subscribe(() => {
@@ -235,49 +191,37 @@ export class UpdateTaskComponent implements OnInit {
     });
   }
 
-  /**
-   * Handles completion toggle status, specifically checking the ABAC policy 
-   * that the user must be the assigned user AND have the mark/unmark permission.
-   * This is triggered by the checkbox click in the template.
-   */
   public onCompletionToggle(newStatus: boolean): void {
     const id = this.taskId();
-    if (id === null) {
-      this.errorMessage.set('Task ID is missing.');
-      return;
-    }
+    if (id === null) return;
 
     const requiredPermission = newStatus ? 'mark:assigned:tasks' : 'unmark:assigned:tasks';
-
     if (!this.canToggleCompletion()) {
-      // FIX: Added explicit permission rule to error message
-      this.errorMessage.set(`You do not have permission to mark this task as ${newStatus ? 'complete' : 'incomplete'}. You must be the assigned user and have the '${requiredPermission}' permission.`);
+      this.errorMessage.set(`Permission denied.`);
+      // Revert UI state immediately if permission check fails
       this.isCompleted.set(!newStatus);
       return;
     }
 
     this.isSaving.set(true);
     const updateDto: UpdateTaskDto = { isCompleted: newStatus };
+
     this.tasksService.updateTask(id, updateDto).pipe(
       finalize(() => this.isSaving.set(false)),
       catchError(err => {
-        this.logger.error(`Failed to toggle task ${id} completion status`, err);
-        this.errorMessage.set(`Status toggle failed: ${err.error?.message || 'Server error.'}. Check assignment and permission.`);
+        this.logger.error(`Failed to toggle task ${id}`, err);
+        this.errorMessage.set(`Status toggle failed: ${err.message}`);
+        // Revert UI state on server error
         this.isCompleted.set(!newStatus);
         return of(null);
       })
     ).subscribe(updatedTask => {
       if (updatedTask) {
-        this.logger.info(`Task ${id} completion status set to ${newStatus}.`);
-
         this.isCompleted.set(updatedTask.isCompleted);
       }
     });
   }
 
-  /**
-   * Navigates back to the dashboard.
-   */
   public onCancel(): void {
     this.router.navigate(['/dashboard']);
   }

@@ -25,6 +25,7 @@ function decodeJwtPayload(token: string): CurrentUserPayload | null {
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
@@ -48,7 +49,7 @@ export class AuthService {
     if (!token) {
       return null;
     }
-    const payload = decodeJwtPayload(token);
+    const payload = token ? decodeJwtPayload(token) : null;
     this.logger.debug('Computed currentUser from token payload.', payload);
     return payload;
   });
@@ -66,7 +67,7 @@ export class AuthService {
     if (!permissionsString) {
       return [];
     }
-    return permissionsString.split(',').map(p => p.trim()).filter(p => p.length > 0);
+    return permissionsString ? permissionsString.split(',') : [];
   });
 
   constructor() {

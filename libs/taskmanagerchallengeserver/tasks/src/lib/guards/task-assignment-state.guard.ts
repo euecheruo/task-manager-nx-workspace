@@ -1,3 +1,5 @@
+// /workspace-root/libs/api/tasks/guards/task-assignment-state.guard.spec.ts
+
 import {
   Injectable,
   CanActivate,
@@ -8,13 +10,6 @@ import {
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
 
-/**
- * TaskAssignmentStateGuard checks the current assignment state of a task
- * before allowing assignment (must be unassigned) or unassignment (must be assigned).
- * 
- * This guard runs after the PermissionGuard validates the user's general right (RBAC)
- * to perform the assignment/unassignment action.
- */
 @Injectable()
 export class TaskAssignmentStateGuard implements CanActivate {
   private readonly logger = new Logger(TaskAssignmentStateGuard.name);
@@ -24,50 +19,45 @@ export class TaskAssignmentStateGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const url = request.url;
-    const isAssignAttempt = url.includes('/assign');
+    const isAssignAttempt = url.includes('/assign') && !url.includes('/unassign');
 
     const taskId = parseInt(request.params.id, 10);
-    const userId = request.user?.userId; // For logging context
+    const userId = request.user?.userId;
 
     if (isNaN(taskId)) {
-      this.logger.warn(`Task ID parameter missing or invalid for user ${userId}.`);
       throw new NotFoundException('Task ID parameter missing or invalid.');
     }
 
     try {
       const task = await this.tasksService.findOne(taskId);
-
       if (!task) {
-        this.logger.warn(`Task ID ${taskId} not found for assignment state check.`);
         throw new NotFoundException(`Task with ID ${taskId} not found.`);
       }
 
-      const isCurrentlyAssigned = task.assignedUser?.userId !== null;
+      // FIXED: Check assignedUserId directly. 
+      // Previous `task.assignedUser?.userId!== null` evaluated to true for undefined.
+      const isCurrentlyAssigned = task.assignedUserId !== null && task.assignedUserId !== undefined;
 
       if (isAssignAttempt) {
         if (isCurrentlyAssigned) {
-          this.logger.warn(`User ${userId} attempted to assign task ${taskId}, but it is already assigned to ${task.assignedUser?.userId}.`);
+          this.logger.warn(`User ${userId} attempted to assign task ${taskId}, but it is already assigned.`);
           throw new ForbiddenException('Cannot assign a task that is already assigned.');
         }
       } else {
+        // Unassign attempt
         if (!isCurrentlyAssigned) {
           this.logger.warn(`User ${userId} attempted to unassign task ${taskId}, but it is currently unassigned.`);
           throw new ForbiddenException('Cannot unassign a task that is already unassigned.');
         }
       }
 
-      this.logger.verbose(`User ${userId} authorized for state transition on task ${taskId}.`);
       return true;
 
     } catch (error: unknown) {
       if (error instanceof NotFoundException || error instanceof ForbiddenException) {
         throw error;
       }
-
-      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-      const errorStack = error instanceof Error ? error.stack : undefined;
-
-      this.logger.error(`Error during task state check for task ${taskId}: ${errorMessage}`, errorStack);
+      this.logger.error(`Error during task state check: ${error}`);
       throw error;
     }
   }

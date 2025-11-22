@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/tasks/repositories/tasks.repository.ts
-
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, DeleteResult } from 'typeorm';
@@ -31,14 +29,12 @@ export class TasksRepository {
 
     const queryBuilder = this.tasksRepository.createQueryBuilder('task');
 
-    // --- 1. Apply Assignment Filtering ---
     if (assignmentFilter === 'assigned') {
       queryBuilder.andWhere('task.assigned_user_id IS NOT NULL');
     } else if (assignmentFilter === 'unassigned') {
       queryBuilder.andWhere('task.assigned_user_id IS NULL');
     }
 
-    // --- 2. Apply Completion Filtering (only if assignmentFilter is not 'unassigned') ---
     if (assignmentFilter !== 'unassigned' && completionFilter !== 'all') {
       if (completionFilter === 'completed') {
         queryBuilder.andWhere('task.is_completed = :isCompleted', { isCompleted: true });
@@ -47,16 +43,12 @@ export class TasksRepository {
       }
     }
 
-    // --- 3. Apply Ordering (Newest first) ---
     queryBuilder.orderBy('task.created_at', 'DESC');
 
 
-    // --- 4. Apply Pagination ---
     queryBuilder.skip(skip).take(currentLimit);
 
-    // --- 5. Execute query and count ---
     const [tasks, count] = await queryBuilder
-      // Also fetch relations for assigned user and creator for DTO mapping
       .leftJoinAndSelect('task.creator', 'creator')
       .leftJoinAndSelect('task.assignedUser', 'assignedUser')
       .getManyAndCount();
@@ -71,10 +63,18 @@ export class TasksRepository {
    */
   async findOneById(taskId: number): Promise<TaskEntity | null> {
     this.logger.debug(`DB lookup: find task by ID ${taskId}`);
-    // CRITICAL FIX: Ensure relations are loaded as the service layer relies on them for DTO mapping
     return await this.tasksRepository.findOne({
       where: { task_id: taskId as any },
       relations: ['creator', 'assignedUser']
+    });
+  }
+
+  /**
+   * Finds a task by its title. Used for duplicate checking.
+   */
+  async findOneByTitle(title: string): Promise<TaskEntity | null> {
+    return await this.tasksRepository.findOne({
+      where: { title },
     });
   }
 

@@ -69,7 +69,7 @@
       "@task-manager-nx-workspace/client/data-access/api-task-manager": [
         "libs/taskmanagerchallengeapp/data-access/api-task-manager/src/index.ts"
       ],
-      "@task-manager-nx-workspace/client/data-access/api-task-manager/(": [
+      "@task-manager-nx-workspace/client/data-access/api-task-manager/*": [
         "libs/taskmanagerchallengeapp/data-access/api-task-manager/src/*"
       ],
       "@task-manager-nx-workspace/client/feature/auth-login": [

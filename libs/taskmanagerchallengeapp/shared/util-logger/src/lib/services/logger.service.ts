@@ -54,19 +54,23 @@ export class LoggerService {
     }
   }
 
-  debug(message: string, ...optionalParams: unknown[]): void {
+  public debug(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('DEBUG', message, ...optionalParams);
   }
-  info(message: string, ...optionalParams: unknown[]): void {
+
+  public info(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('INFO', message, ...optionalParams);
   }
-  log(message: string, ...optionalParams: unknown[]): void {
+  public log(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('LOG', message, ...optionalParams);
   }
-  warn(message: string, ...optionalParams: unknown[]): void {
+
+  public warn(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('WARN', message, ...optionalParams);
   }
-  error(message: string, ...optionalParams: unknown[]): void {
+
+  public error(message: string, ...optionalParams: unknown[]): void {
     this.internalLog('ERROR', message, ...optionalParams);
   }
+
 }

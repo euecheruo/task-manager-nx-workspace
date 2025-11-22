@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/users/services/users.service.ts
-
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from '../repositories/users.repository';
 interface UserDetails {
@@ -94,13 +92,10 @@ export class UsersService {
   /**
    * Retrieves a list of all user profiles (excluding sensitive data like password hash).
    */
-  // FIX: Corrected return type to Promise<UserProfile[]>
   async getAllUsers(): Promise<UserProfile[]> {
     this.logger.log('Retrieving all public user profiles.');
     const users = await this.usersRepository.findAllProfiles();
 
-    // Map UserEntity array to UserProfile DTO array
-    // FIX: Corrected type assignment to UserProfile[]
     const profiles: UserProfile[] = users.map(user => ({
       userId: user.userId,
       email: user.email,

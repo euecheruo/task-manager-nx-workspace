@@ -43,11 +43,8 @@ export class PermissionGuard implements CanActivate {
       throw new ForbiddenException('Insufficient privileges: User claims incomplete.');
     }
 
-    const userPermissionsSet = new Set(user.permissions.split(',').filter(p => p));
-
-    const hasAllRequiredPermissions = requiredPermissions.every((requiredPerm) =>
-      userPermissionsSet.has(requiredPerm),
-    );
+    const userPermissionsSet = new Set(user.permissions.split(','));
+    const hasAllRequiredPermissions = requiredPermissions.every(perm => userPermissionsSet.has(perm));
 
     if (hasAllRequiredPermissions) {
       this.logger.verbose(

@@ -1,5 +1,3 @@
-// /workspace-root/apps/api/src/app/app.module.ts
-
 import { Module, Logger } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,10 +16,9 @@ import { SeederModule } from '../seeder/seeder.module';
       ignoreEnvFile: process.env.NODE_ENV === 'production',
     }),
 
-    // 2. Configure TypeORM/PostgreSQL asynchronously
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule], // Import ConfigModule to make ConfigService available [cite: 113]
-      inject: [ConfigService], // Inject ConfigService to be passed to useFactory [cite: 113]
+      imports: [ConfigModule],
+      inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
         host: config.get<string>('POSTGRES_HOST'),
@@ -29,21 +26,19 @@ import { SeederModule } from '../seeder/seeder.module';
         username: config.get<string>('POSTGRES_USER'),
         password: config.get<string>('POSTGRES_PASSWORD'),
         database: config.get<string>('POSTGRES_DB'),
-        // Auto-load entities globally via DataAccessModule
         autoLoadEntities: true,
-        synchronize: true, // WARNING: Set to false in production! [cite: 114, 115]
+        synchronize: config.get<string>('IS_SYNCHRONIZED') === 'true',
       }),
     }),
     UsersModule,
     TasksModule,
     SharedModule,
     AuthModule,
-    // 3. Global modules
-    DataAccessModule, // Exports entity repositories globally [cite: 113]
-    SeederModule, // CRITICAL FIX: Ensures SeederService provider is available in the context [cite: 99]
+    DataAccessModule,
+    SeederModule,
   ],
-  controllers: [], // Controller definition [cite: 113]
-  providers: [Logger], // Added Logger for standard NestJS practice, though optional [cite: 113]
+  controllers: [],
+  providers: [Logger],
 })
 
 export class AppModule { }

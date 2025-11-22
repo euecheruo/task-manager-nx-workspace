@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\apps",
-    "\\apps\\taskmanagerchallengeapp\\src",
-    "\\apps\\taskmanagerchallengeapp\\src\\app",
-    "\\libs",
-    "\\libs\\taskmanagerchallengeapp",
-    "\\libs\\taskmanagerchallengeapp\\feature",
-    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src",
-    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib",
-    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard"
+    "\\apps\\taskmanagerchallengeapp-e2e",
+    "\\apps\\taskmanagerchallengeapp-e2e\\src",
+    "\\apps\\taskmanagerchallengeserver-e2e",
+    "\\apps\\taskmanagerchallengeserver-e2e\\src",
+    "\\apps\\taskmanagerchallengeserver-e2e\\src\\support",
+    "\\apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver",
+    "\\apps\\taskmanagerchallengeserver\\src",
+    "\\apps\\taskmanagerchallengeserver\\src\\app"
   ],
-  "SelectedNode": "\\templates\\tasks-add.html",
+  "SelectedNode": "\\apps\\taskmanagerchallengeserver-e2e\\src\\support",
   "PreviewInSolutionExplorer": false
 }

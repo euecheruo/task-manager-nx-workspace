@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/tasks/dtos/update-task.dtos.ts
-
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsBoolean, IsNumber, Min } from 'class-validator';
 
@@ -26,5 +24,5 @@ export class UpdateTaskDto {
   @IsNumber()
   @IsOptional()
   @Min(1)
-  assignedUserId?: number | null; // Renamed to assignedUserId
+  assignedUserId?: number | null; 
 }

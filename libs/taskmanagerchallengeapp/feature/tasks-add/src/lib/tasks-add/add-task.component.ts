@@ -76,7 +76,11 @@ export class AddTaskComponent implements OnInit {
       },
       error: (err) => {
         this.logger.error('Task creation failed.', err);
-        this.errorMessage.set('Task creation failed. Check title/description and ensure you have permission (create:tasks).');
+        if (err.status === 409) {
+          this.errorMessage.set('Task creation failed: A task with this title already exists.');
+        } else {
+          this.errorMessage.set('Task creation failed. Check title/description and ensure you have permission (create:tasks).');
+        }
       },
     });
   }

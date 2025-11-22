@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/tasks-dashboard/lib/dashboard.component.ts
-
 import { Component, inject, signal, WritableSignal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +12,6 @@ import { UserProfileResponse } from '../../../../../shared/util-auth/src/lib/mod
 import { catchError, finalize, of, tap } from 'rxjs';
 
 const INITIAL_TASK_STATE: TaskListResponse = {
-  // FIX: Initialize tasks array correctly
   tasks: [],
   total: 0,
   page: 1,
@@ -24,7 +21,6 @@ const INITIAL_TASK_STATE: TaskListResponse = {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  // FIX: Added required imports
   imports: [CommonModule, FormsModule, RouterLink, HasPermissionDirective],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
@@ -39,18 +35,15 @@ export class DashboardComponent implements OnInit {
 
   public taskState: WritableSignal<TaskListResponse> = signal(INITIAL_TASK_STATE);
   public isLoading: WritableSignal<boolean> = signal(false);
-  // FIX: Corrected type to array of UserProfileResponse[]
   public users: WritableSignal<UserProfileResponse[]> = signal([]);
   public errorMessage: WritableSignal<string | null> = signal(null);
 
   public currentPage: WritableSignal<number> = signal(1);
   public tasksPerPage: WritableSignal<number> = signal(10);
-  public filterStatus: WritableSignal<TaskFilterQuery['completionFilter']> = signal('all');
-  // FIX: Defaulted back to 'all'
-  public filterAssignment: WritableSignal<TaskFilterQuery['assignmentFilter']> = signal('all');
+  public filterStatus = signal<TaskFilterQuery['completionFilter']>('all');
+  public filterAssignment = signal<TaskFilterQuery['assignmentFilter']>('all');
 
   public totalPages = signal(0);
-  // FIX: Corrected type to array of numbers
   public paginationRange = signal<number[]>([]);
   public currentUser = this.authService.currentUser;
   public userPermissions = this.authService.userPermissions;
@@ -70,7 +63,6 @@ export class DashboardComponent implements OnInit {
     const query: TaskFilterQuery = {
       page: this.currentPage(),
       limit: this.tasksPerPage(),
-      // completionFilter is undefined if assignmentFilter is 'unassigned'
       completionFilter: this.filterAssignment() === 'unassigned' ?  undefined : this.filterStatus(),
       assignmentFilter: this.filterAssignment(),
     };
@@ -84,7 +76,6 @@ export class DashboardComponent implements OnInit {
       }),
       catchError((error) => {
         this.logger.error('Failed to fetch tasks.', error);
-        // FIX: Explicitly state the required permission
         this.errorMessage.set('Could not load tasks. Please try again or check permissions (read:tasks).');
         this.taskState.set(INITIAL_TASK_STATE);
         return of(INITIAL_TASK_STATE);
@@ -115,7 +106,6 @@ export class DashboardComponent implements OnInit {
     const pages = Math.ceil(total / limit);
     this.totalPages.set(pages);
 
-    // FIX: Correctly initialize range as a number array
     const range: number[] = [];
     const maxVisiblePages = 5;
     const startPage = Math.max(1, page - Math.floor(maxVisiblePages / 2));
@@ -127,14 +117,13 @@ export class DashboardComponent implements OnInit {
 
     if (startPage > 1) {
       range.unshift(1);
-      if (startPage > 2) range.splice(1, 0, 0); // Placeholder for ellipsis
+      if (startPage > 2) range.splice(1, 0, 0);
     }
     if (endPage < pages) {
-      if (endPage < pages - 1) range.push(0); // Placeholder for ellipsis
+      if (endPage < pages - 1) range.push(0);
       range.push(pages);
     }
 
-    // FIX: Corrected logical operator from bitwise OR (|) to logical OR (||)
     this.paginationRange.set(range.filter((value, index, self) => value !== 0 || self[index - 1] !== 0));
     this.currentPage.set(page);
   }
@@ -143,7 +132,6 @@ export class DashboardComponent implements OnInit {
    * Changes the current page and re-fetches tasks.
    */
   onPageChange(page: number): void {
-    // FIX: Corrected logical operator from bitwise OR (|) to logical OR (||)
     if (page < 1 || page > this.totalPages() || page === this.currentPage()) {
       return;
     }
@@ -175,10 +163,9 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.updateTask(task.taskId, { isCompleted: newCompletionStatus }).pipe(
       catchError((err) => {
-        this.logger.error(`Failed to toggle completion for task ${task.taskId}.`, err);
-        // FIX: Explicitly state the required permission in the error message
-        this.errorMessage.set(`Failed to change task status. Check if you are the assigned user and have permission ('mark:assigned:tasks' or 'unmark:assigned:tasks').`);
         this.fetchTasks();
+        this.errorMessage.set(`Failed to change task status. Check if you are the assigned user and have permission ('mark:assigned:tasks' or 'unmark:assigned:tasks').`);
+        this.logger.error(`Failed to toggle completion for task ${task.taskId}.`, err);
         return of(null);
       })
     ).subscribe((updatedTask) => {
@@ -199,16 +186,13 @@ export class DashboardComponent implements OnInit {
   onDeleteTask(task: Task): void {
     const requiredPermission = 'delete:own:tasks';
 
-    // 1. Frontend RBAC Check
     if (!this.userPermissions().includes(requiredPermission)) {
       this.errorMessage.set(`Permission denied: You need '${requiredPermission}' to perform this action.`);
       this.logger.warn(`User tried to delete task ${task.taskId} without '${requiredPermission}'.`);
       return;
     }
 
-    // 2. Frontend ABAC Check (Ownership)
     if (!this.isCreator(task)) {
-      // Show explicit error message for clarity
       this.errorMessage.set(`Permission denied: Only the creator of task ${task.taskId} can delete it (delete:own:tasks).`);
       this.logger.warn(`User ${this.currentUser()?.userId} tried to delete task ${task.taskId} but is not the creator.`);
       return;
@@ -218,18 +202,14 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    // 4. Execute Deletion
     this.taskService.deleteTask(task.taskId).pipe(
       tap(() => this.logger.warn(`Task ${task.taskId} successfully deleted.`)),
       catchError((err) => {
         this.logger.error(`Failed to delete task ${task.taskId}.`, err);
-        // The backend TaskOwnershipGuard and PermissionGuard will also check this
-        // FIX: Corrected logical operator from bitwise OR (|) to logical OR (||)
         this.errorMessage.set(`Deletion failed: ${err.error?.message || 'Server error.'}. Check permissions and ownership.`);
         return of(null);
       })
     ).subscribe(() => {
-      // Always refresh the list after a successful delete or an expected deletion attempt fails (to clear state)
       this.fetchTasks();
     });
   }

@@ -18,9 +18,9 @@
   color: #212529;
 }
 
-  .main-nav-text:hover {
-    color: #198754;
-  }
+.main-nav-text:hover {
+  color: #198754;
+}
 
 .task-checkbox .form-check-input:checked {
   background-color: #198754;
