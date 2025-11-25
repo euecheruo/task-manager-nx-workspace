@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/util-auth/lib/guards/auth.guard.spec.ts
-
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthGuard } from './auth.guard';
@@ -13,17 +11,14 @@ describe('AuthGuard', () => {
   let loggerMock: any;
 
   beforeEach(() => {
-    // 1. Mock AuthService
     authServiceMock = {
       isAuthenticated: signal(false)
     };
 
-    // 2. Mock Router (specifically createUrlTree for redirects)
     routerMock = {
       createUrlTree: jest.fn().mockReturnValue('login-url-tree')
     };
 
-    // 3. Mock LoggerService
     loggerMock = {
       log: jest.fn(),
       debug: jest.fn(),
@@ -45,25 +40,20 @@ describe('AuthGuard', () => {
     // Arrange
     authServiceMock.isAuthenticated.set(true);
 
-    // Act: Run guard in injection context (required for functional guards)
     const result = TestBed.runInInjectionContext(() =>
       AuthGuard({} as any, {} as any)
     );
 
-    // Assert
     expect(result).toBe(true);
   });
 
   it('should redirect to login if not authenticated', () => {
-    // Arrange
     authServiceMock.isAuthenticated.set(false);
 
-    // Act
     const result = TestBed.runInInjectionContext(() =>
       AuthGuard({} as any, {} as any)
     );
 
-    // Assert: Should return the UrlTree from createUrlTree
     expect(result).toBe('login-url-tree');
     expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/login']);
   });

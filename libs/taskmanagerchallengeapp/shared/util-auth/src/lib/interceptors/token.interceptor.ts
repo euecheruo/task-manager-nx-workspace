@@ -47,13 +47,11 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
     logger.debug('TokenInterceptor: Using refresh token for /refresh endpoint.');
   }
 
-  const authenticatedReq = token
-    ? req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    : req;
+  const authenticatedReq = token ? req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  }) : req;
 
   return next(authenticatedReq).pipe(
     catchError((error) => {
@@ -92,58 +90,58 @@ function handle401Error(
         }
 
         const newAuthReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${newToken}` },
+          setHeaders: { Authorization: `Bearer ${newToken}` }, 
         });
-        logger.debug('TokenInterceptor: Replaying queued request.');
-        return next(newAuthReq);
-      })
-    );
-  }
+    logger.debug('TokenInterceptor: Replaying queued request.');
+    return next(newAuthReq);
+  })
+  );
+}
 
-  authService.refreshInProgress.set(true);
-  pendingRequests.push(req);
+authService.refreshInProgress.set(true);
+pendingRequests.push(req);
 
-  return authService.refreshTokens().pipe(
-    switchMap(() => {
-      const newToken = authService.accessToken();
-      if (!newToken) {
-        return throwError(() => new Error('Refresh succeeded but access token is null.'));
-      }
+return authService.refreshTokens().pipe(
+  switchMap(() => {
+    const newToken = authService.accessToken();
+    if (!newToken) {
+      return throwError(() => new Error('Refresh succeeded but access token is null.'));
+    }
 
-      refreshSubject.next(true);
+    refreshSubject.next(true);
 
-      const requestsToReplay = [...pendingRequests];
-      pendingRequests = [];
+    const requestsToReplay = [...pendingRequests];
+    pendingRequests = [];
 
-      const replayedObservables: Observable<HttpEvent<unknown>>[] = requestsToReplay.map(queuedReq => {
-        const replayedReq = queuedReq.clone({
-          setHeaders: { Authorization: `Bearer ${newToken}` },
-        });
-
-        return next(replayedReq).pipe(
-          catchError(err => {
-            logger.error('Error replaying queued request:', err);
-            return of(null as unknown as HttpEvent<any>);
-          })
-        );
+    const replayedObservables: Observable<HttpEvent<unknown>>[] = requestsToReplay.map(queuedReq => {
+      const replayedReq = queuedReq.clone({
+        setHeaders: { Authorization: `Bearer ${newToken}` },
       });
 
-      const originalRequestReplay = replayedObservables.find((_, index) => requestsToReplay[index] === req);
+      return next(replayedReq).pipe(
+        catchError(err => {
+          logger.error('Error replaying queued request:', err);
+          return of(null as unknown as HttpEvent<any>);
+        })
+      );
+    });
 
-      if (originalRequestReplay) {
-        return originalRequestReplay;
-      }
+    const originalRequestReplay = replayedObservables.find((_, index) => requestsToReplay[index] === req);
 
-      return throwError(() => new Error('Failed to find and return the stream for the original request after refresh.'));
-    }),
-    catchError((err) => {
-      logger.error('TokenInterceptor: Token refresh failed. Aborting queued requests.');
-      refreshSubject.next(false);
-      pendingRequests = [];
-      return throwError(() => err);
-    }),
-    finalize(() => {
-      authService.refreshInProgress.set(false);
-    })
-  );
+    if (originalRequestReplay) {
+      return originalRequestReplay;
+    }
+
+    return throwError(() => new Error('Failed to find and return the stream for the original request after refresh.'));
+  }),
+  catchError((err) => {
+    logger.error('TokenInterceptor: Token refresh failed. Aborting queued requests.');
+    refreshSubject.next(false);
+    pendingRequests = [];
+    return throwError(() => err);
+  }),
+  finalize(() => {
+    authService.refreshInProgress.set(false);
+  })
+);
 }

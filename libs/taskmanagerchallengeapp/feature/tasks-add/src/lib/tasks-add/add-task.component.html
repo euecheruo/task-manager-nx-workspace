@@ -29,9 +29,9 @@
           <input type="text"
                  class="form-control form-control-task"
                  id="title"
-                 [(ngModel)]="title"
                  name="title"
-                 required>
+                 [(ngModel)]="title"
+                 required />
           <span class="input-group-text input-group-text-custom"><i class="bi bi-search"></i></span>
         </div>
       </div>
@@ -40,8 +40,8 @@
         <label for="description" class="form-label small text-muted">Description</label>
         <textarea class="form-control form-control-task"
                   id="description"
-                  [(ngModel)]="description"
                   name="description"
+                  [(ngModel)]="description"
                   rows="4"></textarea>
       </div>
 
@@ -50,8 +50,8 @@
         <select class="form-select form-control-task"
                 aria-label="UserAssignments"
                 id="assignToUser"
-                [(ngModel)]="assignedUserId"
                 name="assignedUser"
+                [(ngModel)]="assignedUserId"
                 [disabled]="loading()">
           <option [ngValue]="null">Task will be unassigned</option>
           @for (user of users(); track user.userId) {
@@ -63,6 +63,8 @@
         <div class="d-flex justify-content-start align-items-center footer-control">
           <div>
             <button type="submit"
+                    id="createTask"
+                    name="createTask"
                     class="btn btn-success"
                     [disabled]="isSaving() || taskForm.invalid || !title()">
               @if (isSaving()) {
@@ -73,6 +75,8 @@
               }
             </button>
             <button type="button"
+                    id="cancel"
+                    name="cancel"
                     class="btn btn-light ms-2"
                     (click)="onCancel()">Cancel</button>
           </div>

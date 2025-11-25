@@ -10,7 +10,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const logger = app.get(Logger);
 
-  const appPort = configService.get<number>('APP_PORT', 3333);
+  const appPort = configService.get<number>('APP_PORT', 3000);
   const nodeEnv = configService.get<string>('NODE_ENV', 'development');
   const globalPrefix = 'api';
 

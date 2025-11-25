@@ -47,14 +47,12 @@ export class RefreshTokensRepository {
 
     if (!tokenRecord) return false;
 
-    // Critical Security Check: Reuse Detection
     if (tokenRecord.isRevoked) {
       this.logger.warn(`Security Alert: Token reuse detected for user ${userId}. Revoking all sessions.`);
-      await this.revokeAllTokensForUser(userId); // "Family" revocation
+      await this.revokeAllTokensForUser(userId);
       return false;
     }
 
-    // Standard Rotation: Revoke the current token
     await this.refreshTokensRepository.update({ tokenId: tokenRecord.tokenId }, { isRevoked: true });
     return true;
   }

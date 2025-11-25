@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/auth/controllers/auth.controller.spec.ts
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from '../services/auth.service';
@@ -45,12 +43,10 @@ describe('AuthController', () => {
 
     expect(await controller.login(dto)).toEqual(tokens);
 
-    // Verifies that the controller extracted email/pass from DTO before calling service
     expect(authService.login).toHaveBeenCalledWith(dto.email, dto.password);
   });
 
   it('should call logout service', async () => {
-    // Mocking the user object typically injected by @CurrentUser()
     const mockUser = { userId: 1 };
 
     await controller.logout(mockUser);

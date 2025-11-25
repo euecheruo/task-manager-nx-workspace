@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/tasks-update/lib/update-task.component.ts
-
 import { ChangeDetectionStrategy, Component, OnInit, signal, inject, computed, WritableSignal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +14,6 @@ import { switchMap, finalize, catchError, of } from 'rxjs';
 @Component({
   selector: 'app-update-task',
   standalone: true,
-  // FIX: Populated imports array with necessary modules
   imports: [
     CommonModule,
     FormsModule,
@@ -78,11 +75,10 @@ export class UpdateTaskComponent implements OnInit {
     this.usersService.getAllUsers().pipe(
       catchError(err => {
         this.logger.error('Error fetching users list.', err);
-        return of([]); // Return empty array on error
+        return of([]);
       }),
       finalize(() => this.loading.set(false))
     ).subscribe(users => {
-      // Ensure we set an array, handling potential API inconsistencies
       this.users.set(Array.isArray(users) ? users : []);
     });
   }
@@ -115,7 +111,6 @@ export class UpdateTaskComponent implements OnInit {
       } else if (this.taskId() !== null && !this.errorMessage()) {
         this.errorMessage.set('Task details could not be loaded.');
       }
-      // Ensure loading is false after task fetch logic completes
       this.loading.set(false);
     });
   }
@@ -151,7 +146,6 @@ export class UpdateTaskComponent implements OnInit {
       catchError(err => {
         this.logger.error(`Failed to update task ${id}`, err);
 
-        // Logic verified against spec file: Checks for 409 status
         if (err.status === 409) {
           this.errorMessage.set('Task update failed: A task with this title already exists.');
         } else {
@@ -198,7 +192,6 @@ export class UpdateTaskComponent implements OnInit {
     const requiredPermission = newStatus ? 'mark:assigned:tasks' : 'unmark:assigned:tasks';
     if (!this.canToggleCompletion()) {
       this.errorMessage.set(`Permission denied.`);
-      // Revert UI state immediately if permission check fails
       this.isCompleted.set(!newStatus);
       return;
     }
@@ -211,7 +204,6 @@ export class UpdateTaskComponent implements OnInit {
       catchError(err => {
         this.logger.error(`Failed to toggle task ${id}`, err);
         this.errorMessage.set(`Status toggle failed: ${err.message}`);
-        // Revert UI state on server error
         this.isCompleted.set(!newStatus);
         return of(null);
       })

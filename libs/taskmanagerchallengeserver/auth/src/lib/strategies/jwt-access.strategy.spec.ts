@@ -12,8 +12,6 @@ describe('JwtAccessStrategy', () => {
         {
           provide: ConfigService,
           useValue: {
-            // CRITICAL: The strategy reads the secret in the constructor via super().
-            // This mock must return a string, or instantiation will fail.
             get: jest.fn().mockReturnValue('test_secret_key'),
           },
         },
@@ -35,8 +33,6 @@ describe('JwtAccessStrategy', () => {
       aud: 'test_audience'
     };
 
-    // The validate method usually strips out iat, exp, iss, etc.
-    // and returns just the user object needed for the Request.
     const result = await strategy.validate(payload);
 
     expect(result).toEqual({

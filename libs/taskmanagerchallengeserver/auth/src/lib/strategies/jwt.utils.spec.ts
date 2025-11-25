@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/auth/strategies/jwt.utils.spec.ts
-
 import { convertTimeStringToSeconds } from './jwt.utils';
 
 describe('convertTimeStringToSeconds', () => {

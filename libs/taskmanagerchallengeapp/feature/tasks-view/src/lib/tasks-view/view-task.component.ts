@@ -26,7 +26,6 @@ export class ViewTaskComponent implements OnInit {
   public errorMessage = signal<string | null>(null);
 
   ngOnInit(): void {
-    // Retrieve Task ID from the route parameters
     const taskId = Number(this.route.snapshot.paramMap.get('id'));
     if (taskId) {
       this.loadTaskDetails(taskId);

@@ -18,7 +18,11 @@
     </h2>
 
     <div class="pb-4">
-      <button class="btn btn-success d-flex align-items-center" [routerLink]="['/tasks/add']" *appHasPermission="'create:tasks'">
+      <button class="btn btn-success d-flex align-items-center"
+              id="createTask"
+              name="createTask"
+              [routerLink]="['/tasks/add']"
+              *appHasPermission="'create:tasks'">
         <i class="bi bi-plus"></i>
         Create Task
       </button>
@@ -33,8 +37,9 @@
       <div class="mb-3">
         <label for="filterAssignment" class="form-label">Filter By Assignment</label>
         <select class="form-select"
-                aria-label="AssignmentFilter"
                 id="filterAssignment"
+                name="filterAssignment"
+                aria-label="AssignmentFilter"
                 [(ngModel)]="filterAssignment"
                 (ngModelChange)="onFilterChange()">
           <option value="all">All Tasks</option>
@@ -51,6 +56,7 @@
         <select class="form-select"
                 aria-label="CompletionFilter"
                 id="filterStatus"
+                name="filterStatus"
                 [(ngModel)]="filterStatus"
                 (ngModelChange)="onFilterChange()">
           <option value="all">All Status</option>
@@ -63,7 +69,11 @@
       </div>
 
       <div>
-        <button type="button" class="btn btn-dark btn-sm" (click)="fetchTasks()">
+        <button type="button"
+                id="refresh"
+                name="refresh"
+                class="btn btn-dark btn-sm"
+                (click)="fetchTasks()">
           <i class="bi bi-arrow-clockwise"></i>
           Refresh
         </button>
@@ -101,11 +111,13 @@
               @if (task.assignedUserId!== null && isAssignedUser(task)) {
 
               <input class="form-check-input"
+                     id="markTask${task.taskId}"
+                     name="markTask"
                      type="checkbox"
                      [checked]="task.isCompleted"
                      [title]="task.isCompleted? 'Mark Incomplete' : 'Mark Complete'"
                      [disabled]="!userPermissions().includes(task.isCompleted? 'unmark:assigned:tasks' : 'mark:assigned:tasks') ||!isAssignedUser(task)"
-                     (change)="onToggleCompletion(task)">
+                     (change)="onToggleCompletion(task)" />
 
               } @else if (task.isCompleted) {
               <i class="bi bi-check-circle-fill text-success" title="Completed"></i>
@@ -140,6 +152,8 @@
 
               <div class="btn-group" role="group" aria-label="Task Actions">
                 <button type="button"
+                        id="viewTask${task.taskId}"
+                        name="viewTask"
                         class="btn btn-outline-secondary btn-sm"
                         (click)="onViewTask(task.taskId)"
                         title="View Task">
@@ -148,6 +162,8 @@
 
                 @if (isCreator(task)) {
                 <button type="button"
+                        id="editTask${task.taskId}"
+                        name="editTask"
                         class="btn btn-outline-secondary btn-sm"
                         (click)="onEditTask(task.taskId)"
                         *appHasPermission="'update:own:tasks'"
@@ -156,13 +172,17 @@
                 </button>
                 } @else {
                 <button type="button"
+                        id="editTask${task.taskId}"
+                        name="editTask"
                         class="btn btn-outline-secondary btn-sm disabled"
-                        title="Only the creator can edit (update:own:tasks)">
+                        title="Only the creator can edit (update:own:tasks)" disabled>
                   Edit
                 </button>
                 }
 
                 <button type="button"
+                        id="deleteTask${task.taskId}"
+                        name="deleteTask"
                         class="btn btn-outline-secondary btn-sm"
                         (click)="onDeleteTask(task)"
                         *appHasPermission="'delete:own:tasks'"

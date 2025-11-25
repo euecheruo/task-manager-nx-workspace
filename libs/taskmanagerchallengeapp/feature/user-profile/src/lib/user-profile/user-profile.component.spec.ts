@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/user-profile/lib/user-profile.component.spec.ts
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserProfileComponent } from './user-profile.component';
 import { UsersService } from '../../../../../data-access/api-task-manager/src/lib/services/users.service';
@@ -17,19 +15,15 @@ describe('UserProfileComponent', () => {
   let loggerServiceMock: any;
 
   beforeEach(async () => {
-    // 1. Mock Users Service
     usersServiceMock = {
       getMe: jest.fn().mockReturnValue(of({ userId: 1, email: 'test@test.com' }))
     };
 
-    // 2. Mock Auth Service
     authServiceMock = {
       isAuthenticated: jest.fn().mockReturnValue(true),
-      // FIX: Initialize signal with a value (empty array) to prevent 'undefined' errors if iterated
       userPermissions: signal([])
     };
 
-    // 3. Mock Logger Service (Missing in original code)
     loggerServiceMock = {
       log: jest.fn(),
       debug: jest.fn(),
@@ -40,11 +34,11 @@ describe('UserProfileComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [UserProfileComponent],
-      providers: [ // FIX: Corrected array syntax
+      providers: [
         { provide: UsersService, useValue: usersServiceMock },
         { provide: AuthService, useValue: authServiceMock },
         { provide: LoggerService, useValue: loggerServiceMock },
-        provideRouter([]) // FIX: added execution of the router provider
+        provideRouter([])
       ]
     }).compileComponents();
 
@@ -58,7 +52,6 @@ describe('UserProfileComponent', () => {
   });
 
   it('should fetch profile data', () => {
-    // Verify that the component called the service and updated the signal
     expect(usersServiceMock.getMe).toHaveBeenCalled();
     expect(component.userProfile()?.email).toBe('test@test.com');
   });

@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/users/repositories/users.repository.ts
-
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -30,7 +28,7 @@ export class UsersRepository {
   async findOneByEmail(email: string): Promise<UserEntity | null> {
     this.logger.debug(`DB lookup: find user by email ${email}`);
     const user = await this.usersRepository.findOne({
-      where: { email }, // Corrected: removed 'as any'
+      where: { email },
       select: ['userId', 'email', 'passwordHash', 'createdAt'],
     });
     return user;

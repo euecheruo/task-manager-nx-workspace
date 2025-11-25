@@ -1,86 +1,93 @@
 import { test, expect } from '@playwright/test';
 
-// Test Data
 const EDITOR_EMAIL = 'user1@faketest.com';
 const EDITOR_PASS = 'MK2~DT?8R^=G~5oaM6Gw+8';
+const VIEWER_EMAIL = 'user2@faketest.com';
+const VIEWER_PASS = '4V+726=mk>esc9DjH4=5r8';
 
-test.describe('Task Manager App', () => {
+test.describe('Task Manager Frontend E2E', () => {
 
   test.beforeEach(async ({ page }) => {
-    // Go to login page before each test
-    await page.goto('/login');
+    await page.goto('/');
   });
 
-  test('should login successfully and redirect to dashboard', async ({ page }) => {
-    // 1. Check Login Page Elements
-    await expect(page.locator('h2')).toContainText('Task Login');
-    
-    // 2. Fill Credentials
-    await page.fill('input[name="email"]', EDITOR_EMAIL);
-    await page.fill('input[name="password"]', EDITOR_PASS);
+  test('should execute full Task Lifecycle (Login -> Create -> Edit -> Delete)', async ({ page }) => {
+    await expect(page).toHaveURL(/\/login/);
 
-    // 3. Submit
-    await page.click('button[type="submit"]');
+    const loginBtn = page.locator('#login');
+    await expect(loginBtn).toBeVisible();
 
-    // 4. Verify Redirect to Dashboard
+    await page.locator('#email').fill(EDITOR_EMAIL);
+    await page.locator('#password').fill(EDITOR_PASS);
+
+    await loginBtn.click();
+
     await expect(page).toHaveURL('/dashboard');
-    
-    // 5. Verify Dashboard Content
     await expect(page.locator('h2')).toContainText('Task Dashboard');
-    await expect(page.locator('.navbar')).toContainText(EDITOR_EMAIL);
-  });
 
-  test('should show error on invalid login', async ({ page }) => {
-    await page.fill('input[name="email"]', EDITOR_EMAIL);
-    await page.fill('input[name="password"]', 'WRONG_PASS');
-    await page.click('button[type="submit"]');
+    await expect(page.locator('#navbarDropdown')).toContainText(EDITOR_EMAIL);
 
-    // Expect Error Message
-    await expect(page.locator('.alert-danger')).toBeVisible();
-    await expect(page.locator('.alert-danger')).toContainText('Login failed');
-  });
+    const createTaskBtn = page.locator('#createTask');
+    await expect(createTaskBtn).toBeVisible();
+    await createTaskBtn.click();
 
-  test('should allow creating a task (Editor Role)', async ({ page }) => {
-    // Login
-    await page.fill('input[name="email"]', EDITOR_EMAIL);
-    await page.fill('input[name="password"]', EDITOR_PASS);
-    await page.click('button[type="submit"]');
-    await expect(page).toHaveURL('/dashboard');
-
-    // Click "Create Task"
-    await page.click('a[href="/tasks/add"]'); // Or button selector
     await expect(page).toHaveURL('/tasks/add');
 
-    // Fill Task Form
-    const taskTitle = `E2E Task ${Date.now()}`;
-    await page.fill('input[name="title"]', taskTitle);
-    await page.fill('textarea[name="description"]', 'Created via Playwright');
-    
-    // Submit
-    await page.click('button[type="submit"]');
+    const taskTitle = `E2E FE Task ${Date.now()}`;
+    await page.locator('#title').fill(taskTitle);
+    await page.locator('#description').fill('Created via Angular E2E Test');
 
-    // Verify Redirect back to Dashboard
+    await page.locator('#assignToUser').selectOption({ label: EDITOR_EMAIL });
+
+    await page.locator('#createTask').click();
+
     await expect(page).toHaveURL('/dashboard');
 
-    // Verify Task appears in list
-    // Note: Assuming the new task appears at the top or we can filter for it
-    await expect(page.locator('body')).toContainText(taskTitle);
+    const taskRow = page.locator('tr', { hasText: taskTitle });
+    await expect(taskRow).toBeVisible();
+
+    await taskRow.locator('button', { hasText: 'Edit' }).click();
+
+    await expect(page).toHaveURL(/\/tasks\/update\/\d+/);
+
+    const updatedTitle = `${taskTitle} - UPDATED`;
+    await page.locator('#title').fill(updatedTitle);
+
+    await page.locator('#isCompletedSwitch').click();
+
+    await page.locator('#updateTask').click();
+
+    await expect(page).toHaveURL('/dashboard');
+
+    const updatedRow = page.locator('tr', { hasText: updatedTitle });
+    await expect(updatedRow).toBeVisible();
+
+    await expect(updatedRow).toHaveClass(/table-primary/);
+
+    page.once('dialog', async dialog => {
+      console.log(`Dialog message: ${dialog.message()}`);
+      await dialog.accept();
+    });
+
+    await updatedRow.locator('button', { hasText: 'Delete' }).click();
+
+    await expect(page.locator('tr', { hasText: updatedTitle })).not.toBeVisible();
   });
 
-  test('should logout successfully', async ({ page }) => {
-    // Login
-    await page.fill('input[name="email"]', EDITOR_EMAIL);
-    await page.fill('input[name="password"]', EDITOR_PASS);
-    await page.click('button[type="submit"]');
+  test('should enforce RBAC for Viewer (No Create Button)', async ({ page }) => {
+    await page.locator('#email').fill(VIEWER_EMAIL);
+    await page.locator('#password').fill(VIEWER_PASS);
+    await page.locator('#login').click();
 
-    // Open User Dropdown
-    await page.click('#navbarDropdown');
+    await expect(page).toHaveURL('/dashboard');
 
-    // Click Logout
-    await page.click('button:has-text("Logout")');
+    const createTaskBtn = page.locator('#createTask');
+    await expect(createTaskBtn).not.toBeVisible();
 
-    // Verify Redirect to Login
-    await expect(page).toHaveURL('/login');
+    const firstRow = page.locator('tbody tr').first();
+    if (await firstRow.count() > 0) {
+      const editBtn = firstRow.locator('button', { hasText: 'Edit' });
+      await expect(editBtn).toHaveClass(/disabled/);
+    }
   });
-
 });

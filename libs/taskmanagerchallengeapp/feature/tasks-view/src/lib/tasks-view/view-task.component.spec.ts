@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/feature/tasks-view/lib/view-task.component.spec.ts
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewTaskComponent } from './view-task.component';
 import { TasksService } from '../../../../../data-access/api-task-manager/src/lib/services/tasks.service';
@@ -14,9 +12,7 @@ describe('ViewTaskComponent', () => {
   let loggerServiceMock: any;
 
   beforeEach(async () => {
-    // 1. Define the TaskService Mock
     tasksServiceMock = {
-      // Returns the complete object to prevent template errors
       getTask: jest.fn().mockReturnValue(of({
         taskId: 1,
         title: 'View Me',
@@ -31,7 +27,6 @@ describe('ViewTaskComponent', () => {
       }))
     };
 
-    // 2. Define Logger Mock (required for dependency injection)
     loggerServiceMock = {
       log: jest.fn(),
       debug: jest.fn(),
@@ -41,11 +36,10 @@ describe('ViewTaskComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [ViewTaskComponent], // Fixed syntax: Added array brackets
+      imports: [ViewTaskComponent],
       providers: [
         { provide: TasksService, useValue: tasksServiceMock },
         { provide: LoggerService, useValue: loggerServiceMock },
-        // 3. Mock ActivatedRoute to simulate URL parameter ID '1'
         {
           provide: ActivatedRoute,
           useValue: {
@@ -58,7 +52,7 @@ describe('ViewTaskComponent', () => {
 
     fixture = TestBed.createComponent(ViewTaskComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Triggers ngOnInit and the service call
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -66,11 +60,9 @@ describe('ViewTaskComponent', () => {
   });
 
   it('should load task details', () => {
-    // No need to call detectChanges() again here as it's called in beforeEach
     expect(component.task()?.title).toBe('View Me');
     expect(component.task()?.creator.email).toBe('creator@test.com');
 
-    // Verify service was called
     expect(tasksServiceMock.getTask).toHaveBeenCalled();
   });
 });

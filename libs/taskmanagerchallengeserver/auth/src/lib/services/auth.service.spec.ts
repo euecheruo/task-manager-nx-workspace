@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/auth/services/auth.service.spec.ts
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from '../../../../users/src/lib/services/users.service';

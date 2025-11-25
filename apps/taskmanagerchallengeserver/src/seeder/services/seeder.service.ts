@@ -103,13 +103,13 @@ export class SeederService {
     this.logger.warn('Starting UNSEED process (wiping database schema)...');
     try {
 
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(RoleEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(PermissionEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(RolePermissionEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(UserEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(UserRoleEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(RefreshTokenEntity).tableName} RESTART IDENTITY CASCADE;`);
-      await this.dataSource.query(`TRUNCATE TABLE ${this.dataSource.getMetadata(TaskEntity).tableName} RESTART IDENTITY CASCADE;`);
+      const entities = this.dataSource.entityMetadatas;
+
+      for (const entity of entities) {
+        const tableName = entity.tableName;
+        const query = `TRUNCATE TABLE "${tableName}" RESTART IDENTITY CASCADE;`;
+        await this.dataSource.query(query);
+      }
       await this.dataSource.dropDatabase();
       await this.dataSource.synchronize();
       this.logger.warn('UNSEED process completed (database schema wiped).');

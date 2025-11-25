@@ -28,11 +28,11 @@
           <input type="text"
                  class="form-control form-control-task"
                  id="title"
+                 name="title"
                  [ngModel]="title()"
                  (ngModelChange)="title.set($event)"
-                 name="title"
                  required
-                 [disabled]="!canEditCoreDetails()">
+                 [disabled]="!canEditCoreDetails()" />
           <span class="input-group-text input-group-text-custom"><i class="bi bi-search"></i></span>
         </div>
         @if (!canEditCoreDetails()) {
@@ -43,9 +43,10 @@
       <div class="mb-4">
         <label for="description" class="form-label">Assign Description</label>
         <textarea class="form-control form-control-task"
-                  id="description" [ngModel]="description()"
-                  (ngModelChange)="description.set($event)"
+                  id="description"
                   name="description"
+                  [ngModel]="description()"
+                  (ngModelChange)="description.set($event)"
                   rows="4"
                   [disabled]="!canEditCoreDetails()"
                   placeholder="Detailed steps and requirements."></textarea>
@@ -57,9 +58,9 @@
           <select class="form-select form-control-task me-2"
                   aria-label="UserAssignments"
                   id="assignedUser"
+                  name="assignedUser"
                   [ngModel]="assignedUserId()"
                   (ngModelChange)="assignedUserId.set($event)"
-                  name="assignedUser"
                   [disabled]="!canEditCoreDetails() || users().length === 0">
             <option [ngValue]="null">Task will be unassigned</option>
             @for (user of users(); track user.userId) {
@@ -78,13 +79,13 @@
           <div class="form-check me-4">
             <div class="form-check-task form-switch">
               <input class="form-check-input"
+                     id="isCompletedSwitch"
+                     name="isCompleted"
                      type="checkbox"
                      role="switch"
-                     id="isCompletedSwitch"
                      [ngModel]="isCompleted()"
                      (ngModelChange)="onCompletionToggle($event)"
-                     name="isCompleted"
-                     [disabled]="!canToggleCompletion()">
+                     [disabled]="!canToggleCompletion()" />
               <label class="form-check-label" for="isCompletedSwitch">
                 Mark task as {{ isCompleted() ? 'Completed' : 'Incomplete' }}
               </label>
@@ -98,6 +99,8 @@
 
       <div class="d-flex justify-content-start pt-3">
         <button type="submit"
+                id="updateTask"
+                name="updateTask"
                 class="btn btn-success me-3"
                 [disabled]="isSaving() || taskForm.invalid || !canEditCoreDetails()"
                 *appHasPermission="'update:own:tasks'">
@@ -109,6 +112,8 @@
           }
         </button>
         <button type="button"
+                id="deleteTask"
+                name="deleteTask"
                 class="btn btn-outline-danger me-3"
                 (click)="onDelete()"
                 [disabled]="isSaving() || !isTaskCreator() || !userPermissions().includes('delete:own:tasks')"
@@ -117,6 +122,8 @@
         </button>
 
         <button type="button"
+                id="cancel"
+                name="cancel"
                 class="btn btn-light"
                 (click)="onCancel()">
           Cancel
@@ -135,8 +142,3 @@
 
   </div>
 </div>
-
-
-
-
-

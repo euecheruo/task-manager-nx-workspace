@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../../../../libs/taskmanagerchallengeserver/users/src/lib/users.module';
 import { TasksModule } from '../../../../libs/taskmanagerchallengeserver/tasks/src/lib/tasks.module';
 import { AuthModule } from '../../../../libs/taskmanagerchallengeserver/auth/src/lib/auth.module';
-import { DataAccessModule } from '../../../../libs/taskmanagerchallengeserver/data-access/src/lib/data-access.module'; // Global entities repository [cite: 113]
+import { DataAccessModule } from '../../../../libs/taskmanagerchallengeserver/data-access/src/lib/data-access.module';
 import { SharedModule } from '../../../../libs/taskmanagerchallengeserver/shared/src/lib/shared.module';
 import { SeederModule } from '../seeder/seeder.module';
 

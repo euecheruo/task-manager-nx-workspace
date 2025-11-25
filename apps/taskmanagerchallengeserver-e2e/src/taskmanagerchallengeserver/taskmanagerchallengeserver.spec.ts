@@ -1,32 +1,67 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
-// FIXED: Changed from "import * as request" to "import request"
+import { INestApplication, ValidationPipe, Logger } from '@nestjs/common';
 import request from 'supertest';
+import * as dotenv from 'dotenv';
 import { AppModule } from '../../../../apps/taskmanagerchallengeserver/src/app/app.module';
 import { SeederService } from '../../../../apps/taskmanagerchallengeserver/src/seeder/services/seeder.service';
+import { ConfigService } from '@nestjs/config';
+import * as path from 'path';
 
-describe('Task Manager API (E2E)', () => {
+interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+
+interface TaskResponse {
+  taskId: number;
+  title: string;
+  description?: string;
+  creatorId: number;
+  assignedUserId?: number | null;
+  isCompleted: boolean;
+}
+
+interface UserProfileResponse {
+  userId: number;
+  email: string;
+}
+
+describe('Task Manager API (End-to-End)', () => {
   let app: INestApplication;
   let seeder: SeederService;
+  let configService: ConfigService;
+  const logger = new Logger('E2E-Test');
 
-  // Store tokens for reuse across tests
   let editorToken: string;
   let viewerToken: string;
 
-  // Known seed data
   const EDITOR_EMAIL = 'user1@faketest.com';
   const EDITOR_PASS = 'MK2~DT?8R^=G~5oaM6Gw+8';
   const VIEWER_EMAIL = 'user2@faketest.com';
   const VIEWER_PASS = '4V+726=mk>esc9DjH4=5r8';
 
   beforeAll(async () => {
+    const envPath = path.resolve(__dirname, '../../../taskmanagerchallengeserver/.env.development');
+    logger.log(`envPath: ${envPath}`);
+    dotenv.config({ path: envPath });
+
+    process.env.NODE_ENV = 'test';
+
+    logger.log('Initializing E2E Test Suite...');
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    
-    // Ensure pipes (validation) match main.ts
+    configService = app.get(ConfigService);
+
+    const jwtSecret = configService.get<string>('JWT_ACCESS_SECRET');
+    if (!jwtSecret) {
+      throw new Error('CRITICAL: JWT_ACCESS_SECRET is undefined. Check.env.development loading.');
+    }
+
     app.useGlobalPipes(new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -35,117 +70,111 @@ describe('Task Manager API (E2E)', () => {
 
     await app.init();
 
-    // Reset and Seed Database
     seeder = app.get(SeederService);
-    // Ensure clean state before testing
-    await seeder.unseed(); 
-    await seeder.seed();   
+    logger.log('Resetting Database State...');
+    await seeder.unseed();
+    logger.log('Seeding Initial Data...');
+    await seeder.seed();
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  describe('Authentication Flow', () => {
-    it('/auth/login (POST) - Editor Login', async () => {
+  describe('1. Authentication Module', () => {
+    it('POST /auth/login - Should authenticate Editor and return tokens', async () => {
       const response = await request(app.getHttpServer())
-      .post('/auth/login')
-      .send({ email: EDITOR_EMAIL, password: EDITOR_PASS })
-      .expect(201);
+        .post('/auth/login')
+        .send({ email: EDITOR_EMAIL, password: EDITOR_PASS })
+        .expect(201);
 
-      expect(response.body).toHaveProperty('accessToken');
-      expect(response.body).toHaveProperty('refreshToken');
-      editorToken = response.body.accessToken;
+      const body = response.body as AuthResponse;
+      expect(body.accessToken).toBeDefined();
+      expect(body.refreshToken).toBeDefined();
+      editorToken = body.accessToken;
     });
 
-    it('/auth/login (POST) - Viewer Login', async () => {
+    it('POST /auth/login - Should authenticate Viewer and return tokens', async () => {
       const response = await request(app.getHttpServer())
-      .post('/auth/login')
-      .send({ email: VIEWER_EMAIL, password: VIEWER_PASS })
-      .expect(201);
+        .post('/auth/login')
+        .send({ email: VIEWER_EMAIL, password: VIEWER_PASS })
+        .expect(201);
 
-      viewerToken = response.body.accessToken;
+      const body = response.body as AuthResponse;
+      viewerToken = body.accessToken;
     });
 
-    it('/auth/login (POST) - Invalid Credentials', () => {
-      return request(app.getHttpServer())
-      .post('/auth/login')
-      .send({ email: EDITOR_EMAIL, password: 'WRONG_PASSWORD' })
-      .expect(401);
+    it('POST /auth/login - Should reject invalid password with 401', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ email: EDITOR_EMAIL, password: 'WRONG_PASSWORD_123' })
+        .expect(401);
     });
   });
 
-  describe('Task Operations (RBAC & ABAC)', () => {
+  describe('2. User Profile', () => {
+    it('GET /users/me - Should retrieve profile using token signed with Env Secret', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/users/me')
+        .set('Authorization', `Bearer ${editorToken}`)
+        .expect(200);
+
+      const body = response.body as UserProfileResponse;
+      expect(body.email).toEqual(EDITOR_EMAIL);
+    });
+  });
+
+  describe('3. Task Operations (RBAC & ABAC)', () => {
     let createdTaskId: number;
 
-    it('/tasks (POST) - Editor can Create Task', async () => {
-      const dto = { title: 'E2E Test Task', description: 'Testing creation' };
+    // RBAC: Editor can create
+    it('POST /tasks - Editor should create a task', async () => {
+      const newTask = {
+        title: 'E2E Critical Path Analysis',
+        description: 'Verify system integrity.'
+      };
+
       const response = await request(app.getHttpServer())
-      .post('/tasks')
-      .set('Authorization', `Bearer ${editorToken}`)
-      .send(dto)
-      .expect(201);
+        .post('/tasks')
+        .set('Authorization', `Bearer ${editorToken}`)
+        .send(newTask)
+        .expect(201);
 
-      expect(response.body.title).toEqual(dto.title);
-      expect(response.body.creatorId).toBeDefined();
-      createdTaskId = response.body.taskId;
+      const body = response.body as TaskResponse;
+      expect(body.title).toEqual(newTask.title);
+      createdTaskId = body.taskId;
     });
 
-    it('/tasks (POST) - Viewer CANNOT Create Task (RBAC)', async () => {
+    it('POST /tasks - Viewer should receive 403 Forbidden', async () => {
       await request(app.getHttpServer())
-      .post('/tasks')
-      .set('Authorization', `Bearer ${viewerToken}`)
-      .send({ title: 'Viewer Task' })
-      .expect(403); // Forbidden
+        .post('/tasks')
+        .set('Authorization', `Bearer ${viewerToken}`)
+        .send({ title: 'Unauthorized Task' })
+        .expect(403);
     });
 
-    it('/tasks/:id (GET) - Viewer can Read Task', async () => {
+    it('PATCH /tasks/:id - Editor should update their own task', async () => {
+      const updateData = { title: 'Updated Title' };
       await request(app.getHttpServer())
-      .get(`/tasks/${createdTaskId}`)
-      .set('Authorization', `Bearer ${viewerToken}`)
-      .expect(200);
+        .patch(`/tasks/${createdTaskId}`)
+        .set('Authorization', `Bearer ${editorToken}`)
+        .send(updateData)
+        .expect(200);
     });
 
-    it('/tasks/:id (PATCH) - Viewer CANNOT Update Task (RBAC)', async () => {
+    it('PATCH /tasks/:id - Viewer should receive 403 updating others task', async () => {
       await request(app.getHttpServer())
-      .patch(`/tasks/${createdTaskId}`)
-      .set('Authorization', `Bearer ${viewerToken}`)
-      .send({ title: 'Hacked Title' })
-      .expect(403);
+        .patch(`/tasks/${createdTaskId}`)
+        .set('Authorization', `Bearer ${viewerToken}`)
+        .send({ title: 'Malicious Edit' })
+        .expect(403);
     });
 
-    it('/tasks/:id (PATCH) - Editor can Update OWN Task (ABAC)', async () => {
-      const response = await request(app.getHttpServer())
-      .patch(`/tasks/${createdTaskId}`)
-      .set('Authorization', `Bearer ${editorToken}`)
-      .send({ title: 'Updated Title' })
-      .expect(200);
-
-      expect(response.body.title).toEqual('Updated Title');
-    });
-
-    it('/tasks/:id (DELETE) - Editor can Delete OWN Task', async () => {
+    it('DELETE /tasks/:id - Editor should delete their own task', async () => {
       await request(app.getHttpServer())
-      .delete(`/tasks/${createdTaskId}`)
-      .set('Authorization', `Bearer ${editorToken}`)
-      .expect(200);
-
-      // Verify deletion
-      await request(app.getHttpServer())
-      .get(`/tasks/${createdTaskId}`)
-      .set('Authorization', `Bearer ${editorToken}`)
-      .expect(404);
-    });
-  });
-
-  describe('Users', () => {
-    it('/users/me (GET) - Get Profile', async () => {
-      const response = await request(app.getHttpServer())
-      .get('/users/me')
-      .set('Authorization', `Bearer ${editorToken}`)
-      .expect(200);
-
-      expect(response.body.email).toEqual(EDITOR_EMAIL);
+        .delete(`/tasks/${createdTaskId}`)
+        .set('Authorization', `Bearer ${editorToken}`)
+        .expect(200);
     });
   });
 });

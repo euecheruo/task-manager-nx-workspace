@@ -26,7 +26,11 @@
       <div class="mb-4 row">
         <label for="title" class="form-label col-sm-3 col-form-label">Task Title</label>
         <div class="col-sm-7">
-          <input type="text" readonly class="form-control-plaintext" id="title" value="{{ task()!.title }}" />
+          <input type="text"
+                 id="title"
+                 name="title"
+                 class="form-control-plaintext"
+                 value="{{ task()!.title }}" readonly />
         </div>
       </div>
 
@@ -49,7 +53,12 @@
       <div class="mb-4 row">
         <label for="creatorUser" class="form-label col-sm-3 col-form-label">Creator</label>
         <div class="col-sm-7">
-          <input type="text" readonly class="form-control-plaintext" id="creatorUser" value="{{ task()!.creator.email || 'N/A' }}" />
+          <input type="text"
+                 id="creatorUser"
+                 name="creatorUser"
+                 class="form-control-plaintext"
+                 value="{{ task()!.creator.email || 'N/A' }}"
+                 readonly />
         </div>
       </div>
 
@@ -71,7 +80,12 @@
       <div class="mb-4 row">
         <label for="dateCreated" class="form-label col-sm-3 col-form-label">Date Created</label>
         <div class="col-sm-7">
-          <input type="text" readonly class="form-control-plaintext" id="dateCreated" value="{{ formatDate(task()!.createdAt) }}" />
+          <input type="text"
+                 id="dateCreated"
+                 name="dateCreated"
+                 class="form-control-plaintext"
+                 value="{{ formatDate(task()!.createdAt) }}"
+                 readonly />
         </div>
       </div>
 

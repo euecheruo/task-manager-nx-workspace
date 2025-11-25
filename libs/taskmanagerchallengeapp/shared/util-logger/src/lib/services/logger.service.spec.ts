@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/util-logger/lib/services/logger.service.spec.ts
-
 import { TestBed } from '@angular/core/testing';
 import { LoggerService } from './logger.service';
 
@@ -8,11 +6,10 @@ describe('LoggerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LoggerService], // Remember to keep this fix!
+      providers: [LoggerService],
     });
     service = TestBed.inject(LoggerService);
 
-    // FIX: Use jest.fn() instead of () => {}
     jest.spyOn(console, 'log').mockImplementation(jest.fn());
   });
 

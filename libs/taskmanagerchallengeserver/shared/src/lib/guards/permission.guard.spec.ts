@@ -1,5 +1,3 @@
-// /workspace-rootlibs/api/shared/guards/permission.guard.spec.ts
-
 import { PermissionGuard } from './permission.guard';
 import { Reflector } from '@nestjs/core';
 import { ExecutionContext, ForbiddenException } from '@nestjs/common';

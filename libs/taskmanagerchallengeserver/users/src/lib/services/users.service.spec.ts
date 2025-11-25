@@ -1,5 +1,3 @@
-// /workspace-root/libs/api/users/services/users.service.spec.ts
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { UsersRepository } from '../repositories/users.repository';
@@ -9,18 +7,14 @@ describe('UsersService', () => {
   let service: UsersService;
   let repository: UsersRepository;
 
-  // Mock Data
   const mockDate = new Date();
   const mockUserEntity = {
     userId: 1,
     email: 'test@example.com',
     passwordHash: 'hashed_secret',
     createdAt: mockDate,
-    // Add other entity properties if your entity is complex, 
-    // but these are the only ones used by the service.
   };
 
-  // Mock Repository Factory
   const mockUsersRepository = {
     findOneById: jest.fn(),
     findOneByEmail: jest.fn(),
@@ -42,10 +36,6 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
     repository = module.get<UsersRepository>(UsersRepository);
 
-    // Optional: Spy on Logger to ensure logs are happening if strict logging requirements exist
-    // jest.spyOn(Logger.prototype, 'log').mockImplementation(() => {});
-    // jest.spyOn(Logger.prototype, 'warn').mockImplementation(() => {});
-    // jest.spyOn(Logger.prototype, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -64,7 +54,6 @@ describe('UsersService', () => {
         email: 'test@example.com',
         createdAt: mockDate,
       });
-      // Ensure passwordHash is NOT returned
       expect(result).not.toHaveProperty('passwordHash');
     });
 
@@ -115,7 +104,6 @@ describe('UsersService', () => {
 
   describe('getProfile', () => {
     it('should return the profile if the user exists', async () => {
-      // getProfile calls getById internally, so we mock the repo call that getById makes
       mockUsersRepository.findOneById.mockResolvedValue(mockUserEntity);
 
       const result = await service.getProfile(1);
@@ -128,7 +116,6 @@ describe('UsersService', () => {
     });
 
     it('should throw NotFoundException if the user does not exist', async () => {
-      // getProfile calls getById, which returns null if repo returns null
       mockUsersRepository.findOneById.mockResolvedValue(null);
 
       await expect(service.getProfile(99)).rejects.toThrow(NotFoundException);
@@ -152,7 +139,6 @@ describe('UsersService', () => {
         email: 'test@example.com',
         createdAt: mockDate,
       });
-      // Ensure sensitive data didn't leak
       expect(result[0]).not.toHaveProperty('passwordHash');
     });
   });

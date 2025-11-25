@@ -67,8 +67,6 @@ describe('AuthService', () => {
   });
 
   it('should refresh tokens successfully', () => {
-    // FIX: Access private signal to set initial state (simulating existing session)
-    // using 'as any' because 'refreshTokenValue' is private/protected
     (service as any).refreshTokenValue?.set('old_refresh');
 
     const newTokens: TokenResponse = { accessToken: 'new_access', refreshToken: 'new_refresh' };
@@ -78,7 +76,6 @@ describe('AuthService', () => {
     const req = httpMock.expectOne('/api/auth/refresh');
     expect(req.request.method).toBe('POST');
 
-    // FIX: Expect empty body as noted (Token handled by interceptor/headers)
     expect(req.request.body).toEqual({});
 
     req.flush(newTokens);

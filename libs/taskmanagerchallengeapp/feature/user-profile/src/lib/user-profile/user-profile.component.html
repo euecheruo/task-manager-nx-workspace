@@ -31,7 +31,12 @@
       <div class="mb-4" style="max-width: 400px; margin: 0 auto;">
         <label for="email" class="form-label form-label-custom">Email</label>
         <div class="input-group">
-          <input type="email" class="form-control form-control-task" id="email" value="{{ userProfile()!.email }}" disabled>
+          <input type="email"
+                 id="email"
+                 name="email"
+                 class="form-control form-control-task"
+                 value="{{ userProfile()!.email }}"
+                 disabled />
           <span class="input-group-text input-group-text-lock"><i class="bi bi-lock-fill"></i></span>
         </div>
       </div>

@@ -29,10 +29,10 @@
         <div class="form-floating mb-4">
 
           <input type="password"
-                 class="form-control"
                  id="password"
-                 [(ngModel)]="password"
                  name="password"
+                 class="form-control"
+                 [(ngModel)]="password"
                  required />
 
           <label for="password">
@@ -50,6 +50,8 @@
         }
 
         <button type="submit"
+                id="login"
+                name="login"
                 class="btn btn-success btn-lg w-100 mb-3 text-uppercase fw-bold"
                 [disabled]="loading()">
           @if (loading()) {

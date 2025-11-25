@@ -3,14 +3,15 @@
     "",
     "\\apps",
     "\\apps\\taskmanagerchallengeapp-e2e",
-    "\\apps\\taskmanagerchallengeapp-e2e\\src",
-    "\\apps\\taskmanagerchallengeserver-e2e",
-    "\\apps\\taskmanagerchallengeserver-e2e\\src",
-    "\\apps\\taskmanagerchallengeserver-e2e\\src\\support",
-    "\\apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver",
-    "\\apps\\taskmanagerchallengeserver\\src",
-    "\\apps\\taskmanagerchallengeserver\\src\\app"
+    "\\libs",
+    "\\libs\\taskmanagerchallengeapp\\data-access",
+    "\\libs\\taskmanagerchallengeapp\\feature",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add",
+    "\\libs\\taskmanagerchallengeserver"
   ],
-  "SelectedNode": "\\apps\\taskmanagerchallengeserver-e2e\\src\\support",
+  "SelectedNode": "\\apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts",
   "PreviewInSolutionExplorer": false
 }

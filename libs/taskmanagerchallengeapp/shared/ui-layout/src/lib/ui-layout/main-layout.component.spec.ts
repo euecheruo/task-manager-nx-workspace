@@ -1,5 +1,3 @@
-// /workspace-root/libs/app/shared/ui-layout/lib/main-layout/main-layout.component.spec.ts
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainLayoutComponent } from './main-layout.component';
 import { AuthService } from '../../../../../data-access/api-task-manager/src/lib/services/auth.service';
@@ -14,7 +12,6 @@ describe('MainLayoutComponent', () => {
   let loggerMock: any;
 
   beforeEach(async () => {
-    // 1. Mock Auth Service
     authServiceMock = {
       isAuthenticated: signal(true),
       currentUser: signal({ email: 'test@test.com', permissions: 'read:tasks' }),
@@ -22,7 +19,6 @@ describe('MainLayoutComponent', () => {
       logout: jest.fn()
     };
 
-    // 2. Mock Logger Service
     loggerMock = {
       log: jest.fn(),
       debug: jest.fn(),
@@ -34,7 +30,6 @@ describe('MainLayoutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MainLayoutComponent],
       providers: [
-        // FIX: Corrected array syntax and added Router provider
         provideRouter([]),
         { provide: AuthService, useValue: authServiceMock },
         { provide: LoggerService, useValue: loggerMock },
@@ -55,10 +50,8 @@ describe('MainLayoutComponent', () => {
   });
 
   it('should call logout on button click', () => {
-    // Act
     component.onLogout();
 
-    // Assert
     expect(authServiceMock.logout).toHaveBeenCalled();
   });
 });

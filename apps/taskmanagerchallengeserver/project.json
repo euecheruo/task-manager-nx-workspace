@@ -60,6 +60,10 @@
         },
         "production": {
           "buildTarget": "taskmanagerchallengeserver:build:production"
+        },
+        "e2e-mode": {
+          "inspect": false,
+          "watch":  false
         }
       }
     },
