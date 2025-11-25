@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -283,10 +295,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -305,10 +313,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -409,10 +413,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\dtos\\task-response.dtos.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
@@ -574,7 +574,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 197,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
@@ -593,45 +593,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "users.controller.spec.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
-              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
-              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
-              "ViewState": "AgIAADAAAAAAAAAAAAAswD8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:33:15.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "users.controller.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
-              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
-              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T16:34:08.607Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "user-profile.dto.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
-              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
-              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAowBQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T19:22:37.652Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "users.repository.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
@@ -644,20 +605,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "users.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
               "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAswGwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2025-11-14T16:52:20.156Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "users.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.spec.ts",
@@ -670,7 +631,85 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "seeder.service.spec.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
+              "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
+              "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
+              "ViewState": "AgIAADQAAAAAAAAAAAAswD4AAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-21T17:40:59.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "taskmanagerchallengeapp.spec.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
+              "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
+              "RelativeToolTip": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAswF0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-21T22:42:12.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md",
+              "RelativeDocumentMoniker": "README.md",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md",
+              "RelativeToolTip": "README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-11-21T22:56:35.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "user-profile.dto.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
+              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
+              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAowBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-14T19:22:37.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "users.controller.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
+              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
+              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-14T16:34:08.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "users.controller.spec.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
+              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
+              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
+              "ViewState": "AgIAADAAAAAAAAAAAAAswD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-21T16:33:15.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "permission.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.spec.ts",
@@ -683,7 +722,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "permission.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.ts",
@@ -696,7 +735,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "shared.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\shared.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\shared.module.ts",
@@ -709,7 +748,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "data-access.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\data-access.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\data-access.module.ts",
@@ -722,7 +761,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "user.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user.entity.ts",
@@ -735,7 +774,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "user-role.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user-role.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user-role.entity.ts",
@@ -748,7 +787,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "task.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\task.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\task.entity.ts",
@@ -761,7 +800,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "role.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role.entity.ts",
@@ -774,7 +813,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "role-permission.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role-permission.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role-permission.entity.ts",
@@ -787,7 +826,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "refresh-token.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\refresh-token.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\refresh-token.entity.ts",
@@ -800,7 +839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "permission.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\permission.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\permission.entity.ts",
@@ -813,7 +852,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "auth.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\auth.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\auth.module.ts",
@@ -826,7 +865,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "local.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\local.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\local.strategy.ts",
@@ -839,7 +878,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "jwt.utils.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.ts",
@@ -852,7 +891,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "jwt.utils.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.spec.ts",
@@ -865,7 +904,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "jwt-refresh.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-refresh.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-refresh.strategy.ts",
@@ -878,7 +917,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "jwt-access.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.ts",
@@ -891,7 +930,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "jwt-access.strategy.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.spec.ts",
@@ -904,7 +943,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "auth.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.spec.ts",
@@ -917,7 +956,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "auth.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.ts",
@@ -930,7 +969,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "refresh-tokens.repository.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.ts",
@@ -943,7 +982,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "jwt-auth.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\jwt-auth.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\jwt-auth.guard.ts",
@@ -956,7 +995,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "refresh-token.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\refresh-token.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\refresh-token.guard.ts",
@@ -969,7 +1008,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "login.dto.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\login.dto.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\login.dto.ts",
@@ -982,7 +1021,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "token-response.dto.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\token-response.dto.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\token-response.dto.ts",
@@ -995,7 +1034,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "auth.controller.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.spec.ts",
@@ -1008,7 +1047,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "auth.controller.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.ts",
@@ -1021,7 +1060,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "logger.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.spec.ts",
@@ -1034,7 +1073,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "logger.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.ts",
@@ -1047,7 +1086,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "has-permission.directive.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.spec.ts",
@@ -1060,7 +1099,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "has-permission.directive.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.ts",
@@ -1073,7 +1112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "auth.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.spec.ts",
@@ -1086,7 +1125,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 41,
               "Title": "auth.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.ts",
@@ -1099,7 +1138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 42,
               "Title": "token.interceptor.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.ts",
@@ -1112,7 +1151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 43,
               "Title": "token.interceptor.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.spec.ts",
@@ -1125,7 +1164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "user.model.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\models\\user.model.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\models\\user.model.ts",
@@ -1138,7 +1177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "main-layout.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.html",
@@ -1151,7 +1190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 46,
               "Title": "main-layout.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.spec.ts",
@@ -1164,7 +1203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 47,
               "Title": "main-layout.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.ts",
@@ -1177,7 +1216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "user-profile.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.spec.ts",
@@ -1190,7 +1229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "user-profile.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.ts",
@@ -1203,7 +1242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 50,
               "Title": "view-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
@@ -1216,7 +1255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 51,
               "Title": "view-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.spec.ts",
@@ -1229,7 +1268,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 52,
               "Title": "view-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.ts",
@@ -1242,7 +1281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 53,
               "Title": "update-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.spec.ts",
@@ -1255,7 +1294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 54,
               "Title": "update-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.ts",
@@ -1268,7 +1307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 55,
               "Title": "dashboard.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.ts",
@@ -1281,7 +1320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 56,
               "Title": "dashboard.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.spec.ts",
@@ -1294,7 +1333,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 57,
               "Title": "add-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.html",
@@ -1307,7 +1346,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 58,
               "Title": "add-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.spec.ts",
@@ -1320,7 +1359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 59,
               "Title": "add-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.ts",
@@ -1333,7 +1372,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 60,
               "Title": "login.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.html",
@@ -1346,7 +1385,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 61,
               "Title": "login.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.spec.ts",
@@ -1359,7 +1398,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 62,
               "Title": "login.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.ts",
@@ -1372,7 +1411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 63,
               "Title": "users.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.ts",
@@ -1385,7 +1424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 64,
               "Title": "users.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.spec.ts",
@@ -1398,7 +1437,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 65,
               "Title": "tasks.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.ts",
@@ -1411,7 +1450,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 66,
               "Title": "tasks.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.spec.ts",
@@ -1424,7 +1463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 67,
               "Title": "auth.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.spec.ts",
@@ -1437,7 +1476,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 68,
               "Title": "task.model.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\models\\task.model.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\models\\task.model.ts",
@@ -1450,7 +1489,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 69,
               "Title": ".env.example",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\.env.example",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\.env.example",
@@ -1463,7 +1502,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 70,
               "Title": "main.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\main.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\main.ts",
@@ -1476,7 +1515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 71,
               "Title": "seeder.task.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\tasks\\seeder.task.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\tasks\\seeder.task.ts",
@@ -1489,7 +1528,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 72,
               "Title": "seeder.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts",
@@ -1502,20 +1541,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
-              "Title": "seeder.service.spec.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
-              "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
-              "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:40:59.528Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 73,
               "Title": "app.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts",
@@ -1528,7 +1554,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 74,
               "Title": "global-setup.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-setup.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-setup.ts",
@@ -1541,7 +1567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 75,
               "Title": "global-teardown.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-teardown.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-teardown.ts",
@@ -1554,7 +1580,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 76,
               "Title": "test-setup.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\test-setup.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\test-setup.ts",
@@ -1567,7 +1593,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 77,
               "Title": "taskmanagerchallengeserver.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts",
@@ -1580,20 +1606,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
-              "Title": "taskmanagerchallengeapp.spec.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
-              "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
-              "RelativeToolTip": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAswFQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T22:42:12.408Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 78,
               "Title": "update-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html",
@@ -1606,7 +1619,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 79,
               "Title": "project.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\project.json",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\project.json",
@@ -1619,7 +1632,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 80,
               "Title": "user-profile.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.html",
@@ -1632,7 +1645,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 81,
               "Title": "dashboard.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html",
@@ -1645,7 +1658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 82,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -1658,7 +1671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 83,
               "Title": "playwright.config.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts",
@@ -1671,7 +1684,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 84,
               "Title": "project.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\project.json",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\project.json",
@@ -1684,7 +1697,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 85,
               "Title": "proxy.conf.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp\\proxy.conf.json",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp\\proxy.conf.json",
@@ -1697,7 +1710,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 86,
               "Title": "migrations.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\migrations.json",
               "RelativeDocumentMoniker": "migrations.json",
@@ -1710,7 +1723,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 87,
               "Title": "tasks.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.ts",
@@ -1723,7 +1736,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 88,
               "Title": "users.repository.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.spec.ts",
@@ -1736,7 +1749,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 89,
               "Title": "refresh-tokens.repository.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.spec.ts",
@@ -1749,7 +1762,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
+              "DocumentIndex": 90,
               "Title": "tasks.controller.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.spec.ts",
@@ -1762,7 +1775,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 91,
               "Title": "tasks.controller.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.ts",
@@ -1775,7 +1788,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 92,
               "Title": "tasks.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.spec.ts",
@@ -1788,7 +1801,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 93,
               "Title": "tasks.repository.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.spec.ts",
@@ -1801,7 +1814,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 94,
               "Title": "tasks.repository.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.ts",
@@ -1814,7 +1827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 95,
               "Title": "task-assignment-state.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.spec.ts",
@@ -1827,7 +1840,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 96,
               "Title": "task-assignment-state.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.ts",
@@ -1840,7 +1853,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 97,
               "Title": "task-ownership.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.spec.ts",
@@ -1853,7 +1866,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 98,
               "Title": "task-ownership.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.ts",
@@ -1866,7 +1879,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 98,
+              "DocumentIndex": 99,
               "Title": "seeder.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\seeder.module.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\seeder.module.ts",
@@ -1879,7 +1892,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 99,
+              "DocumentIndex": 100,
               "Title": "main.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp\\src\\main.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp\\src\\main.ts",
@@ -1892,7 +1905,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 100,
+              "DocumentIndex": 101,
               "Title": "bootstrap.bundle.min.js",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp\\src\\bootstrap.bundle.min.js",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp\\src\\bootstrap.bundle.min.js",
@@ -1905,7 +1918,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 101,
+              "DocumentIndex": 102,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\package.json",
               "RelativeDocumentMoniker": "package.json",
@@ -1914,19 +1927,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-11-19T14:23:56.542Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 102,
-              "Title": "README.md",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md",
-              "RelativeDocumentMoniker": "README.md",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md",
-              "RelativeToolTip": "README.md",
-              "ViewState": "AgIAADAAAAAAAAAAAAAwwD8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-11-21T22:56:35.044Z",
               "EditorCaption": ""
             },
             {
