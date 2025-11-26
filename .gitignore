@@ -46,7 +46,7 @@ Thumbs.db
 .angular
 
 # Visual Studio 2022
-.vs/
+.vs/*
 *.suo
 *.user
 *.useros
@@ -56,7 +56,7 @@ Thumbs.db
 *.vstemplate
 
 # Build Results
-vs/
+vs/*
 [Bb]in/
 [Oo]bj/
 [Dd]ebug/

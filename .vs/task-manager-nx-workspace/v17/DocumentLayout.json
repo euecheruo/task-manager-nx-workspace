@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
@@ -331,10 +335,6 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -587,25 +587,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2025-11-20T01:36:07.372Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "users.repository.ts",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
-              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
-              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
-              "ViewState": "AgIAADwAAAAAAAAAAAAswEsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T16:43:57.71Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "users.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
@@ -613,12 +599,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.ts",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAEIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T16:52:20.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T16:52:20.156Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "users.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.spec.ts",
@@ -626,12 +611,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\services\\users.service.spec.ts",
               "ViewState": "AgIAAIIAAAAAAAAAAAAswJEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:39:28.824Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T16:39:28.824Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "seeder.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
@@ -639,12 +623,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.spec.ts",
               "ViewState": "AgIAADQAAAAAAAAAAAAswD4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:40:59.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:40:59.528Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "taskmanagerchallengeapp.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
@@ -652,12 +635,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp-e2e\\src\\taskmanagerchallengeapp.spec.ts",
               "ViewState": "AgIAAE4AAAAAAAAAAAAswF0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T22:42:12.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T22:42:12.408Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\README.md",
               "RelativeDocumentMoniker": "README.md",
@@ -670,7 +652,32 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAACsAAAAAAAAAAAAAADAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-11-25T20:37:17.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "users.repository.ts",
+              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
+              "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
+              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
+              "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.ts",
+              "ViewState": "AgIAADwAAAAAAAAAAAAswEsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-11-14T16:43:57.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "user-profile.dto.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
@@ -678,12 +685,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\dtos\\user-profile.dto.ts",
               "ViewState": "AgIAAAYAAAAAAAAAAAAowBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T19:22:37.652Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T19:22:37.652Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "users.controller.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
@@ -691,12 +697,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T16:34:08.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T16:34:08.607Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "users.controller.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
@@ -704,12 +709,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\controllers\\users.controller.spec.ts",
               "ViewState": "AgIAADAAAAAAAAAAAAAswD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:33:15.166Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T16:33:15.166Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "permission.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.spec.ts",
@@ -717,12 +721,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:39:20.194Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:39:20.194Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "permission.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.ts",
@@ -730,12 +733,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\guards\\permission.guard.ts",
               "ViewState": "AgIAADEAAAAAAAAAAAAswEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:03:59.828Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:03:59.828Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "shared.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\shared\\src\\lib\\shared.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\shared.module.ts",
@@ -743,12 +745,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\shared.module.ts",
               "ViewState": "AgIAAAIAAAAAAAAAAAAowA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:05:00.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:05:00.738Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "data-access.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\data-access.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\data-access.module.ts",
@@ -756,12 +757,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\data-access.module.ts",
               "ViewState": "AgIAAA0AAAAAAAAAAAAowBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:11:30.654Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:11:30.654Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "user.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user.entity.ts",
@@ -769,12 +769,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user.entity.ts",
               "ViewState": "AgIAABMAAAAAAAAAAAAswCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:11:09.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:11:09.096Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "user-role.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user-role.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user-role.entity.ts",
@@ -782,12 +781,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\user-role.entity.ts",
               "ViewState": "AgIAAAcAAAAAAAAAAAAowBEAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T19:05:51.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T19:05:51.525Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "task.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\task.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\task.entity.ts",
@@ -795,12 +793,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\task.entity.ts",
               "ViewState": "AgIAAB8AAAAAAAAAAAAswC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:09:01.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:09:01.706Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "role.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role.entity.ts",
@@ -808,12 +805,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role.entity.ts",
               "ViewState": "AgIAAAQAAAAAAAAAAAAowBIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:08:03.234Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:08:03.234Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "role-permission.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role-permission.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role-permission.entity.ts",
@@ -821,12 +817,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\role-permission.entity.ts",
               "ViewState": "AgIAAAcAAAAAAAAAAAAowBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:06:58.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:06:58.915Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "refresh-token.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\refresh-token.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\refresh-token.entity.ts",
@@ -834,12 +829,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\refresh-token.entity.ts",
               "ViewState": "AgIAAA8AAAAAAAAAAAAswB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:06:27.141Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:06:27.141Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "permission.entity.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\permission.entity.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\permission.entity.ts",
@@ -847,12 +841,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\data-access\\src\\lib\\entities\\permission.entity.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:05:51.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:05:51.278Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "auth.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\auth.module.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\auth.module.ts",
@@ -860,12 +853,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\auth.module.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-23T22:07:05.854Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-23T22:07:05.854Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "local.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\local.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\local.strategy.ts",
@@ -873,12 +865,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\local.strategy.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:44:31.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:44:31.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "jwt.utils.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.ts",
@@ -886,12 +877,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.ts",
               "ViewState": "AgIAAA4AAAAAAAAAAAAswB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:40:34.293Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:40:34.293Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "jwt.utils.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.spec.ts",
@@ -899,12 +889,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt.utils.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:45:29.565Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:45:29.565Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "jwt-refresh.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-refresh.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-refresh.strategy.ts",
@@ -912,12 +901,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-refresh.strategy.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:44:00.118Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:44:00.118Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "jwt-access.strategy.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.ts",
@@ -925,12 +913,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:41:27.568Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:41:27.568Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "jwt-access.strategy.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.spec.ts",
@@ -938,12 +925,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\strategies\\jwt-access.strategy.spec.ts",
               "ViewState": "AgIAAB0AAAAAAAAAAAAswCwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:49:28.821Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T16:49:28.821Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "auth.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.spec.ts",
@@ -951,12 +937,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.spec.ts",
               "ViewState": "AgIAADIAAAAAAAAAAAAswEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:00:39.165Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:00:39.165Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "auth.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.ts",
@@ -964,12 +949,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\services\\auth.service.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-16T13:16:23.489Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T13:16:23.489Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "refresh-tokens.repository.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.ts",
@@ -977,12 +961,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.ts",
               "ViewState": "AgIAADQAAAAAAAAAAAAswEMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:49:31.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:49:31.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "jwt-auth.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\jwt-auth.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\jwt-auth.guard.ts",
@@ -990,12 +973,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\jwt-auth.guard.ts",
               "ViewState": "AgIAABQAAAAAAAAAAAAswCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:48:38.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:48:38.503Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "refresh-token.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\refresh-token.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\refresh-token.guard.ts",
@@ -1003,12 +985,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\guards\\refresh-token.guard.ts",
               "ViewState": "AgIAABwAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:49:05.392Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:49:05.392Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "login.dto.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\login.dto.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\login.dto.ts",
@@ -1016,12 +997,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\login.dto.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAowA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-24T02:40:33.376Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T02:40:33.376Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "token-response.dto.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\token-response.dto.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\token-response.dto.ts",
@@ -1029,12 +1009,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\dtos\\token-response.dto.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-18T02:53:19.563Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-18T02:53:19.563Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "auth.controller.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.spec.ts",
@@ -1042,12 +1021,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:55:43.558Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T16:55:43.558Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "auth.controller.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.ts",
@@ -1055,12 +1033,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\controllers\\auth.controller.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-16T13:16:07.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T13:16:07.529Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "logger.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.spec.ts",
@@ -1068,12 +1045,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.spec.ts",
               "ViewState": "AgIAAA0AAAAAAAAAAAAswBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:44:44.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:44:44.686Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "logger.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.ts",
@@ -1081,12 +1057,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\services\\logger.service.ts",
               "ViewState": "AgIAAD0AAAAAAAAAAAAswEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:38:39.15Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:38:39.15Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "has-permission.directive.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.spec.ts",
@@ -1094,12 +1069,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.spec.ts",
               "ViewState": "AgIAAC8AAAAAAAAAAAAswD4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:21:21.482Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:21:21.482Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "has-permission.directive.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.ts",
@@ -1107,12 +1081,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\directives\\has-permission.directive.ts",
               "ViewState": "AgIAAD0AAAAAAAAAAAAswEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:35:33.158Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:35:33.158Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "auth.guard.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.spec.ts",
@@ -1120,12 +1093,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.spec.ts",
               "ViewState": "AgIAAC0AAAAAAAAAAAAswDwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:38:27.873Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:38:27.873Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "auth.guard.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.ts",
@@ -1133,12 +1105,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\guards\\auth.guard.ts",
               "ViewState": "AgIAAAkAAAAAAAAAAAAswBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:37:01.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:37:01.444Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "token.interceptor.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.ts",
@@ -1146,12 +1117,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.ts",
               "ViewState": "AgIAAFwAAAAAAAAAAAAAAFwAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:37:19.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:37:19.923Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "token.interceptor.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.spec.ts",
@@ -1159,12 +1129,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\interceptors\\token.interceptor.spec.ts",
               "ViewState": "AgIAADEAAAAAAAAAAAAswEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:42:18.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:42:18.303Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "user.model.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\models\\user.model.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\models\\user.model.ts",
@@ -1172,12 +1141,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-auth\\src\\lib\\models\\user.model.ts",
               "ViewState": "AgIAAAUAAAAAAAAAAAAkwBEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-16T13:08:43.614Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T13:08:43.614Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "main-layout.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.html",
@@ -1185,12 +1153,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.html",
               "ViewState": "AgIAAA8AAAAAAAAAAAAmwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:39:35.747Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:39:35.747Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "main-layout.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.spec.ts",
@@ -1198,12 +1165,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.spec.ts",
               "ViewState": "AgIAACoAAAAAAAAAAAAswC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T20:48:16.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T20:48:16.224Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "main-layout.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.ts",
@@ -1211,12 +1177,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.ts",
               "ViewState": "AgIAABcAAAAAAAAAAAAswCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T15:53:31.102Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T15:53:31.102Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "user-profile.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.spec.ts",
@@ -1224,12 +1189,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.spec.ts",
               "ViewState": "AgIAACsAAAAAAAAAAAAswDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T01:24:07.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:24:07.884Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "user-profile.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.ts",
@@ -1237,12 +1201,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:47:37.617Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:47:37.617Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "view-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
@@ -1250,12 +1213,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:46:49.463Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:46:49.463Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "view-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.spec.ts",
@@ -1263,12 +1225,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.spec.ts",
               "ViewState": "AgIAADUAAAAAAAAAAAAswEQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T01:20:41.963Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:20:41.963Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "view-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.ts",
@@ -1276,12 +1237,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.ts",
               "ViewState": "AgIAADcAAAAAAAAAAAAswEUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:46:15.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:46:15.686Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "update-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.spec.ts",
@@ -1289,12 +1249,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-25T22:07:35.153Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T22:07:35.153Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "update-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.ts",
@@ -1302,12 +1261,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.ts",
               "ViewState": "AgIAAM0AAAAAAAAAAAAswNwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-25T22:06:40.191Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T22:06:40.191Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "dashboard.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.ts",
@@ -1315,12 +1273,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.ts",
               "ViewState": "AgIAAOUAAAAAAAAAAAAswPQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:43:15.396Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:43:15.396Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "dashboard.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.spec.ts",
@@ -1328,12 +1285,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.spec.ts",
               "ViewState": "AgIAADEAAAAAAAAAAAAswD8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T01:12:57.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:12:57.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 58,
               "Title": "add-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.html",
@@ -1341,12 +1297,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.html",
               "ViewState": "AgIAAD0AAAAAAAAAAAAAAEIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:41:58.343Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:41:58.343Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 59,
               "Title": "add-task.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.spec.ts",
@@ -1354,12 +1309,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:58:54.632Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:58:54.632Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 60,
               "Title": "add-task.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.ts",
@@ -1367,12 +1321,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.ts",
               "ViewState": "AgIAAEwAAAAAAAAAAAAswFsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:42:23.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:42:23.816Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 61,
               "Title": "login.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.html",
@@ -1380,12 +1333,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.html",
               "ViewState": "AgIAAC8AAAAAAAAAAAAAAC8AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:41:08.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:41:08.76Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 62,
               "Title": "login.component.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.spec.ts",
@@ -1393,12 +1345,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.spec.ts",
               "ViewState": "AgIAADoAAAAAAAAAAAAswEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:53:15.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:53:15.063Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 63,
               "Title": "login.component.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.ts",
@@ -1406,12 +1357,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:40:40.802Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:40:40.802Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 64,
               "Title": "users.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.ts",
@@ -1419,12 +1369,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:36:09.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:36:09.806Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 65,
               "Title": "users.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.spec.ts",
@@ -1432,12 +1381,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\users.service.spec.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:29:21.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:29:21.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 66,
               "Title": "tasks.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.ts",
@@ -1445,12 +1393,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:36:29.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:36:29.975Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 67,
               "Title": "tasks.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.spec.ts",
@@ -1458,12 +1405,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\tasks.service.spec.ts",
               "ViewState": "AgIAACwAAAAAAAAAAAAswDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:32:11.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:32:11.826Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 68,
               "Title": "auth.service.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.spec.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.spec.ts",
@@ -1471,12 +1417,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.spec.ts",
               "ViewState": "AgIAAEcAAAAAAAAAAAAswFQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T00:09:43.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T00:09:43.745Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 69,
               "Title": "task.model.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\models\\task.model.ts",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\models\\task.model.ts",
@@ -1484,12 +1429,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\models\\task.model.ts",
               "ViewState": "AgIAABwAAAAAAAAAAAA7wCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:24:06.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:24:06.993Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 70,
               "Title": ".env.example",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\.env.example",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\.env.example",
@@ -1497,12 +1441,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\.env.example",
               "ViewState": "AgIAAAgAAAAAAAAAAAAmwBcAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-11-21T22:52:56.827Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T22:52:56.827Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 71,
               "Title": "main.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\main.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\main.ts",
@@ -1510,12 +1453,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\main.ts",
               "ViewState": "AgIAACQAAAAAAAAAAAAswDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:15:38.91Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:15:38.91Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 72,
               "Title": "seeder.task.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\tasks\\seeder.task.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\tasks\\seeder.task.ts",
@@ -1523,12 +1465,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\tasks\\seeder.task.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:13:04.784Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:13:04.784Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 73,
               "Title": "seeder.service.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts",
@@ -1536,12 +1477,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\services\\seeder.service.ts",
               "ViewState": "AgIAANcAAAAAAAAAAAAswOYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-15T17:55:29.747Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T17:55:29.747Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 74,
               "Title": "app.module.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts",
@@ -1549,12 +1489,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\app\\app.module.ts",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:14:16.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:14:16.786Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 75,
               "Title": "global-setup.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-setup.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-setup.ts",
@@ -1562,12 +1501,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-setup.ts",
               "ViewState": "AgIAAAEAAAAAAAAAAAAswAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T23:05:11.053Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T23:05:11.053Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 76,
               "Title": "global-teardown.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-teardown.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-teardown.ts",
@@ -1575,12 +1513,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\global-teardown.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T22:58:42.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T22:58:42.443Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 77,
               "Title": "test-setup.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\support\\test-setup.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\test-setup.ts",
@@ -1588,12 +1525,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver-e2e\\src\\support\\test-setup.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T23:05:21.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T23:05:21.469Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 78,
               "Title": "taskmanagerchallengeserver.spec.ts",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts",
@@ -1601,12 +1537,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver-e2e\\src\\taskmanagerchallengeserver\\taskmanagerchallengeserver.spec.ts",
               "ViewState": "AgIAAKUAAAAAAAAAAAAswLMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T23:11:28.853Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T23:11:28.853Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 79,
               "Title": "update-task.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html",
@@ -1614,12 +1549,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-update\\src\\lib\\tasks-update\\update-task.component.html",
               "ViewState": "AgIAAE0AAAAAAAAAAAAAAFEAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-25T21:23:33.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T21:23:33.528Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 80,
               "Title": "project.json",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\apps\\taskmanagerchallengeapp-e2e\\project.json",
               "RelativeDocumentMoniker": "apps\\taskmanagerchallengeapp-e2e\\project.json",
@@ -1627,12 +1561,11 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp-e2e\\project.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-25T14:30:00.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T14:30:00.988Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 81,
               "Title": "user-profile.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.html",
@@ -1640,12 +1573,11 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.html",
               "ViewState": "AgIAACUAAAAAAAAAAAAmwCkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:48:02.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:48:02.659Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 82,
               "Title": "dashboard.component.html",
               "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html",
               "RelativeDocumentMoniker": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html",
@@ -1653,21 +1585,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.html",
               "ViewState": "AgIAAOEAAAAAAAAAAAAmwO0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:43:47.742Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 82,
-              "Title": ".gitignore",
-              "DocumentMoniker": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore",
-              "RelativeDocumentMoniker": ".gitignore",
-              "ToolTip": "C:\\Workspace\\NodeJS\\Nx\\task-manager-nx-workspace\\.gitignore",
-              "RelativeToolTip": ".gitignore",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAmwFsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-11-25T20:37:17.768Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:43:47.742Z"
             },
             {
               "$type": "Document",
@@ -1679,8 +1597,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts",
               "ViewState": "AgIAABMAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T23:10:17.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T23:10:17.328Z"
             },
             {
               "$type": "Document",
@@ -1692,8 +1609,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\project.json",
               "ViewState": "AgIAADoAAAAAAAAAAAAAADsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-19T22:16:12.286Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:16:12.286Z"
             },
             {
               "$type": "Document",
@@ -1705,8 +1621,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\proxy.conf.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-25T01:19:20.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T01:19:20.852Z"
             },
             {
               "$type": "Document",
@@ -1718,8 +1633,7 @@
               "RelativeToolTip": "migrations.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-25T09:11:13.397Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T09:11:13.397Z"
             },
             {
               "$type": "Document",
@@ -1731,8 +1645,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.ts",
               "ViewState": "AgIAAPYAAAAAAAAAAAAAAP8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T20:24:34.051Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T20:24:34.051Z"
             },
             {
               "$type": "Document",
@@ -1744,8 +1657,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\repositories\\users.repository.spec.ts",
               "ViewState": "AgIAADYAAAAAAAAAAAAswEUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T16:51:12.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T16:51:12.037Z"
             },
             {
               "$type": "Document",
@@ -1757,8 +1669,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\auth\\src\\lib\\repositories\\refresh-tokens.repository.spec.ts",
               "ViewState": "AgIAADIAAAAAAAAAAAAswEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:18:14.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:18:14.315Z"
             },
             {
               "$type": "Document",
@@ -1770,8 +1681,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.spec.ts",
               "ViewState": "AgIAADkAAAAAAAAAAAAswEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:26:06.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:26:06.106Z"
             },
             {
               "$type": "Document",
@@ -1783,8 +1693,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\controllers\\tasks.controller.ts",
               "ViewState": "AgIAAHMAAAAAAAAAAAAswIIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:59:10.425Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:59:10.425Z"
             },
             {
               "$type": "Document",
@@ -1796,8 +1705,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\services\\tasks.service.spec.ts",
               "ViewState": "AgIAAEAAAAAAAAAAAAAswE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:27:43.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:27:43.988Z"
             },
             {
               "$type": "Document",
@@ -1809,8 +1717,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.spec.ts",
               "ViewState": "AgIAAL4AAAAAAAAAAAAswM0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T18:06:59.909Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T18:06:59.909Z"
             },
             {
               "$type": "Document",
@@ -1822,8 +1729,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\repositories\\tasks.repository.ts",
               "ViewState": "AgIAAG4AAAAAAAAAAAAswH0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:55:05.762Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:55:05.762Z"
             },
             {
               "$type": "Document",
@@ -1835,8 +1741,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.spec.ts",
               "ViewState": "AgIAACQAAAAAAAAAAAAswDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:32:44.719Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:32:44.719Z"
             },
             {
               "$type": "Document",
@@ -1848,8 +1753,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assignment-state.guard.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:59:28.434Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:59:28.434Z"
             },
             {
               "$type": "Document",
@@ -1861,8 +1765,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.spec.ts",
               "ViewState": "AgIAAB4AAAAAAAAAAAAswC0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-21T17:30:35.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T17:30:35.752Z"
             },
             {
               "$type": "Document",
@@ -1874,8 +1777,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-ownership.guard.ts",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-15T19:15:15.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T19:15:15.07Z"
             },
             {
               "$type": "Document",
@@ -1887,8 +1789,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeserver\\src\\seeder\\seeder.module.ts",
               "ViewState": "AgIAAAkAAAAAAAAAAAAowBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:13:36.83Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:13:36.83Z"
             },
             {
               "$type": "Document",
@@ -1900,8 +1801,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\main.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T01:09:17.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T01:09:17.998Z"
             },
             {
               "$type": "Document",
@@ -1913,8 +1813,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\bootstrap.bundle.min.js",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAAAUAAAA/5QAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-11-24T02:16:08.862Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-24T02:16:08.862Z"
             },
             {
               "$type": "Document",
@@ -1926,8 +1825,7 @@
               "RelativeToolTip": "package.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-19T14:23:56.542Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T14:23:56.542Z"
             },
             {
               "$type": "Document",
@@ -1939,8 +1837,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\dtos\\task-response.dtos.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T20:18:42.413Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T20:18:42.413Z"
             },
             {
               "$type": "Document",
@@ -1952,8 +1849,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\dtos\\task-filter.query.ts",
               "ViewState": "AgIAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:58:30.016Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:58:30.016Z"
             },
             {
               "$type": "Document",
@@ -1965,8 +1861,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\dtos\\create-task.dtos.ts",
               "ViewState": "AgIAAAcAAAAAAAAAAAAswBQAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-15T16:34:50.406Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T16:34:50.406Z"
             },
             {
               "$type": "Document",
@@ -1978,8 +1873,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\dtos\\update-task.dtos.ts",
               "ViewState": "AgIAAA0AAAAAAAAAAAAswBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-15T17:17:16.928Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-15T17:17:16.928Z"
             },
             {
               "$type": "Document",
@@ -1991,8 +1885,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\app\\app.spec.ts",
               "ViewState": "AgIAAAgAAAAAAAAAAAAiwBEAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:19:52.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:19:52.022Z"
             },
             {
               "$type": "Document",
@@ -2004,8 +1897,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\src\\lib\\services\\auth.service.ts",
               "ViewState": "AgIAAE8AAAAAAAAAAAAswF4AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:34:40.856Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:34:40.856Z"
             },
             {
               "$type": "Document",
@@ -2017,8 +1909,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\project.json",
               "ViewState": "AgIAAFIAAAAAAAAAAAAqwF0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-14T15:52:01.515Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:52:01.515Z"
             },
             {
               "$type": "Document",
@@ -2030,8 +1921,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\jest.config.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T01:37:20.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:37:20.545Z"
             },
             {
               "$type": "Document",
@@ -2043,8 +1933,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\tsconfig.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-20T01:37:12.36Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:37:12.36Z"
             },
             {
               "$type": "Document",
@@ -2056,8 +1945,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\data-access\\api-task-manager\\jest.config.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-20T01:36:38.653Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T01:36:38.653Z"
             },
             {
               "$type": "Document",
@@ -2069,8 +1957,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\README.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-11-19T23:39:14.028Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T23:39:14.028Z"
             },
             {
               "$type": "Document",
@@ -2082,8 +1969,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\app\\app.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:50:27.386Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:50:27.386Z"
             },
             {
               "$type": "Document",
@@ -2095,8 +1981,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\app\\app.config.ts",
               "ViewState": "AgIAAAUAAAAAAAAAAAAswBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:48:49.633Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:48:49.633Z"
             },
             {
               "$type": "Document",
@@ -2108,8 +1993,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\decorators\\permission.decorator.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:03:37.257Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:03:37.257Z"
             },
             {
               "$type": "Document",
@@ -2121,8 +2005,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\shared\\src\\lib\\decorators\\current-user.decorator.ts",
               "ViewState": "AgIAAA0AAAAAAAAAAAAswBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:02:31.489Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:02:31.489Z"
             },
             {
               "$type": "Document",
@@ -2134,8 +2017,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\tasks.module.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T22:01:09.952Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T22:01:09.952Z"
             },
             {
               "$type": "Document",
@@ -2147,8 +2029,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\tasks\\src\\lib\\guards\\task-assigned-to-user.guard.ts",
               "ViewState": "AgIAADMAAAAAAAAAAAAswEIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-19T21:58:55.089Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T21:58:55.089Z"
             },
             {
               "$type": "Document",
@@ -2160,8 +2041,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-14T15:50:51.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:50:51.213Z"
             },
             {
               "$type": "Document",
@@ -2173,8 +2053,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\styles.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:51:23.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:51:23.328Z"
             },
             {
               "$type": "Document",
@@ -2186,8 +2065,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeserver\\users\\src\\lib\\users.module.ts",
               "ViewState": "AgIAAAUAAAAAAAAAAAAowBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T16:53:42.732Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T16:53:42.732Z"
             },
             {
               "$type": "Document",
@@ -2199,8 +2077,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\app\\app.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:49:32.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:49:32.538Z"
             },
             {
               "$type": "Document",
@@ -2212,8 +2089,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\user-profile\\src\\lib\\user-profile\\user-profile.component.css",
               "ViewState": "AgIAABkAAAAAAAAAAAAmwCkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-16T21:24:24.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-16T21:24:24.737Z"
             },
             {
               "$type": "Document",
@@ -2225,8 +2101,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-view\\src\\lib\\tasks-view\\view-task.component.css",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:47:07.014Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:47:07.014Z"
             },
             {
               "$type": "Document",
@@ -2249,8 +2124,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add\\add-task.component.css",
               "ViewState": "AgIAABIAAAAAAAAAAAAmwCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:42:48.605Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:42:48.605Z"
             },
             {
               "$type": "Document",
@@ -2262,8 +2136,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\tasks-dashboard\\src\\lib\\tasks-dashboard\\dashboard.component.css",
               "ViewState": "AgIAACAAAAAAAAAAAAAmwDAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:44:24.844Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:44:24.844Z"
             },
             {
               "$type": "Document",
@@ -2275,8 +2148,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\feature\\auth-login\\src\\lib\\auth-login\\login.component.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:41:30.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:41:30.173Z"
             },
             {
               "$type": "Document",
@@ -2288,8 +2160,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\util-logger\\src\\lib\\models\\log.model.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:38:23.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:38:23.914Z"
             },
             {
               "$type": "Document",
@@ -2301,8 +2172,7 @@
               "RelativeToolTip": "libs\\taskmanagerchallengeapp\\shared\\ui-layout\\src\\lib\\ui-layout\\main-layout.component.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-14T15:39:56.921Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:39:56.921Z"
             },
             {
               "$type": "Document",
@@ -2314,8 +2184,7 @@
               "RelativeToolTip": "tsconfig.base.json",
               "ViewState": "AgIAADUAAAAAAAAAAAAAADUAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-19T20:36:18.991Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T20:36:18.991Z"
             },
             {
               "$type": "Document",
@@ -2327,8 +2196,7 @@
               "RelativeToolTip": "templates\\user-profile.html",
               "ViewState": "AgIAAH8AAAAAAAAAAAAmwIoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-19T10:42:15.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T10:42:15.41Z"
             },
             {
               "$type": "Document",
@@ -2340,8 +2208,7 @@
               "RelativeToolTip": "templates\\tasks-update.html",
               "ViewState": "AgIAACYAAAAAAAAAAAAmwDYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-19T10:42:32.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T10:42:32.767Z"
             },
             {
               "$type": "Document",
@@ -2353,8 +2220,7 @@
               "RelativeToolTip": "templates\\tasks-view.html",
               "ViewState": "AgIAAIsAAAAAAAAAAAAmwJYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-19T13:18:48.364Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T13:18:48.364Z"
             },
             {
               "$type": "Document",
@@ -2366,8 +2232,7 @@
               "RelativeToolTip": "templates\\tasks-add.html",
               "ViewState": "AgIAAIgAAAAAAAAAAAAmwJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-19T01:37:53.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T01:37:53.464Z"
             },
             {
               "$type": "Document",
@@ -2379,8 +2244,7 @@
               "RelativeToolTip": "templates\\auth-login.html",
               "ViewState": "AgIAACwAAAAAAAAAAAAAAC4AAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-18T23:47:31.188Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-18T23:47:31.188Z"
             },
             {
               "$type": "Document",
@@ -2392,8 +2256,7 @@
               "RelativeToolTip": "templates\\tasks-dashboard.html",
               "ViewState": "AgIAADgAAAAAAAAAAAAmwEIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-19T00:19:17.426Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-19T00:19:17.426Z"
             },
             {
               "$type": "Document",
@@ -2405,8 +2268,7 @@
               "RelativeToolTip": "apps\\taskmanagerchallengeapp\\src\\app\\app.routes.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-14T15:49:57.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-14T15:49:57.173Z"
             }
           ]
         },
