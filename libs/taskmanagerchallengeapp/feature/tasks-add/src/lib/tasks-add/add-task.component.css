@@ -1,0 +1,34 @@
+
+.main-card {
+  max-width: 600px;
+  margin: 50px auto;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.form-control-task {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
+
+.input-group-text-custom {
+  background-color: white;
+  border-left: none;
+}
+
+.page-indicator {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.page-control {
+  cursor: pointer;
+}
+
+.footer-control {
+  border-top: 1px solid #dee2e6;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}

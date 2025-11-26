@@ -1,0 +1,41 @@
+
+.main-card {
+  max-width: 600px;
+  margin: 50px auto;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.profile-icon-container {
+  width: 100px;
+  height: 100px;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  margin: 0 auto 15px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-icon {
+  font-size: 4rem;
+  color: #adb5bd;
+}
+
+.form-label-custom {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.form-control-task {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.input-group-text-lock {
+  background-color: #f8f9fa;
+  border-left: none;
+  color: #6c757d;
+}

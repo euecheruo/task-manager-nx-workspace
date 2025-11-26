@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Interface</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+
+    body {
+      background-color: #C2FB8F;
+    }
+
+    .navbar {
+      background-color: white !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-card {
+      max-width: 600px;
+      margin: 50px auto;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
+
+    .profile-icon-container {
+      width: 100px;
+      height: 100px;
+      background-color: #e9ecef;
+      border-radius: 50%;
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-icon {
+      font-size: 4rem;
+      color: #adb5bd; 
+    }
+
+    .form-label-custom {
+      font-weight: 500;
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    .form-control-task {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .input-group-text-lock {
+      background-color: #f8f9fa;
+      border-left: none;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container-fluid mx-5">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <i class="bi bi-list-task fs-4"></i>
+        <p class="h6 ms-2 mt-2 text-secondary">Role Based Access Control Task Manager Demo</p>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bold main-nav-text" aria-current="page" href="#">
+              <i class="bi bi-speedometer"></i>
+              Dashboard
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-bold text-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              fake1@test.com (<span class="text-warning">Editor</span>)
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item fw-bold main-nav-text" href="#">
+                  <i class="bi bi-person-fill"></i>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item fw-bold text-dark">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-5 mb-5" style="max-width: 900px;">
+    <div class="card main-card">
+      <div class="card-body p-5">
+
+        <h3 class="card-title mb-4">
+          <i class="bi bi-person-fill"></i>
+          User Profile
+        </h3>
+
+        <div class="profile-icon-container">
+          <i class="bi bi-person-fill profile-icon"></i>
+        </div>
+
+        <form class="text-start">
+          <div class="mb-4" style="max-width: 400px; margin: 0 auto;">
+            <label for="emailInput" class="form-label form-label-custom">Email</label>
+            <div class="input-group">
+              <input type="email" class="form-control form-control-task" id="emailInput" value="john.doe@taskflow.com" disabled>
+              <span class="input-group-text input-group-text-lock"><i class="bi bi-lock-fill"></i></span>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-start pt-4">
+            <button type="button" class="btn btn-light">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,82 +1,108 @@
-# TaskManagerNxWorkspace
+# Nx Task Management System
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This project is a secure, scalable Task Management System built within an **Nx Monorepo**. It features an **Angular 18+** frontend using Signals and a **NestJS** backend using PostgreSQL, secured by **RBAC** (Role-Based Access Control) and **JWT** authentication.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Table of Contents
+- [Prerequisites](#prerequisites)
+-(#project-structure)
+-(#development-scripts)
+-(#database-management)
+-(#roles-and-permissions)
+-(#testing)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Prerequisites
+- **Node.js** (Latest LTS recommended)
+- **PostgreSQL** (Running locally or via Docker)
+- **Nx CLI** (Globally installed or via `npx`)
 
-## Finish your CI setup
+## Project Structure
+The workspace is divided into applications and libraries:
+- **apps/taskmanagerchallengeapp**: Angular Frontend.
+- **apps/taskmanagerchallengeserver**: NestJS Backend.
+- **libs/api**: Backend modules (Auth, Users, Tasks, Data Access).
+- **libs/app**: Frontend features and utilities.
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/zK8s59VJS9)
+## Development Scripts
 
+Use the following commands to build, serve, and test the applications.
 
-## Run tasks
+### Start the Applications
 
-To run the dev server for your app, use:
-
-```sh
-npx nx serve taskmanagerchallengeapp --host=127.0.0.1 --port=4200
+**Run Angular Frontend**
+```bash
+npx nx serve taskmanagerchallengeapp
 ```
+*Starts the Angular application in development mode (default: http://localhost:4200).*
 
-To create a production bundle:
-
-```sh
-npx nx build taskmanagerchallengeapp
+**Run NestJS Backend**
+```bash
+npx nx serve taskmanagerchallengeserver
 ```
+*Starts the NestJS API server in watch mode (default: http://localhost:3333). Note: Use this command to run the backend in development environment.*
 
-To see all available targets to run for a project, run:
+### Database Management
 
-```sh
-npx nx show project taskmanagerchallengeapp --host=127.0.0.1 --port=4200
+The project includes a custom `SeederService` to manage the database state.
+
+**Seed the Database**
+```bash
+npx nx migration taskmanagerchallengeserver --migrate=seed --configuration=development
 ```
+*Creates the schema and populates the database with Roles, Permissions, and initial Users (e.g., `user1@faketest.com`).*
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+**Unseed the Database**
+```bash
+npx nx migration taskmanagerchallengeserver --migrate=unseed --configuration=development
 ```
+*Drops all tables and clears all data from the database.*
 
-To generate a new library, use:
+### Roles and Permissions
 
-```sh
-npx nx g @nx/angular:lib mylib
+The system implements a comprehensive RBAC model.
+
+#### User Roles
+
+| Role Name | Description | Capabilities |
+| :--- | :--- | :--- |
+| **Editor** | Full Access Creator | Can create tasks, view all tasks, delete/update *own* tasks, and manage assignments. |
+| **Viewer** | Read-Only / Assignee | Can view all tasks, assign/unassign tasks, and change status of assigned tasks. Cannot create or delete. |
+
+#### Permission Matrix
+
+| Permission String | Description | Assigned To |
+| :--- | :--- | :--- |
+| `create:tasks` | Create new tasks | Editor |
+| `read:tasks` | View tasks and details | Editor, Viewer |
+| `assign:tasks` | Assign unassigned tasks | Editor, Viewer |
+| `unassign:tasks` | Unassign assigned tasks | Editor, Viewer |
+| `update:own:tasks` | Update Title/Description (Creator only) | Editor |
+| `delete:own:tasks` | Delete Tasks (Creator only) | Editor |
+| `mark:assigned:tasks` | Mark task as Complete | Editor, Viewer |
+| `unmark:assigned:tasks` | Mark task as Incomplete | Editor, Viewer |
+| `read:own:accounts` | View own profile | Editor, Viewer |
+
+### Testing
+
+**Run All Unit Tests**
+```bash
+npx nx run-many -t test
 ```
+*Executes unit tests for both the Angular frontend and NestJS backend.*
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+**Run Backend Unit Tests**
+```bash
+npx nx test taskmanagerchallengeserver
+```
+*Executes Jest unit tests specific to the API logic.*
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Run Backend E2E Tests**
+```bash
+npx nx e2e taskmanagerchallengeserver-e2e
+```
+*Executes end-to-end tests against the running API to verify endpoints and database integration.*
 
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Run Frontend E2E Tests**
+```bash
+npx nx e2e taskmanagerchallengeapp-e2e
+```
+*Executes Playwright end-to-end tests against the Angular application, simulating user interactions.*

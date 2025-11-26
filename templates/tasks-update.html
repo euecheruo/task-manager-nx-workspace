@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Based Access Control Task Manager Demo</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+
+    body {
+      background-color: #C2FB8F;
+    }
+
+    .navbar {
+      background-color: white !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-card {
+      max-width: 600px;
+      margin: 50px auto;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08); /* Soft shadow */
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #6c757d; /* Gray text for labels */
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .form-control-task {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+    }
+
+    .input-group-text-custom {
+      background-color: white;
+      border-left: none;
+    }
+
+    .mark-complete-section {
+      border-top: 1px solid #dee2e6;
+      padding-top: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .toggle-switch-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-check-task {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container-fluid mx-5">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <i class="bi bi-list-task fs-4"></i>
+        <p class="h6 ms-2 mt-2 text-secondary">Role Based Access Control Task Manager Demo</p>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bold main-nav-text" aria-current="page" href="#">
+              <i class="bi bi-speedometer"></i>
+              Dashboard
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-bold text-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              fake1@test.com (<span class="text-warning">Editor</span>)
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item fw-bold main-nav-text" href="#">
+                  <i class="bi bi-person-fill"></i>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item fw-bold text-dark">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-5 mb-5" style="max-width: 900px;">
+    <div class="card main-card">
+      <div class="card-body p-5">
+
+        <h3 class="card-title mb-4">
+          <i class="bi bi-list-check"></i>
+          Edit Task
+        </h3>
+
+        <form>
+          <div class="mb-4">
+            <label for="taskTitle" class="form-label">Task Title</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-task" id="taskTitle" value="#">
+              <span class="input-group-text input-group-text-custom"><i class="bi bi-search"></i></span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="assignDescription" class="form-label">Assign Description</label>
+            <textarea class="form-control form-control-task" id="assignDescription">#</textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">Assign to User</label>
+            <div class="d-flex align-items-center toggle-switch-container">
+              <select class="form-select form-control-task me-2" aria-label="UserAssignments" id="assignToUser">
+                <option selected>Unassigned</option>
+                <option>fake1@test.com</option>
+                <option>fake2@test.com</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mark-complete-section">
+            <label class="form-label mb-2">Mark as Complete</label>
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check me-4">
+                <div class="form-check-task form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="assignUserSwitch" checked>
+                  <label class="form-check-label" for="assignUserSwitch">
+                    Jane Doe Dee
+                  </label>
+                </div>
+              </div>
+            </div>
+            <small class="form-text text-danger d-block">This action requires you to be the assigned user and possess the correct permission (mark:assigned:tasks/unmark:assigned:tasks).</small>
+          </div>
+
+          <div class="d-flex justify-content-start pt-3">
+            <button type="submit" class="btn btn-success me-3">Update Task</button>
+            <button type="button" class="btn btn-outline-danger me-3">Delete Task</button>
+            <button type="button" class="btn btn-light">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<div class="card p-4 task-card">
+  <div class="card-body">
+
+    @if (isLoading()) {
+    <div class="text-center p-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2 text-muted">Loading tasks...</p>
+    </div>
+    }
+
+    @if (!isLoading()) {
+
+    <h2 class="card-title fw-bold mb-4">
+      <i class="bi bi-speedometer"></i>
+      Task Dashboard
+    </h2>
+
+    <div class="pb-4">
+      <button class="btn btn-success d-flex align-items-center"
+              id="createTask"
+              name="createTask"
+              [routerLink]="['/tasks/add']"
+              *appHasPermission="'create:tasks'">
+        <i class="bi bi-plus"></i>
+        Create Task
+      </button>
+    </div>
+
+    @if (errorMessage()) {
+    <div class="alert alert-danger rounded-3">{{ errorMessage() }}</div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+      <div class="mb-3">
+        <label for="filterAssignment" class="form-label">Filter By Assignment</label>
+        <select class="form-select"
+                id="filterAssignment"
+                name="filterAssignment"
+                aria-label="AssignmentFilter"
+                [(ngModel)]="filterAssignment"
+                (ngModelChange)="onFilterChange()">
+          <option value="all">All Tasks</option>
+          <option value="assigned">Assigned Tasks</option>
+          <option value="unassigned">Unassigned Tasks</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+
+        @if (filterAssignment()!== 'unassigned') {
+
+        <label for="filterStatus" class="form-label">Filter By Completion</label>
+        <select class="form-select"
+                aria-label="CompletionFilter"
+                id="filterStatus"
+                name="filterStatus"
+                [(ngModel)]="filterStatus"
+                (ngModelChange)="onFilterChange()">
+          <option value="all">All Status</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+
+        }
+
+      </div>
+
+      <div>
+        <button type="button"
+                id="refresh"
+                name="refresh"
+                class="btn btn-dark btn-sm"
+                (click)="fetchTasks()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Refresh
+        </button>
+      </div>
+
+    </div>
+
+    @if (taskState().tasks.length === 0) {
+    <div class="alert alert-info rounded-3 text-center p-4">
+      No tasks found matching your filters.
+    </div>
+    }
+
+    @if (taskState().tasks.length > 0) {
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" style="width: 5%;"></th>
+            <th scope="col" style="width: 30%;">Task Title</th>
+            <th scope="col" style="width: 20%;">Assigned To</th>
+            <th scope="col" style="width: 15%;">Created</th>
+            <th scope="col" style="width: 15%;">Completed</th>
+            <th scope="col" style="width: 15%;" class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          @for (task of taskState().tasks; track task.taskId) {
+
+          <tr [class.table-primary]="task.isCompleted">
+            <td class="task-checkbox">
+
+              @if (task.assignedUserId!== null && isAssignedUser(task)) {
+
+              <input class="form-check-input"
+                     id="markTask${task.taskId}"
+                     name="markTask"
+                     type="checkbox"
+                     [checked]="task.isCompleted"
+                     [title]="task.isCompleted? 'Mark Incomplete' : 'Mark Complete'"
+                     [disabled]="!userPermissions().includes(task.isCompleted? 'unmark:assigned:tasks' : 'mark:assigned:tasks') ||!isAssignedUser(task)"
+                     (change)="onToggleCompletion(task)" />
+
+              } @else if (task.isCompleted) {
+              <i class="bi bi-check-circle-fill text-success" title="Completed"></i>
+              } @else {
+              }
+
+            </td>
+            <td>
+              <span [class.text-decoration-line-through]="task.isCompleted">
+                {{ task.title }}
+              </span>
+              <small class="text-muted d-block" title="Creator">Created by: {{ task.creator.email }}</small>
+            </td>
+            <td>
+              <span class="badge bg-dark text-white" title="User Assignment">
+                @if (task.assignedUser) {
+                {{ task.assignedUser.email }}
+                } @else {
+                Unassigned Task
+                }
+              </span>
+            </td>
+            <td>{{ task.createdAt | date:'shortDate' }}</td>
+            <td>
+              @if (task.completedAt) {
+              {{ task.completedAt | date:'shortDate' }}
+              } @else {
+              <span class="text-muted">N/A</span>
+              }
+            </td>
+            <td>
+
+              <div class="btn-group" role="group" aria-label="Task Actions">
+                <button type="button"
+                        id="viewTask${task.taskId}"
+                        name="viewTask"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="onViewTask(task.taskId)"
+                        title="View Task">
+                  View
+                </button>
+
+                @if (isCreator(task)) {
+                <button type="button"
+                        id="editTask${task.taskId}"
+                        name="editTask"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="onEditTask(task.taskId)"
+                        *appHasPermission="'update:own:tasks'"
+                        title="Edit Task">
+                  Edit
+                </button>
+                } @else {
+                <button type="button"
+                        id="editTask${task.taskId}"
+                        name="editTask"
+                        class="btn btn-outline-secondary btn-sm disabled"
+                        title="Only the creator can edit (update:own:tasks)" disabled>
+                  Edit
+                </button>
+                }
+
+                <button type="button"
+                        id="deleteTask${task.taskId}"
+                        name="deleteTask"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="onDeleteTask(task)"
+                        *appHasPermission="'delete:own:tasks'"
+                        [disabled]="!isCreator(task)"
+                        title="Delete Task (Requires delete:own:tasks and creator status)">
+                  Delete
+                </button>
+
+              </div>
+
+            </td>
+          </tr>
+
+          }
+
+        </tbody>
+      </table>
+    </div>
+
+    }
+
+    <div class="d-flex justify-content-center align-items-center mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination my-0">
+          <li class="page-item" [class.disabled]="currentPage() === 1">
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage() - 1)">&lt;</a>
+          </li>
+
+          @for (page of paginationRange(); track page) {
+          @if (page === 0) {
+
+          <li class="page-item disabled"><span class="page-link">...</span></li>
+
+          } @else {
+
+          <li class="page-item" [class.active]="page === currentPage()">
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(page)">{{ page }}</a>
+          </li>
+
+          }
+          }
+
+          <li class="page-item" [class.disabled]="currentPage() === totalPages() || totalPages() === 0">
+            <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage() + 1)">&gt;</a>
+          </li>
+        </ul>
+        <span class="ms-3 text-muted small">Page {{ currentPage() }} of {{ totalPages() }}</span>
+      </nav>
+
+    </div>
+
+    }
+
+  </div>
+</div>
+

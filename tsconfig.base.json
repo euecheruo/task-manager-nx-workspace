@@ -8,13 +8,107 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2020",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [ "es2020", "dom" ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@task-manager-nx-workspace/api/apps/*": [
+        "apps/taskmanagerchallengeserver/src/*"
+      ],
+      "@task-manager-nx-workspace/api/auth": [
+        "libs/taskmanagerchallengeserver/auth/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/auth/*": [
+        "libs/taskmanagerchallengeserver/auth/src/*"
+      ],
+      "@task-manager-nx-workspace/api/data-access": [
+        "libs/taskmanagerchallengeserver/data-access/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/data-access/*": [
+        "libs/taskmanagerchallengeserver/data-access/src/*"
+      ],
+      "@task-manager-nx-workspace/api/shared": [
+        "libs/taskmanagerchallengeserver/shared/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/shared/*": [
+        "libs/taskmanagerchallengeserver/shared/src/*"
+      ],
+      "@task-manager-nx-workspace/api/tasks": [
+        "libs/taskmanagerchallengeserver/tasks/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/tasks/*": [
+        "libs/taskmanagerchallengeserver/tasks/src/*"
+      ],
+      "@task-manager-nx-workspace/api/users": [
+        "libs/taskmanagerchallengeserver/users/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/api/users/*": [
+        "libs/taskmanagerchallengeserver/users/src/*"
+      ],
+      "@task-manager-nx-workspace/client/shared/util-logger": [
+        "libs/taskmanagerchallengeapp/shared/util-logger/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/shared/util-logger/*": [
+        "libs/taskmanagerchallengeapp/shared/util-logger/src/*"
+      ],
+      "@task-manager-nx-workspace/client/shared/util-auth": [
+        "libs/taskmanagerchallengeapp/shared/util-auth/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/shared/util-auth/*": [
+        "libs/taskmanagerchallengeapp/shared/util-auth/src/*"
+      ],
+      "@task-manager-nx-workspace/client/shared/ui-layout": [
+        "libs/taskmanagerchallengeapp/shared/ui-layout/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/shared/ui-layout/*": [
+        "libs/taskmanagerchallengeapp/shared/ui-layout/src/*"
+      ],
+      "@task-manager-nx-workspace/client/data-access/api-task-manager": [
+        "libs/taskmanagerchallengeapp/data-access/api-task-manager/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/data-access/api-task-manager/*": [
+        "libs/taskmanagerchallengeapp/data-access/api-task-manager/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/auth-login": [
+        "libs/taskmanagerchallengeapp/feature/auth-login/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/auth-login/*": [
+        "libs/taskmanagerchallengeapp/feature/auth-login/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-dashboard": [
+        "libs/taskmanagerchallengeapp/feature/tasks-dashboard/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-dashboard/*": [
+        "libs/taskmanagerchallengeapp/feature/tasks-dashboard/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-add": [
+        "libs/taskmanagerchallengeapp/feature/tasks-add/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-add/*": [
+        "libs/taskmanagerchallengeapp/feature/tasks-add/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-update": [
+        "libs/taskmanagerchallengeapp/feature/tasks-update/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-update/*": [
+        "libs/taskmanagerchallengeapp/feature/tasks-update/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-view": [
+        "libs/taskmanagerchallengeapp/feature/tasks-view/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/tasks-view/*": [
+        "libs/taskmanagerchallengeapp/feature/tasks-view/src/*"
+      ],
+      "@task-manager-nx-workspace/client/feature/user-profile": [
+        "libs/taskmanagerchallengeapp/feature/user-profile/src/index.ts"
+      ],
+      "@task-manager-nx-workspace/client/feature/user-profile/*": [
+        "libs/taskmanagerchallengeapp/feature/user-profile/src/*"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

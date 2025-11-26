@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Based Access Control Task Manager Demo</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+
+    body {
+      background-color: #C2FB8F;
+    }
+
+    .navbar {
+      background-color: white !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .main-card {
+      max-width: 600px;
+      margin: 50px auto;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08); /* Soft shadow */
+    }
+
+    .form-control-task {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+    }
+
+    .input-group-text-custom {
+      background-color: white;
+      border-left: none;
+    }
+
+    .page-indicator {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    .page-control {
+      cursor: pointer;
+    }
+
+    .footer-control {
+      border-top: 1px solid #dee2e6;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container-fluid mx-5">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <i class="bi bi-list-task fs-4"></i>
+        <p class="h6 ms-2 mt-2 text-secondary">Role Based Access Control Task Manager Demo</p>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 border-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bold main-nav-text" aria-current="page" href="#">
+              <i class="bi bi-speedometer"></i>
+              Dashboard
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-bold text-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              fake1@test.com (<span class="text-warning">Editor</span>)
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item fw-bold main-nav-text" href="#">
+                  <i class="bi bi-person-fill"></i>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item fw-bold text-dark">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid mt-5 mb-5" style="max-width: 900px;">
+    <div class="card main-card">
+      <div class="card-body p-4">
+
+        <h2 class="card-title mb-4">
+          <i class="bi bi-list-ol"></i>
+          Add Task
+        </h2>
+
+        <form>
+
+          <div class="mb-4">
+            <label for="taskTitle" class="form-label small text-muted">
+              Task Title
+              <span class="text-danger">*</span>
+            </label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-task" id="taskTitle">
+              <span class="input-group-text input-group-text-custom"><i class="bi bi-search"></i></span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="assignDescription" class="form-label small text-muted">Description</label>
+            <textarea class="form-control form-control-task" id="assignDescription" rows="3" placeholder="Amszpsmxt EvE Dsmail"></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label for="assignToUser" class="form-label small text-muted">Assign to User</label>
+            <select class="form-select form-control-task" aria-label="UserAssignments" id="assignToUser">
+              <option selected>Unassigned</option>
+              <option>fake1@test.com</option>
+              <option>fake2@test.com</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-start align-items-center footer-control">
+            <div>
+              <button type="submit" class="btn btn-success">Create Task</button>
+              <button type="button" class="btn btn-light ms-2">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

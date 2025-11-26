@@ -1,0 +1,16 @@
+
+.main-card {
+  max-width: 600px;
+  margin: 50px auto;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+

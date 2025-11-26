@@ -1,0 +1,16 @@
+
+.login-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  border: none;
+}
+
+.form-floating > .form-control {
+  height: calc(3.5rem + 2px);
+}
+
+.form-floating > label {
+  padding: 1rem 0.75rem;
+}

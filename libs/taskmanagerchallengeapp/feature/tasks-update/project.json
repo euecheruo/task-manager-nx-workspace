@@ -1,0 +1,21 @@
+{
+  "name": "tasks-update",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/taskmanagerchallengeapp/feature/tasks-update/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/taskmanagerchallengeapp/feature/tasks-update/jest.config.ts",
+        "tsConfig": "libs/taskmanagerchallengeapp/feature/tasks-update/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

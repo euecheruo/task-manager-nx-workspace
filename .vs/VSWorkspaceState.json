@@ -1,16 +1,17 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.gemini",
-    "\\.github",
-    "\\.github\\workflows",
     "\\apps",
-    "\\apps\\taskmanagerchallengeapp",
     "\\apps\\taskmanagerchallengeapp-e2e",
-    "\\apps\\taskmanagerchallengeapp-e2e\\src",
-    "\\apps\\taskmanagerchallengeapp\\public",
-    "\\apps\\taskmanagerchallengeapp\\src"
+    "\\libs",
+    "\\libs\\taskmanagerchallengeapp\\data-access",
+    "\\libs\\taskmanagerchallengeapp\\feature",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib",
+    "\\libs\\taskmanagerchallengeapp\\feature\\tasks-add\\src\\lib\\tasks-add",
+    "\\libs\\taskmanagerchallengeserver"
   ],
-  "SelectedNode": "\\apps\\taskmanagerchallengeapp\\project.json",
+  "SelectedNode": "\\apps\\taskmanagerchallengeapp-e2e\\playwright.config.ts",
   "PreviewInSolutionExplorer": false
 }

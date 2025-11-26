@@ -1,0 +1,21 @@
+{
+  "name": "tasks-view",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/taskmanagerchallengeapp/feature/tasks-view/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/taskmanagerchallengeapp/feature/tasks-view/jest.config.ts",
+        "tsConfig": "libs/taskmanagerchallengeapp/feature/tasks-view/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<div class="card main-card">
+  <div class="card-body p-5">
+
+    @if (isLoading()) {
+    <div class="text-center p-5">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+      <p class="mt-2 text-muted">Loading Task Details...</p>
+    </div>
+    }
+
+    @if (!isLoading() && task()) {
+
+    <h3 class="card-title mb-4">
+      <i class="bi bi-list-nested"></i>
+      View Task
+    </h3>
+
+    @if (errorMessage()) {
+    <div class="alert alert-danger rounded-3 p-2 mb-4 text-center" role="alert">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <form>
+
+      <div class="mb-4 row">
+        <label for="title" class="form-label col-sm-3 col-form-label">Task Title</label>
+        <div class="col-sm-7">
+          <input type="text"
+                 id="title"
+                 name="title"
+                 class="form-control-plaintext"
+                 value="{{ task()!.title }}" readonly />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="form-label col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-7">
+          {{ task()!.description || 'No description provided.' }}
+        </div>
+      </div>
+
+      <div class="mb-4 row">
+        <label for="isCompletedSwitch" class="form-label col-sm-3 col-form-label">Task Status</label>
+        <div class="col-sm-7">
+          <span class="badge" [class.bg-success]="task()!.isCompleted" [class.danger]="!task()!.isCompleted">
+            {{ task()!.isCompleted ? 'Complete' : 'Incomplete' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-4 row">
+        <label for="creatorUser" class="form-label col-sm-3 col-form-label">Creator</label>
+        <div class="col-sm-7">
+          <input type="text"
+                 id="creatorUser"
+                 name="creatorUser"
+                 class="form-control-plaintext"
+                 value="{{ task()!.creator.email || 'N/A' }}"
+                 readonly />
+        </div>
+      </div>
+
+
+      <div class="mb-4 row">
+        <label for="assignedUser" class="form-label col-sm-3 col-form-label">Assigned User</label>
+        <div class="col-sm-7">
+          <input type="text" readonly class="form-control-plaintext" id="assignedUser" value="{{ task()!.assignedUser?.email || 'Unassigned' }}">
+        </div>
+      </div>
+
+      <div class="mb-4 row">
+        <label for="dateCompleted" class="form-label col-sm-3 col-form-label">Date Completed</label>
+        <div class="col-sm-7">
+          <input type="text" readonly class="form-control-plaintext" id="dateCompleted" value="{{ formatDate(task()!.completedAt) }}" />
+        </div>
+      </div>
+
+      <div class="mb-4 row">
+        <label for="dateCreated" class="form-label col-sm-3 col-form-label">Date Created</label>
+        <div class="col-sm-7">
+          <input type="text"
+                 id="dateCreated"
+                 name="dateCreated"
+                 class="form-control-plaintext"
+                 value="{{ formatDate(task()!.createdAt) }}"
+                 readonly />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-start pt-3">
+        <a [routerLink]="['/dashboard']" class="btn btn-light">Cancel</a>
+      </div>
+
+    </form>
+
+    }
+
+  </div>
+</div>
+
