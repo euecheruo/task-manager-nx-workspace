@@ -4,11 +4,11 @@ This project is a secure, scalable Task Management System built within an **Nx M
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
--(#project-structure)
--(#development-scripts)
--(#database-management)
--(#roles-and-permissions)
--(#testing)
+- (#project-structure)
+- (#development-scripts)
+- (#database-management)
+- (#roles-and-permissions)
+- (#testing)
 
 ## Prerequisites
 - **Node.js** (Latest LTS recommended)
@@ -38,7 +38,7 @@ npx nx serve taskmanagerchallengeapp
 ```bash
 npx nx serve taskmanagerchallengeserver
 ```
-*Starts the NestJS API server in watch mode (default: http://localhost:3333). Note: Use this command to run the backend in development environment.*
+*Starts the NestJS API server in watch mode (default: http://localhost:3000). Note: Use this command to run the backend in development environment.*
 
 ### Database Management
 
