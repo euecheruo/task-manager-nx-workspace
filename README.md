@@ -4,11 +4,11 @@ This project is a secure, scalable Task Management System built within an **Nx M
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
-- (#project-structure)
-- (#development-scripts)
-- (#database-management)
-- (#roles-and-permissions)
-- (#testing)
+- [Project Structure](#project-structure)
+- [Development Script](#development-scripts)
+- [Database Management](#database-management)
+- [Roles and Permissions](#roles-and-permissions)
+- [Testing](#testing)
 
 ## Prerequisites
 - **Node.js** (Latest LTS recommended)
@@ -88,12 +88,6 @@ The system implements a comprehensive RBAC model.
 npx nx run-many -t test
 ```
 *Executes unit tests for both the Angular frontend and NestJS backend.*
-
-**Run Backend Unit Tests**
-```bash
-npx nx test taskmanagerchallengeserver
-```
-*Executes Jest unit tests specific to the API logic.*
 
 **Run Backend E2E Tests**
 ```bash
